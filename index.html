@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04060a">
+<meta name="description" content="Secret Box — الموسوعة العربية الأضخم للأمن السيبراني | أحمد علي - السيد الأسود">
+<meta name="keywords" content="أمن سيبراني, اختراق أخلاقي, Termux, Kali Linux, Linux, اختراق, حماية">
+<meta name="author" content="Ahmed Ali (Black Lord)">
+<meta property="og:title" content="Secret Box — أحمد علي - السيد الأسود">
+<meta property="og:description" content="أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك">
+<meta property="og:type" content="website">
+<title>Secret Box | الرئيسية — أحمد علي - السيد الأسود</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+</head>
+<body>
+
+<!-- ============================================================
+     LOADER
+     ============================================================ -->
+<div id="loader">
+  <div class="loader-box">🔐</div>
+  <div class="loader-text" id="loaderText">INITIALIZING SECRET BOX...</div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">LOADING MODULES — PLEASE WAIT</div>
+</div>
+
+<!-- ============================================================
+     BACKGROUND
+     ============================================================ -->
+<canvas id="matrix"></canvas>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+<div class="bg-glow g3"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header id="header">
+  <nav class="nav">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🔐</div>
+      <div>SECRET<span class="hl">BOX</span></div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">الرئيسية</a></li>
+      <li><a href="pages/ethical.html">الأخلاقي</a></li>
+      <li><a href="pages/termux.html">Termux</a></li>
+      <li><a href="pages/network.html">الشبكات</a></li>
+      <li><a href="pages/commands.html">الأوامر</a></li>
+      <li><a href="pages/books.html">الكتب</a></li>
+      <li><a href="pages/faq.html">الأسئلة</a></li>
+    </ul>
+
+    <div class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="free-banner reveal">
+      🎁 <span>أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك</span>
+    </div>
+    <br>
+
+    <div class="badge reveal">
+      <span class="dot"></span>
+      <span>MEGA EDITION v15 — <span id="cmdCountBadge">1500+</span> COMMAND</span>
+    </div>
+
+    <h1 class="reveal">
+      مرحباً بك في <span class="grad">Secret Box</span><br>
+      الموسوعة العربية الأضخم
+    </h1>
+
+    <div class="typed reveal" id="typed"></div>
+
+    <p class="sub reveal">
+      أكثر من <strong style="color:var(--green)" id="heroTotal">1500</strong> أمر،
+      <strong style="color:var(--cyan)" id="heroCompanies">200</strong> شركة أمنية،
+      <strong style="color:var(--yellow)" id="heroTerms">350</strong> مصطلح،
+      و <strong style="color:var(--purple)" id="heroBooks">30</strong> كتاب مجاني — كل ذلك بدون مقابل.
+    </p>
+
+    <div class="hero-buttons reveal">
+      <a href="pages/ethical.html" class="btn btn-primary">🚀 ابدأ الآن</a>
+      <button class="btn btn-dev" onclick="SecretBox.openDev()">👨‍💻 المطور</button>
+      <a href="pages/books.html" class="btn btn-cyan">📚 تحميل الكتب</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS
+     ============================================================ -->
+<div class="stats">
+  <div class="stat reveal">
+    <div class="num" data-target="1500">0</div>
+    <div class="lbl">أمر وأداة</div>
+  </div>
+  <div class="stat reveal">
+    <div class="num" data-target="500">0</div>
+    <div class="lbl">معلومة أمنية</div>
+  </div>
+  <div class="stat reveal">
+    <div class="num" data-target="200">0</div>
+    <div class="lbl">شركة أمنية</div>
+  </div>
+  <div class="stat reveal">
+    <div class="num" data-target="350">0</div>
+    <div class="lbl">مصطلح</div>
+  </div>
+  <div class="stat reveal">
+    <div class="num" data-target="30">0</div>
+    <div class="lbl">كتاب مجاني</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     QUICK NAVIGATION SECTIONS
+     ============================================================ -->
+<section class="block" id="sections">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// EXPLORE SECRET BOX</span>
+    <h2>أقسام <span class="grad">الموقع</span></h2>
+    <p>تصفح الأقسام الرئيسية للوصول إلى كل ما تحتاجه في عالم الأمن السيبراني.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+
+    <!-- Ethical -->
+    <a href="pages/ethical.html" class="card reveal" style="text-decoration:none">
+      <div class="card-icon">🎯</div>
+      <h3>الاختراق الأخلاقي</h3>
+      <p>9 مراحل، 9 أنواع مخترقين، 14 شهادة معتمدة، 12 منصة تدريب.</p>
+      <ul>
+        <li>منهجية الاختراق الكاملة</li>
+        <li>الإطار القانوني والأخلاقي</li>
+        <li>الجانب العملي والتطبيقي</li>
+      </ul>
+    </a>
+
+    <!-- Termux -->
+    <a href="pages/termux.html" class="card reveal" style="text-decoration:none">
+      <div class="card-icon cyan">📱</div>
+      <h3>Termux الشامل</h3>
+      <p>Linux كامل على أندرويد — كل الأوامر والأدوات.</p>
+      <ul>
+        <li>100+ أمر Termux</li>
+        <li>API التحكم بالهاتف</li>
+        <li>Proot Distros</li>
+      </ul>
+    </a>
+
+    <!-- Kali -->
+    <a href="pages/termux.html#kali" class="card reveal" style="text-decoration:none">
+      <div class="card-icon purple">🐉</div>
+      <h3>Kali Linux</h3>
+      <p>التوزيعة رقم 1 عالمياً — 14 فئة من الأدوات.</p>
+      <ul>
+        <li>600+ أداة أمنية</li>
+        <li>أوامر Kali الكاملة</li>
+        <li>سيناريوهات عملية</li>
+      </ul>
+    </a>
+
+    <!-- Network -->
+    <a href="pages/network.html" class="card reveal" style="text-decoration:none">
+      <div class="card-icon yellow">📡</div>
+      <h3>أمن الشبكات</h3>
+      <p>OSI, البروتوكولات, الأدوات, الهجمات والدفاعات.</p>
+      <ul>
+        <li>طبقات OSI السبع</li>
+        <li>المنافذ الشهيرة</li>
+        <li>أدوات الفحص والتحليل</li>
+      </ul>
+    </a>
+
+    <!-- Commands -->
+    <a href="pages/commands.html" class="card reveal" style="text-decoration:none">
+      <div class="card-icon orange">⚡</div>
+      <h3>مرجع الأوامر</h3>
+      <p>1500+ أمر في قاعدة بيانات قابلة للبحث والفلترة.</p>
+      <ul>
+        <li>11 فئة رئيسية</li>
+        <li>بحث فوري</li>
+        <li>تحميل كل الأوامر</li>
+      </ul>
+    </a>
+
+    <!-- Books -->
+    <a href="pages/books.html" class="card reveal" style="text-decoration:none">
+      <div class="card-icon pink">📚</div>
+      <h3>الكتب المجانية</h3>
+      <p>30 كتاب قابل للتحميل الفعلي — بدون سيرفر.</p>
+      <ul>
+        <li>Linux Master</li>
+        <li>Kali Master</li>
+        <li>Ethical Hacking</li>
+      </ul>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURED BOOKS — Quick Download
+     ============================================================ -->
+<section class="block" id="quickBooks">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// QUICK DOWNLOADS</span>
+    <h2>كتب <span class="grad">مميزة</span></h2>
+    <p>اضغط على أي كتاب للتحميل الفوري — يعمل بدون إنترنت!</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="reveal">
+      <div class="file-item">
+        <div class="file-ico">🐧</div>
+        <div class="file-info">
+          <h4>Linux Master Book</h4>
+          <p>260+ أمر Linux بالتفصيل</p>
+        </div>
+        <span class="file-meta">TXT</span>
+        <button class="file-dl" data-file="linux">⬇</button>
+      </div>
+
+      <div class="file-item">
+        <div class="file-ico">🐉</div>
+        <div class="file-info">
+          <h4>Kali Master Book</h4>
+          <p>كل أدوات Kali الـ14 فئة</p>
+        </div>
+        <span class="file-meta">TXT</span>
+        <button class="file-dl" data-file="kali">⬇</button>
+      </div>
+
+      <div class="file-item">
+        <div class="file-ico">📱</div>
+        <div class="file-info">
+          <h4>Termux Master Book</h4>
+          <p>100+ أمر Termux + API</p>
+        </div>
+        <span class="file-meta">TXT</span>
+        <button class="file-dl" data-file="termux">⬇</button>
+      </div>
+
+      <div class="file-item">
+        <div class="file-ico">🎯</div>
+        <div class="file-info">
+          <h4>Ethical Hacking Guide</h4>
+          <p>دليل الاختراق الأخلاقي الشامل</p>
+        </div>
+        <span class="file-meta">TXT</span>
+        <button class="file-dl" data-book="ethical-hacking">⬇</button>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="file-item">
+        <div class="file-ico">🌐</div>
+        <div class="file-info">
+          <h4>Web Security Guide</h4>
+          <p>OWASP Top 10 + كل الثغرات</p>
+        </div>
+        <span class="file-meta">TXT</span>
+        <button class="file-dl" data-book="web-security">⬇</button>
+      </div>
+
+      <div class="file-item">
+        <div class="file-ico">🔐</div>
+        <div class="file-info">
+          <h4>Cryptography Guide</h4>
+          <p>علم التشفير من الصفر</p>
+        </div>
+        <span class="file-meta">TXT</span>
+        <button class="file-dl" data-book="crypto-guide">⬇</button>
+      </div>
+
+      <div class="file-item">
+        <div class="file-ico">📖</div>
+        <div class="file-info">
+          <h4>Security Glossary</h4>
+          <p>350 مصطلح EN/AR</p>
+        </div>
+        <span class="file-meta">TXT</span>
+        <button class="file-dl" data-book="glossary-book">⬇</button>
+      </div>
+
+      <div class="file-item">
+        <div class="file-ico">📦</div>
+        <div class="file-info">
+          <h4>Complete Bundle</h4>
+          <p>كل شيء في ملف واحد</p>
+        </div>
+        <span class="file-meta">BIG</span>
+        <button class="file-dl" data-file="all">⬇</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-info reveal">
+    <div class="alert-icon">💡</div>
+    <div>
+      <h4>ملاحظة</h4>
+      <p>جميع الملفات يتم توليدها داخل متصفحك — لا سيرفر، لا انتظار، فقط اضغط ⬇ واستلم الملف فوراً.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     QUICK STATS FROM DATABASE
+     ============================================================ -->
+<section class="block" id="liveStats">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// LIVE DATABASE STATS</span>
+    <h2>إحصائيات <span class="grad">قاعدة البيانات</span></h2>
+    <p>الأرقام الحقيقية من قاعدة البيانات المُحمّلة في متصفحك.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-4" id="liveStatsGrid">
+    <div class="card reveal" style="text-align:center">
+      <div style="font-size:2.5rem;font-family:var(--font-code);color:var(--green)" id="ls-commands">0</div>
+      <div style="color:var(--txt-dim);margin-top:6px">أمر إجمالي</div>
+    </div>
+    <div class="card reveal" style="text-align:center">
+      <div style="font-size:2.5rem;font-family:var(--font-code);color:var(--cyan)" id="ls-companies">0</div>
+      <div style="color:var(--txt-dim);margin-top:6px">شركة</div>
+    </div>
+    <div class="card reveal" style="text-align:center">
+      <div style="font-size:2.5rem;font-family:var(--font-code);color:var(--yellow)" id="ls-terms">0</div>
+      <div style="color:var(--txt-dim);margin-top:6px">مصطلح</div>
+    </div>
+    <div class="card reveal" style="text-align:center">
+      <div style="font-size:2.5rem;font-family:var(--font-code);color:var(--purple)" id="ls-books">0</div>
+      <div style="color:var(--txt-dim);margin-top:6px">كتاب</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY SECRET BOX?
+     ============================================================ -->
+<section class="block" id="why">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// WHY SECRET BOX</span>
+    <h2>لماذا <span class="grad">Secret Box؟</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal">
+      <div class="card-icon">💎</div>
+      <h3>مجاني بالكامل</h3>
+      <p>كل المحتوى مجاني — لا اشتراكات، لا إعلانات مزعجة، لا قيود. المعرفة حق للجميع.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon cyan">⚡</div>
+      <h3>يعمل بدون إنترنت</h3>
+      <p>بعد التحميل، يمكنك استخدام الموقع بدون اتصال. كل شيء يعمل من متصفحك مباشرة.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon purple">🌍</div>
+      <h3>بالعربية</h3>
+      <p>شرح عربي كامل لكل شيء — من المبتدئ إلى المحترف. لا حاجة لترجمة.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon yellow">📱</div>
+      <h3>يعمل على الهاتف</h3>
+      <p>تصميم متجاوب يعمل على جميع الأجهزة — هاتف، تابلت، حاسوب.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon orange">🎯</div>
+      <h3>محدّث باستمرار</h3>
+      <p>محتوى حديث يشمل آخر الأدوات والتقنيات في عالم الأمن السيبراني.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon pink">🔒</div>
+      <h3>خصوصية كاملة</h3>
+      <p>لا تتبع، لا تسجيل، لا بيانات. كل شيء يتم في متصفحك فقط.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-tip reveal">
+    <div class="alert-icon">🎁</div>
+    <div>
+      <h4>أعطيك معلومات مجاناً</h4>
+      <p>هذا الموقع جهد شخصي من المطور <strong>أحمد علي (السيد الأسود)</strong>. إذا استفدت منه، لا تبخل عليّ وانشر الموقع ليستفيد غيرك. كلمة واحدة منك قد تغيّر مسار شخص آخر.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PAGE NAVIGATION
+     ============================================================ -->
+<section class="block" id="pageNav">
+  <div class="page-nav">
+    <div style="flex:1;text-align:center;color:var(--txt-dim);font-size:13px">
+      <div style="margin-bottom:6px">📍 أنت في</div>
+      <div style="font-weight:700;color:var(--green);font-size:15px">الصفحة الرئيسية</div>
+    </div>
+    <a href="pages/ethical.html" class="next">
+      <div>
+        <div class="nav-label">NEXT →</div>
+        <div class="nav-title">الاختراق الأخلاقي 🎯</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:16px">
+        <div class="logo-icon">🔐</div>
+        <div>SECRET<span class="hl">BOX</span></div>
+      </div>
+      <p>
+        الموسوعة العربية الأضخم للأمن السيبراني والاختراق الأخلاقي.
+        <strong id="footerTotal">1500</strong> أمر،
+        <strong id="footerCompanies">200</strong> شركة،
+        <strong id="footerTerms">350</strong> مصطلح،
+        <strong id="footerBooks">30</strong> كتاب — كل ذلك مجاناً.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>الأقسام</h4>
+      <ul>
+        <li><a href="pages/ethical.html">الاختراق الأخلاقي</a></li>
+        <li><a href="pages/termux.html">Termux + Kali</a></li>
+        <li><a href="pages/network.html">أمن الشبكات</a></li>
+        <li><a href="pages/commands.html">مرجع الأوامر</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>مصادر</h4>
+      <ul>
+        <li><a href="pages/books.html">الكتب المجانية</a></li>
+        <li><a href="pages/commands.html">تحميل الأوامر</a></li>
+        <li><a href="pages/faq.html">الأسئلة الشائعة</a></li>
+        <li><a href="#" onclick="SecretBox.openDev();return false">عن المطور</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>اختصارات</h4>
+      <ul>
+        <li><a href="#sections">تصفح الأقسام</a></li>
+        <li><a href="#quickBooks">تحميل الكتب</a></li>
+        <li><a href="#liveStats">الإحصائيات</a></li>
+        <li><a href="#" onclick="SecretBox.toast('🎁 انشر الموقع ليستفيد غيرك');return false">شارك الموقع</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="dev-credit">
+      تم التطوير بواسطة <span class="grad">أحمد علي — السيد الأسود 🖤</span>
+    </div>
+    <div class="share-note">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+    <div class="copyright">
+      SECRET BOX © 2026 — MEGA EDITION v15 — ALL RIGHTS RESERVED
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     FLOATING BUTTONS
+     ============================================================ -->
+<button id="backToTop" title="العودة للأعلى">↑</button>
+<div id="toast">✅ تم</div>
+
+<!-- ============================================================
+     DEVELOPER MODAL
+     ============================================================ -->
+<div class="modal" id="devModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="SecretBox.closeDev()" aria-label="إغلاق">✕</button>
+    <div class="dev-avatar">👨‍💻</div>
+    <div class="dev-title">DEVELOPER</div>
+    <div class="dev-name">أحمد <span class="grad">علي</span></div>
+    <div class="dev-nick">السيد الأسود</div>
+
+    <div class="dev-desc">
+      صانع ومطوّر منصة <strong style="color:var(--green)">Secret Box</strong> —
+      <strong id="modalTotal">1500</strong> أمر،
+      <strong id="modalCompanies">200</strong> شركة أمنية،
+      <strong id="modalTerms">350</strong> مصطلح،
+      و<strong id="modalBooks">30</strong> كتاب مجاني.
+      هدفه نشر الوعي الأمني بالعربية وتوفير مرجع شامل لكل مبتدئ ومحترف.
+    </div>
+
+    <div class="dev-tags">
+      <span class="dev-tag">Ethical Hacking</span>
+      <span class="dev-tag">Termux</span>
+      <span class="dev-tag">Kali Linux</span>
+      <span class="dev-tag">Linux</span>
+      <span class="dev-tag">Cyber Security</span>
+      <span class="dev-tag">Arabic Content</span>
+    </div>
+
+    <div class="share-msg">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCRIPTS — DATA FIRST, THEN MAIN SCRIPT
+     ============================================================ -->
+<script src="data/commands.js"></script>
+<script src="data/books.js"></script>
+<script src="data/glossary.js"></script>
+<script src="data/companies.js"></script>
+<script src="script.js"></script>
+
+<!-- ============================================================
+     INLINE — UPDATE LIVE STATS FROM DATABASES
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  function updateStats() {
+    // Total commands
+    const totalCmds = (window.SB_DATA && window.SB_DATA.stats && window.SB_DATA.stats.total) || 1500;
+    const totalCompanies = (window.SB_COMPANIES && window.SB_COMPANIES.length) || 200;
+    const totalTerms = (window.SB_GLOSSARY && window.SB_GLOSSARY.length) || 350;
+    const totalBooks = (window.SB_BOOKS && window.SB_BOOKS.count) || 30;
+
+    // Hero numbers
+    const set = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    };
+
+    set('heroTotal', totalCmds);
+    set('heroCompanies', totalCompanies);
+    set('heroTerms', totalTerms);
+    set('heroBooks', totalBooks);
+
+    set('footerTotal', totalCmds);
+    set('footerCompanies', totalCompanies);
+    set('footerTerms', totalTerms);
+    set('footerBooks', totalBooks);
+
+    set('modalTotal', totalCmds);
+    set('modalCompanies', totalCompanies);
+    set('modalTerms', totalTerms);
+    set('modalBooks', totalBooks);
+
+    set('cmdCountBadge', totalCmds + '+');
+
+    // Live stats grid
+    const animateNumber = (id, target) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      let current = 0;
+      const step = Math.max(1, Math.ceil(target / 40));
+      const iv = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          el.textContent = target;
+          clearInterval(iv);
+        } else {
+          el.textContent = current;
+        }
+      }, 30);
+    };
+
+    animateNumber('ls-commands', totalCmds);
+    animateNumber('ls-companies', totalCompanies);
+    animateNumber('ls-terms', totalTerms);
+    animateNumber('ls-books', totalBooks);
+
+    // Update count badges in stats section too
+    document.querySelectorAll('.stat .num').forEach((el) => {
+      const target = +el.dataset.target || 0;
+      if (target === 1500 && totalCmds) el.dataset.target = totalCmds;
+      if (target === 200 && totalCompanies) el.dataset.target = totalCompanies;
+      if (target === 350 && totalTerms) el.dataset.target = totalTerms;
+      if (target === 30 && totalBooks) el.dataset.target = totalBooks;
+      if (target === 500) el.dataset.target = totalCmds;
+    });
+  }
+
+  // Wait for all data scripts to load
+  window.addEventListener('load', () => {
+    setTimeout(updateStats, 100);
+  });
+
+  // Also try immediately in case data is loaded
+  if (document.readyState === 'complete') {
+    setTimeout(updateStats, 200);
+  }
+})();
+</script>
+
+<!-- ============================================================
+     SAFE FALLBACK — If data files failed to load
+     ============================================================ -->
+<script>
+window.addEventListener('load', function () {
+  if (!window.SB_DATA) {
+    console.warn('⚠️ SB_DATA not loaded — check data/commands.js path');
+  }
+  if (!window.SB_BOOKS) {
+    console.warn('⚠️ SB_BOOKS not loaded — check data/books.js path');
+  }
+  if (!window.SB_GLOSSARY) {
+    console.warn('⚠️ SB_GLOSSARY not loaded — check data/glossary.js path');
+  }
+  if (!window.SB_COMPANIES) {
+    console.warn('⚠️ SB_COMPANIES not loaded — check data/companies.js path');
+  }
+});
+</script>
+
+</body>
+</html>
