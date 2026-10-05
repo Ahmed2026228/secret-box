@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04060a">
+<meta name="description" content="مرجع الأوامر — 1500+ أمر قابل للبحث والفلترة | Secret Box">
+<title>مرجع الأوامر | Secret Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-box">⚡</div>
+  <div class="loader-text" id="loaderText">LOADING COMMANDS DB...</div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">PART 5 OF 6</div>
+</div>
+
+<canvas id="matrix"></canvas>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+<div class="bg-glow g3"></div>
+
+<header id="header">
+  <nav class="nav">
+    <a href="../index.html" class="logo"><div class="logo-icon">🔐</div><div>SECRET<span class="hl">BOX</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">الرئيسية</a></li>
+      <li><a href="ethical.html">الأخلاقي</a></li>
+      <li><a href="termux.html">Termux</a></li>
+      <li><a href="network.html">الشبكات</a></li>
+      <li><a href="commands.html" class="active">الأوامر</a></li>
+      <li><a href="books.html">الكتب</a></li>
+      <li><a href="faq.html">الأسئلة</a></li>
+    </ul>
+    <div class="burger" id="burger"><span></span><span></span><span></span></div>
+  </nav>
+</header>
+
+<div class="breadcrumb">
+  <a href="../index.html">الرئيسية</a>
+  <span class="sep">/</span>
+  <span class="current">مرجع الأوامر</span>
+</div>
+
+<div class="page-header">
+  <h1 class="reveal">مرجع <span class="grad">الأوامر العملاق</span></h1>
+  <p class="reveal">
+    <strong id="totalCmds">1500</strong> أمر في 11 فئة — قابل للبحث الفوري والفلترة.
+    اضغط <kbd>Ctrl</kbd>+<kbd>K</kbd> للبحث السريع.
+  </p>
+  <div class="stats-mini reveal">
+    <span>⚡ <strong id="miniTotal">1500</strong> أمر</span>
+    <span>📂 <strong>11</strong> فئة</span>
+    <span>🔍 بحث فوري</span>
+    <span>📥 تحميل الكل</span>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<section class="block" style="padding-top:30px;padding-bottom:10px">
+  <div class="search-wrap reveal">
+    <span class="si">🔍</span>
+    <input type="text" id="cmdSearch" placeholder="ابحث في 1500+ أمر... مثال: nmap, ssh, chmod, docker">
+  </div>
+  <div class="filter-chips" id="cmdFilters"></div>
+</section>
+
+<!-- COMMANDS TABLE -->
+<section class="block" id="commandsSection" style="padding-top:10px">
+  <div class="card reveal">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+      <span style="color:var(--green);font-family:var(--font-code);font-size:14px" id="cmdCount">جاري التحميل...</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" onclick="downloadAll()">📥 تحميل الكل</button>
+        <button class="btn btn-cyan btn-sm" onclick="downloadCurrent()">📥 تحميل المعروض</button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table id="cmdTable">
+        <thead>
+          <tr>
+            <th style="width:30%">الأمر</th>
+            <th>الوصف</th>
+            <th style="width:14%">الفئة</th>
+            <th style="width:12%">المنصة</th>
+          </tr>
+        </thead>
+        <tbody id="cmdBody">
+          <tr><td colspan="4" style="text-align:center;padding:30px;color:var(--txt-dim)">⏳ جاري تحميل الأوامر...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:14px;font-size:12.5px;color:var(--txt-dim);text-align:center">
+      💡 نصيحة: استخدم <kbd>Ctrl</kbd>+<kbd>K</kbd> للبحث السريع في أي مكان بالموقع.
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES SUMMARY -->
+<section class="block" id="catSummary">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// CATEGORIES</span>
+    <h2>الفئات <span class="grad">الـ11</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="grid grid-3" id="catGrid"></div>
+</section>
+
+<!-- PAGE NAV -->
+<section class="block">
+  <div class="page-nav">
+    <a href="network.html">
+      <div>
+        <div class="nav-label">← PREVIOUS</div>
+        <div class="nav-title">أمن الشبكات 📡</div>
+      </div>
+    </a>
+    <a href="books.html" class="next">
+      <div>
+        <div class="nav-label">NEXT →</div>
+        <div class="nav-title">الكتب المجانية 📚</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:16px"><div class="logo-icon">🔐</div><div>SECRET<span class="hl">BOX</span></div></div>
+      <p>الموسوعة العربية الأضخم للأمن السيبراني — كل المحتوى مجاني.</p>
+    </div>
+    <div class="footer-col"><h4>الأقسام</h4><ul><li><a href="ethical.html">الاختراق الأخلاقي</a></li><li><a href="termux.html">Termux + Kali</a></li><li><a href="network.html">أمن الشبكات</a></li><li><a href="commands.html">مرجع الأوامر</a></li></ul></div>
+    <div class="footer-col"><h4>مصادر</h4><ul><li><a href="books.html">الكتب</a></li><li><a href="commands.html">الأوامر</a></li><li><a href="faq.html">الأسئلة</a></li><li><a href="#" onclick="SecretBox.openDev();return false">المطور</a></li></ul></div>
+    <div class="footer-col"><h4>روابط سريعة</h4><ul><li><a href="#commandsSection">الأوامر</a></li><li><a href="#catSummary">الفئات</a></li><li><a href="javascript:downloadAll()">تحميل الكل</a></li><li><a href="../index.html">الرئيسية</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="dev-credit">تم التطوير بواسطة <span class="grad">أحمد علي — السيد الأسود 🖤</span></div>
+    <div class="share-note">🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك</div>
+    <div class="copyright">SECRET BOX © 2026 — MEGA EDITION v15</div>
+  </div>
+</footer>
+
+<button id="backToTop">↑</button>
+<div id="toast">✅ تم</div>
+
+<div class="modal" id="devModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="SecretBox.closeDev()">✕</button>
+    <div class="dev-avatar">👨‍💻</div>
+    <div class="dev-title">DEVELOPER</div>
+    <div class="dev-name">أحمد <span class="grad">علي</span></div>
+    <div class="dev-nick">السيد الأسود</div>
+    <div class="dev-desc">صانع منصة <strong style="color:var(--green)">Secret Box</strong> — 1500+ أمر، كل المحتوى مجاني.</div>
+    <div class="dev-tags"><span class="dev-tag">Commands</span><span class="dev-tag">Linux</span><span class="dev-tag">Kali</span><span class="dev-tag">Termux</span></div>
+    <div class="share-msg">🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك</div>
+  </div>
+</div>
+
+<script src="../data/commands.js"></script>
+<script src="../data/books.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/companies.js"></script>
+<script src="../script.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  let activeFilter='all';
+  let currentResults=[];
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  function renderTable(filter,query){
+    const body=document.getElementById('cmdBody');
+    const counter=document.getElementById('cmdCount');
+    if(!body||!window.SB_DATA||!window.SB_DATA.search)return;
+
+    const results=window.SB_DATA.search(query||'',filter||'all');
+    currentResults=results;
+
+    const limit=600;
+    const sliced=results.slice(0,limit);
+
+    if(!sliced.length){
+      body.innerHTML='<tr><td colspan="4" style="text-align:center;padding:30px;color:var(--txt-dim)">لا توجد نتائج مطابقة</td></tr>';
+    }else{
+      body.innerHTML=sliced.map(function(c){
+        return '<tr><td><code>'+esc(c.cmd)+'</code></td><td>'+esc(c.desc)+'</td><td>'+esc(c.sub)+'</td><td>'+esc(c.platform)+'</td></tr>';
+      }).join('');
+    }
+
+    if(counter){
+      counter.textContent='عرض '+results.length+' من '+window.SB_DATA.stats.total+' أمر'+(results.length>limit?' (أول '+limit+')':'');
+    }
+  }
+
+  function renderFilters(){
+    const container=document.getElementById('cmdFilters');
+    if(!container||!window.SB_DATA)return;
+
+    const cats=window.SB_DATA.categories;
+    let html='<button class="filter-chip active" data-filter="all">الكل ('+window.SB_DATA.stats.total+')</button>';
+    cats.forEach(function(c){
+      const count=window.SB_DATA.getCategoryCount(c.key);
+      html+='<button class="filter-chip" data-filter="'+c.key+'">'+c.icon+' '+c.name+' ('+count+')</button>';
+    });
+    container.innerHTML=html;
+
+    container.querySelectorAll('.filter-chip').forEach(function(b){
+      b.addEventListener('click',function(){
+        container.querySelectorAll('.filter-chip').forEach(function(x){x.classList.remove('active');});
+        b.classList.add('active');
+        activeFilter=b.dataset.filter;
+        renderTable(activeFilter,document.getElementById('cmdSearch').value);
+      });
+    });
+  }
+
+  function renderCategories(){
+    const grid=document.getElementById('catGrid');
+    if(!grid||!window.SB_DATA)return;
+    grid.innerHTML=window.SB_DATA.categories.map(function(c){
+      const count=window.SB_DATA.getCategoryCount(c.key);
+      return '<div class="card reveal" style="cursor:pointer" data-cat="'+c.key+'">'+
+        '<div class="card-icon">'+c.icon+'</div>'+
+        '<h3>'+c.name+'</h3>'+
+        '<p style="color:var(--green);font-family:var(--font-code);font-size:1.5rem;font-weight:700;margin-top:8px">'+count+'</p>'+
+        '<p style="color:var(--txt-dim);font-size:12.5px;margin-top:4px">أمر</p>'+
+        '</div>';
+    }).join('');
+
+    grid.querySelectorAll('[data-cat]').forEach(function(card){
+      card.addEventListener('click',function(){
+        const key=card.dataset.cat;
+        activeFilter=key;
+        document.querySelectorAll('#cmdFilters .filter-chip').forEach(function(x){
+          x.classList.toggle('active',x.dataset.filter===key);
+        });
+        renderTable(key,'');
+        document.getElementById('commandsSection').scrollIntoView({behavior:'smooth'});
+      });
+    });
+  }
+
+  function updateCounts(){
+    const set=function(id,v){const e=document.getElementById(id);if(e)e.textContent=v;};
+    if(window.SB_DATA&&window.SB_DATA.stats){
+      set('totalCmds',window.SB_DATA.stats.total);
+      set('miniTotal',window.SB_DATA.stats.total);
+    }
+  }
+
+  window.downloadAll=function(){
+    if(!window.SB_DATA||!window.SB_DATA.getFileContent){SecretBox.toast('⚠️ قاعدة البيانات غير محمّلة','error');return;}
+    const r=window.SB_DATA.getFileContent('all');
+    if(!r){SecretBox.toast('⚠️ خطأ في التحميل','error');return;}
+    SecretBox.toast('📥 جاري التحميل...');
+    setTimeout(function(){
+      SecretBox.download(r.filename,r.content);
+      SecretBox.toast('✅ تم تحميل '+r.count+' أمر');
+    },200);
+  };
+
+  window.downloadCurrent=function(){
+    if(!currentResults.length){SecretBox.toast('⚠️ لا توجد نتائج','error');return;}
+    let content='SECRET BOX — نتائج البحث\n';
+    content+='عدد النتائج: '+currentResults.length+'\n';
+    content+='='.repeat(50)+'\n\n';
+    currentResults.forEach(function(c,i){
+      content+='['+(i+1)+'] '+c.cmd+'\n';
+      content+='    💡 '+c.desc+'\n';
+      content+='    🏷️  '+c.sub+' ('+c.platform+')\n\n';
+    });
+    content+='\n🎁 أعطيك معلومات مجاناً — انشر الموقع ليستفيد غيرك\n';
+    SecretBox.download('SecretBox-Search.txt',content);
+    SecretBox.toast('✅ تم تحميل النتائج');
+  };
+
+  function init(){
+    renderFilters();
+    renderTable('all','');
+    renderCategories();
+    updateCounts();
+
+    const search=document.getElementById('cmdSearch');
+    if(search){
+      let timer;
+      search.addEventListener('input',function(){
+        clearTimeout(timer);
+        const v=this.value;
+        timer=setTimeout(function(){renderTable(activeFilter,v);},150);
+      });
+    }
+  }
+
+  if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(init,300);}
+  else{window.addEventListener('load',function(){setTimeout(init,300);});}
+})();
+</script>
+</body>
+</html>
