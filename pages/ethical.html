@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04060a">
+<meta name="description" content="الاختراق الأخلاقي — 9 مراحل، 9 أنواع مخترقين، 14 شهادة معتمدة، 12 منصة تدريب | Secret Box">
+<title>الاختراق الأخلاقي | Secret Box — أحمد علي</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+
+<!-- ============================================================
+     LOADER
+     ============================================================ -->
+<div id="loader">
+  <div class="loader-box">🎯</div>
+  <div class="loader-text" id="loaderText">LOADING ETHICAL HACKING...</div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">PART 2 OF 6 — SECTIONS</div>
+</div>
+
+<!-- ============================================================
+     BACKGROUND
+     ============================================================ -->
+<canvas id="matrix"></canvas>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+<div class="bg-glow g3"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header id="header">
+  <nav class="nav">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">🔐</div>
+      <div>SECRET<span class="hl">BOX</span></div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">الرئيسية</a></li>
+      <li><a href="ethical.html" class="active">الأخلاقي</a></li>
+      <li><a href="termux.html">Termux</a></li>
+      <li><a href="network.html">الشبكات</a></li>
+      <li><a href="commands.html">الأوامر</a></li>
+      <li><a href="books.html">الكتب</a></li>
+      <li><a href="faq.html">الأسئلة</a></li>
+    </ul>
+
+    <div class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     BREADCRUMB
+     ============================================================ -->
+<div class="breadcrumb">
+  <a href="../index.html">الرئيسية</a>
+  <span class="sep">/</span>
+  <span class="current">الاختراق الأخلاقي</span>
+</div>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<div class="page-header">
+  <h1 class="reveal">الاختراق <span class="grad">الأخلاقي</span></h1>
+  <p class="reveal">
+    الفن والعلم في اختبار أمان الأنظمة بشكل قانوني ومسؤول.
+    9 مراحل، 9 أنواع مخترقين، 14 شهادة، 12 منصة تدريب.
+  </p>
+  <div class="stats-mini reveal">
+    <span>📚 <strong>9</strong> مراحل</span>
+    <span>👥 <strong>9</strong> أنواع</span>
+    <span>📜 <strong>14</strong> شهادة</span>
+    <span>🧪 <strong>12</strong> منصة</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION 1 — PHASES (9 مراحل)
+     ============================================================ -->
+<section class="block" id="phases">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 01 - PHASES</span>
+    <h2>مراحل <span class="grad">الاختراق</span></h2>
+    <p>المنهجية الاحترافية لأي اختبار اختراق أخلاقي — 9 مراحل مرتبة.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="card reveal">
+    <div class="steps">
+
+      <div class="step">
+        <h4>1. الاستطلاع (Reconnaissance)</h4>
+        <p>
+          جمع أكبر قدر من المعلومات عن الهدف باستخدام OSINT.
+          يشمل: أسماء النطاقات، عناوين IP، الإيميلات، التقنيات المستخدمة، والموظفين.
+          الأدوات: theHarvester, Recon-ng, Maltego, Amass, Shodan.
+        </p>
+      </div>
+
+      <div class="step">
+        <h4>2. المسح (Scanning)</h4>
+        <p>
+          تحديد المنافذ المفتوحة والخدمات التي تعمل على الهدف.
+          الأدوات: Nmap, Masscan, RustScan, Netcat, hping3.
+          النتيجة: خريطة كاملة للشبكة والخدمات.
+        </p>
+      </div>
+
+      <div class="step">
+        <h4>3. التعداد (Enumeration)</h4>
+        <p>
+          استخراج تفاصيل دقيقة عن الخدمات المكتشفة: إصدارات، مستخدمين، مشاركات، سياسات.
+          الأدوات: enum4linux, smbclient, ldapsearch, snmpwalk.
+        </p>
+      </div>
+
+      <div class="step">
+        <h4>4. الاستغلال (Exploitation)</h4>
+        <p>
+          استغلال الثغرات المكتشفة للحصول على وصول أولي.
+          الأدوات: Metasploit, SearchSploit, BeEF, exploit-db.
+          التحذير: فقط الثغرات المؤكدة وفي بيئة مرخّصة.
+        </p>
+      </div>
+
+      <div class="step">
+        <h4>5. تصعيد الصلاحيات (Privilege Escalation)</h4>
+        <p>
+          الانتقال من مستخدم عادي إلى root/admin.
+          Linux: LinPEAS, linux-exploit-suggester, GTFOBins.
+          Windows: WinPEAS, PowerUp, Juicy Potato.
+        </p>
+      </div>
+
+      <div class="step">
+        <h4>6. التنقل الجانبي (Lateral Movement)</h4>
+        <p>
+          الانتقال من جهاز لآخر داخل الشبكة.
+          الأدوات: CrackMapExec, Impacket, BloodHound, PsExec, WMIExec.
+          يعتمد على بيانات اعتماد مسروقة.
+        </p>
+      </div>
+
+      <div class="step">
+        <h4>7. الثبات (Persistence)</h4>
+        <p>
+          ضمان البقاء في النظام حتى بعد إعادة التشغيل.
+          Windows: Registry keys, Scheduled Tasks, Services.
+          Linux: cron jobs, systemd, SSH keys, .bashrc.
+        </p>
+      </div>
+
+      <div class="step">
+        <h4>8. تغطية الآثار (Covering Tracks)</h4>
+        <p>
+          حذف السجلات وتنظيف الأدلة (في الاختبار المصرح به فقط).
+          Clearing logs, timestomping, log manipulation.
+        </p>
+      </div>
+
+      <div class="step">
+        <h4>9. كتابة التقرير (Reporting)</h4>
+        <p>
+          توثيق كل ما تم إنجازه بشكل احترافي.
+          Executive Summary + Findings + CVSS + Remediation.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 — HACKER TYPES (9 أنواع)
+     ============================================================ -->
+<section class="block" id="hackers">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 02 - HACKER TYPES</span>
+    <h2>أنواع <span class="grad">المخترقين</span></h2>
+    <p>تصنيف كامل حسب النية والصلاحيات والدور.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+
+    <div class="card reveal">
+      <div class="card-icon">⚪</div>
+      <h3>White Hat</h3>
+      <p><strong style="color:var(--green)">المخترق الأخلاقي</strong> — يعمل بإذن كتابي مسبق وبقانون.</p>
+      <ul>
+        <li>يبلّغ عن الثغرات</li>
+        <li>يحترم الخصوصية</li>
+        <li>يوقّع عقود NDAs</li>
+        <li>شهادات: OSCP, CEH</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon red">⚫</div>
+      <h3>Black Hat</h3>
+      <p><strong style="color:var(--red)">المخترق الضار</strong> — ينفّذ هجمات لأغراض شخصية أو مالية.</p>
+      <ul>
+        <li>يخترق بدون إذن</li>
+        <li>يبيع الثغرات</li>
+        <li>يبتز الضحايا</li>
+        <li>عقوبات قانونية</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon yellow">🔘</div>
+      <h3>Grey Hat</h3>
+      <p><strong style="color:var(--yellow)">بين الاثنين</strong> — يخترق بدون إذن لكن بدون نية ضارة.</p>
+      <ul>
+        <li>يكتشف ثغرة</li>
+        <li>يبلّغ أحياناً</li>
+        <li>قد يطلب مالاً</li>
+        <li>منطقة رمادية</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon">🔴</div>
+      <h3>Red Team</h3>
+      <p><strong style="color:var(--red)">فريق الهجوم</strong> — يحاكي مهاجماً حقيقياً لاختبار الدفاعات.</p>
+      <ul>
+        <li>محاكاة كاملة</li>
+        <li>اختبار الواقع</li>
+        <li>تقييم الفريق الأزرق</li>
+        <li>التركيز على TTPs</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">🔵</div>
+      <h3>Blue Team</h3>
+      <p><strong style="color:var(--cyan)">فريق الدفاع</strong> — يحمي الأنظمة ويكشف الهجمات.</p>
+      <ul>
+        <li>مراقبة SIEM</li>
+        <li>الاستجابة للحوادث</li>
+        <li>تحليل السجلات</li>
+        <li>Threat Hunting</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon purple">🟣</div>
+      <h3>Purple Team</h3>
+      <p><strong style="color:var(--purple)">الفريق المدمج</strong> — يدمج الهجوم والدفاع لتحسين الأداء.</p>
+      <ul>
+        <li>تعاون مستمر</li>
+        <li>مشاركة المعرفة</li>
+        <li>تحسين الدفاعات</li>
+        <li>محاكاة + دفاع</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon orange">🎭</div>
+      <h3>Hacktivist</h3>
+      <p><strong style="color:var(--orange)">ناشط سياسي</strong> — يخترق لأغراض سياسية أو اجتماعية.</p>
+      <ul>
+        <li>Anonymous كنموذج</li>
+        <li>كشف فساد</li>
+        <li>DDoS للحكومات</li>
+        <li>تسريب بيانات</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon pink">👶</div>
+      <h3>Script Kiddie</h3>
+      <p><strong style="color:var(--pink)">مبتدئ</strong> — يستخدم أدوات جاهزة بدون فهم عميق.</p>
+      <ul>
+        <li>لا يفهم الأدوات</li>
+        <li>يتبع فيديوهات</li>
+        <li>سهل الكشف</li>
+        <li>خطر على نفسه</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon">🏛️</div>
+      <h3>State-Sponsored</h3>
+      <p><strong style="color:var(--txt-bright)">مدعوم دولة</strong> — APT تعمل لصالح حكومة.</p>
+      <ul>
+        <li>موارد ضخمة</li>
+        <li>أهداف استراتيجية</li>
+        <li>تخفي طويل المدى</li>
+        <li>مثال: Equation Group</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — CERTIFICATIONS (14 شهادة)
+     ============================================================ -->
+<section class="block" id="certifications">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 03 - CERTIFICATIONS</span>
+    <h2>الشهادات <span class="grad">المعتمدة</span></h2>
+    <p>14 شهادة مرتبة حسب المستوى — من المبتدئ إلى الخبير.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-2">
+
+    <div class="card reveal">
+      <div class="card-icon">🌱</div>
+      <h3>المستوى المبتدئ</h3>
+      <div class="cb">
+        <div class="cb-head">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <span class="title">beginner-certs.txt</span>
+          <button class="copy-btn" data-copy>نسخ</button>
+        </div>
+        <pre><span class="comment"># المبتدئ</span>
+CompTIA Security+
+CEH — Certified Ethical Hacker
+eJPT — Junior Penetration Tester
+Google Cybersecurity
+Cisco CyberOps Associate
+CompTIA Network+</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">🔷</div>
+      <h3>المستوى المتوسط</h3>
+      <div class="cb">
+        <div class="cb-head">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <span class="title">intermediate-certs.txt</span>
+          <button class="copy-btn" data-copy>نسخ</button>
+        </div>
+        <pre><span class="comment"># المتوسط</span>
+PNPT — Practical Network Pen Tester
+GPEN — GIAC Penetration Tester
+CRTP — Certified Red Team Professional
+CompTIA CySA+
+CompTIA PenTest+
+ECSA — EC-Council Security Analyst</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon red">🔺</div>
+      <h3>المستوى المتقدم</h3>
+      <div class="cb">
+        <div class="cb-head">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <span class="title">advanced-certs.txt</span>
+          <button class="copy-btn" data-copy>نسخ</button>
+        </div>
+        <pre><span class="comment"># المتقدم</span>
+OSCP — Offensive Security Certified Professional
+OSWE — Web Expert
+OSED — Exploit Developer
+OSEP — Experienced Penetration Tester
+CRTO — Certified Red Team Operator
+CRTL — Red Team Lead</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon yellow">👑</div>
+      <h3>المستوى الخبير</h3>
+      <div class="cb">
+        <div class="cb-head">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <span class="title">expert-certs.txt</span>
+          <button class="copy-btn" data-copy>نسخ</button>
+        </div>
+        <pre><span class="comment"># الخبير والإدارة</span>
+CISSP — Information Systems Security Professional
+CISM — Certified Information Security Manager
+CISA — Certified Information Systems Auditor
+CCSP — Certified Cloud Security Professional
+ISSAP — Security Architecture Professional
+OSCE³ — Offensive Security Certified Expert</pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — TRAINING PLATFORMS (12 منصة)
+     ============================================================ -->
+<section class="block" id="platforms">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 04 - TRAINING PLATFORMS</span>
+    <h2>منصات <span class="grad">التدريب</span></h2>
+    <p>12 منصة تدريب عملي لاختبار الاختراق الأخلاقي.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+
+    <div class="card reveal">
+      <div class="card-icon">🎓</div>
+      <h3>TryHackMe</h3>
+      <p>الأفضل للمبتدئين تماماً — مسارات تعليمية منظمة.</p>
+      <ul>
+        <li>مسارات من الصفر</li>
+        <li>شرح خطوة بخطوة</li>
+        <li>غرفة Linux أساسيات</li>
+        <li>اشتراك مجاني محدود</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">مبتدئ</span>
+        <span class="tag cyan">شهري</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">📦</div>
+      <h3>Hack The Box</h3>
+      <p>تحديات واقعية بدون شرح — احترافية عالية.</p>
+      <ul>
+        <li>أجهزة واقعية</li>
+        <li>مسابقات CTF</li>
+        <li>Pro Labs</li>
+        <li>HTB Academy</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">متوسط-متقدم</span>
+        <span class="tag orange">شهري</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon purple">🏠</div>
+      <h3>VulnHub</h3>
+      <p>أجهزة وهمية قابلة للتحميل — تدريب محلي.</p>
+      <ul>
+        <li>VMs قابلة للتحميل</li>
+        <li>بدون إنترنت مطلوب</li>
+        <li>تحديات متنوعة</li>
+        <li>مجاني تماماً</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">جميع المستويات</span>
+        <span class="tag green">مجاني</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon">🌐</div>
+      <h3>PortSwigger Academy</h3>
+      <p>الأفضل مجاناً لتعلم أمن الويب — 250+ مختبر.</p>
+      <ul>
+        <li>OWASP Top 10</li>
+        <li>مختبرات تفاعلية</li>
+        <li>شرح تفصيلي</li>
+        <li>مجاني بالكامل</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag cyan">ويب</span>
+        <span class="tag green">مجاني</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon yellow">🚩</div>
+      <h3>picoCTF</h3>
+      <p>مسابقات CTF للمبتدئين — الأفضل للبداية.</p>
+      <ul>
+        <li>تحديات متدرجة</li>
+        <li>تعلّم من الصفر</li>
+        <li>سنوي + دائم</li>
+        <li>مجاني</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">مبتدئ</span>
+        <span class="tag green">مجاني</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon pink">🐧</div>
+      <h3>OverTheWire</h3>
+      <p>تحديات Linux و Bash — أساس متين.</p>
+      <ul>
+        <li>Bandit — للمبتدئين</li>
+        <li>Natas — ويب</li>
+        <li>Leviathan — متوسط</li>
+        <li>مجاني تماماً</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">Linux</span>
+        <span class="tag green">مجاني</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon orange">🇫🇷</div>
+      <h3>Root-Me</h3>
+      <p>تحديات متنوعة — ويب، شبكات، تشفير، forensics.</p>
+      <ul>
+        <li>400+ تحدي</li>
+        <li>تصنيف بالنقاط</li>
+        <li>مجتمع كبير</li>
+        <li>مجاني</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">متنوع</span>
+        <span class="tag green">مجاني</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">🔬</div>
+      <h3>PentesterLab</h3>
+      <p>تمارين ويب عملية — بديل ممتاز لـ PortSwigger.</p>
+      <ul>
+        <li>تمارين مفيدة</li>
+        <li>Badges و Progress</li>
+        <li>شرح تفصيلي</li>
+        <li>مدفوع شهري</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">ويب</span>
+        <span class="tag cyan">مدفوع</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon purple">🎯</div>
+      <h3>Ringzer0Team</h3>
+      <p>تحديات CTF شاملة من جميع الفئات.</p>
+      <ul>
+        <li>تحديات متجددة</li>
+        <li>فئات متنوعة</li>
+        <li>نقاط وترتيب</li>
+        <li>مجاني</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">جميع المستويات</span>
+        <span class="tag green">مجاني</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon">🖥️</div>
+      <h3>HackTheBox Academy</h3>
+      <p>منصة تعليمية من HTB — مسارات منظمة.</p>
+      <ul>
+        <li>مسارات كاملة</li>
+        <li>تعلّم + تطبيق</li>
+        <li>شهادات HTB</li>
+        <li>اشتراك شهري</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">جميع المستويات</span>
+        <span class="tag orange">مدفوع</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon red">🎮</div>
+      <h3>UnderTheWire</h3>
+      <p>تحديات PowerShell — للأمن على Windows.</p>
+      <ul>
+        <li>PowerShell أساسي</li>
+        <li>سيناريوهات واقعية</li>
+        <li>شهادات</li>
+        <li>مدفوع</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">PowerShell</span>
+        <span class="tag cyan">مدفوع</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon yellow">💻</div>
+      <h3>Cybrary</h3>
+      <p>مكتبة فيديوهات ومختبرات أمنية.</p>
+      <ul>
+        <li>دورات فيديو</li>
+        <li>مختبرات افتراضية</li>
+        <li>مسارات وظيفية</li>
+        <li>مجاني محدود</li>
+      </ul>
+      <div style="margin-top:12px">
+        <span class="tag">تعلم عام</span>
+        <span class="tag orange">freemium</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — TEST TYPES
+     ============================================================ -->
+<section class="block" id="testTypes">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 05 - TEST TYPES</span>
+    <h2>أنواع <span class="grad">الاختبارات</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+
+    <div class="card reveal">
+      <div class="card-icon">⬛</div>
+      <h3>Black Box</h3>
+      <p>بدون أي معلومات مسبقة — محاكاة مهاجم خارجي حقيقي.</p>
+      <ul>
+        <li>الأصعب والأكثر واقعية</li>
+        <li>يكشف ثغرات حقيقية</li>
+        <li>يحتاج وقت أطول</li>
+        <li>يختبر الصبر والمهارة</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon">⬜</div>
+      <h3>White Box</h3>
+      <p>مع كل المعلومات — كود المصدر، الوثائق، المعمارية.</p>
+      <ul>
+        <li>الأسرع والأدق</li>
+        <li>يكشف ثغرات عميقة</li>
+        <li>يحتاج خبرة تقنية</li>
+        <li>مثالي للمراجعة الشاملة</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">◐</div>
+      <h3>Grey Box</h3>
+      <p>بمعلومات جزئية — عادة كمستخدم عادي.</p>
+      <ul>
+        <li>الأكثر شيوعاً</li>
+        <li>توازن جيد</li>
+        <li>يحاكي insider threat</li>
+        <li>وقت معقول</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon orange">🌍</div>
+      <h3>External Pentest</h3>
+      <p>من خارج الشبكة — اختبار الدفاعات الخارجية.</p>
+      <ul>
+        <li>بدون وصول داخلي</li>
+        <li>يختبر Firewall و WAF</li>
+        <li>الأكثر شيوعاً</li>
+        <li>نتائج واقعية</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon purple">🏢</div>
+      <h3>Internal Pentest</h3>
+      <p>من داخل الشبكة — بعد اختراق أولي مفترض.</p>
+      <ul>
+        <li>يختبر التنقل الجانبي</li>
+        <li>Active Directory</li>
+        <li>Privilege Escalation</li>
+        <li>يكشف شبكات مسطحة</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon pink">📱</div>
+      <h3>Mobile Pentest</h3>
+      <p>تطبيقات Android و iOS — اختبار API و منطق التطبيق.</p>
+      <ul>
+        <li>OWASP MASVS</li>
+        <li>MobSF للتحليل</li>
+        <li>Frida للتحليل الديناميكي</li>
+        <li>API Security</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon red">⚔️</div>
+      <h3>Red Team Exercise</h3>
+      <p>محاكاة كاملة لمهاجم متقدم — أشهر من Pentest.</p>
+      <ul>
+        <li>تستهدف الأفراد أيضاً</li>
+        <li>Social Engineering</li>
+        <li>Physical Security</li>
+        <li>أسابيع-أشهر</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon yellow">☁️</div>
+      <h3>Cloud Pentest</h3>
+      <p>أمن AWS، Azure، GCP — اختبار التكوينات والصلاحيات.</p>
+      <ul>
+        <li>IAM Policies</li>
+        <li>S3 Buckets</li>
+        <li>Security Groups</li>
+        <li>Serverless Functions</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon">🔌</div>
+      <h3>IoT Pentest</h3>
+      <p>اختبار الأجهزة الذكية — Firmware، الاتصالات، APIs.</p>
+      <ul>
+        <li>Firmware Analysis</li>
+        <li>UART/JTAG</li>
+        <li>BLE / Zigbee</li>
+        <li>MQTT / CoAP</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — LEGAL FRAMEWORK
+     ============================================================ -->
+<section class="block" id="legal">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 06 - LEGAL FRAMEWORK</span>
+    <h2>الإطار <span class="grad">القانوني والأخلاقي</span></h2>
+    <p>قواعد أساسية قبل أي اختبار اختراق.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card reveal">
+      <div class="card-icon green">📋</div>
+      <h3>قبل الاختبار</h3>
+      <ul>
+        <li><strong>إذن كتابي موقّع</strong> من المالك</li>
+        <li><strong>تحديد النطاق (Scope)</strong> بوضوح تام</li>
+        <li><strong>Rules of Engagement</strong> معتمدة</li>
+        <li><strong>جهات الاتصال الطارئة</strong></li>
+        <li><strong>الجدول الزمني</strong> المتفق عليه</li>
+        <li><strong>NDA</strong> لحماية السرية</li>
+        <li><strong>حدود الضرر</strong> المسموح به</li>
+        <li><strong>طرق الإبلاغ</strong> المتفق عليها</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">✅</div>
+      <h3>أثناء الاختبار</h3>
+      <ul>
+        <li>الالتزام بالنطاق المحدد حرفياً</li>
+        <li>تجنّب تعطيل الخدمات</li>
+        <li>توثيق كل خطوة</li>
+        <li>حفظ الأدلة بطريقة آمنة</li>
+        <li>احترام الخصوصية</li>
+        <li>الإبلاغ الفوري عن أي مشكلة</li>
+        <li>عدم الوصول لبيانات خارج النطاق</li>
+        <li>عدم استخدام أي ثغرة لغير الغرض</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon yellow">📝</div>
+      <h3>بعد الاختبار</h3>
+      <ul>
+        <li>تسليم التقرير النهائي</li>
+        <li>حذف كل الأدلة الحساسة</li>
+        <li>الإفصاح المسؤول عن الثغرات</li>
+        <li>التوصيات والحلول</li>
+        <li>جلسة عرض النتائج</li>
+        <li>إتلاف أي بيانات مسروقة</li>
+        <li>متابعة إصلاح الثغرات</li>
+        <li>إعادة الاختبار إن طُلب</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon red">⚖️</div>
+      <h3>محاذير قانونية</h3>
+      <ul>
+        <li><strong>الاختراق بدون إذن = جريمة</strong></li>
+        <li>في مصر: قانون مكافحة جرائم تقنية المعلومات 175/2018</li>
+        <li>في السعودية: نظام مكافحة الجرائم المعلوماتية</li>
+        <li>في الإمارات: قانون 5/2012</li>
+        <li>في الأردن: قانون الجرائم الإلكترونية</li>
+        <li>عقوبات تصل للسجن والغرامة</li>
+        <li>في الدول الغربية: CFAA, Computer Misuse Act</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-warn reveal">
+    <div class="alert-icon">⚠️</div>
+    <div>
+      <h4>تحذير قانوني صارم</h4>
+      <p>
+        اختراق أي نظام بدون إذن كتابي مسبق من المالك هو جريمة في جميع الدول.
+        هذا الموقع للأغراض التعليمية والدفاعية فقط.
+        المسؤولية القانونية تقع عليك وحدك.
+        استخدم هذه المعرفة للحماية، لا للإيذاء.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — TOOLS OVERVIEW
+     ============================================================ -->
+<section class="block" id="tools">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 07 - TOOLS OVERVIEW</span>
+    <h2>أدوات <span class="grad">الأساسية</span></h2>
+    <p>الأدوات التي لا غنى عنها في أي اختبار اختراق.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="card reveal">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>الأداة</th>
+            <th>الاستخدام</th>
+            <th>المرحلة</th>
+            <th>المنصة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Nmap</code></td><td>فحص المنافذ والخدمات</td><td>Scanning</td><td>Linux</td></tr>
+          <tr><td><code>Masscan</code></td><td>فحص شبكات كبيرة سريع</td><td>Scanning</td><td>Linux</td></tr>
+          <tr><td><code>theHarvester</code></td><td>جمع إيميلات ونطاقات</td><td>Recon</td><td>Kali</td></tr>
+          <tr><td><code>Amass</code></td><td>تعداد نطاقات فرعية</td><td>Recon</td><td>Kali</td></tr>
+          <tr><td><code>Metasploit</code></td><td>إطار استغلال شامل</td><td>Exploit</td><td>Kali</td></tr>
+          <tr><td><code>Burp Suite</code></td><td>اختبار تطبيقات الويب</td><td>Web</td><td>جميع</td></tr>
+          <tr><td><code>sqlmap</code></td><td>حقن SQL آلي</td><td>Web</td><td>Kali</td></tr>
+          <tr><td><code>Wireshark</code></td><td>تحليل حزم الشبكة</td><td>Sniffing</td><td>جميع</td></tr>
+          <tr><td><code>Hashcat</code></td><td>كسر الهاشات</td><td>Password</td><td>Kali</td></tr>
+          <tr><td><code>John the Ripper</code></td><td>كسر كلمات المرور</td><td>Password</td><td>Kali</td></tr>
+          <tr><td><code>Hydra</code></td><td>هجمات القواميس</td><td>Password</td><td>Kali</td></tr>
+          <tr><td><code>Aircrack-ng</code></td><td>هجمات WiFi</td><td>Wireless</td><td>Kali</td></tr>
+          <tr><td><code>Bettercap</code></td><td>MITM وأدوات شبكة</td><td>Network</td><td>Kali</td></tr>
+          <tr><td><code>Mimikatz</code></td><td>استخراج بيانات Windows</td><td>Post</td><td>Windows</td></tr>
+          <tr><td><code>BloodHound</code></td><td>تحليل Active Directory</td><td>Post</td><td>Kali</td></tr>
+          <tr><td><code>Ghidra</code></td><td>هندسة عكسية</td><td>RE</td><td>جميع</td></tr>
+          <tr><td><code>Volatility</code></td><td>تحليل الذاكرة</td><td>Forensics</td><td>Kali</td></tr>
+          <tr><td><code>Autopsy</code></td><td>تحليل جنائي شامل</td><td>Forensics</td><td>Kali</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PAGE NAVIGATION
+     ============================================================ -->
+<section class="block" id="pageNav">
+  <div class="page-nav">
+    <a href="../index.html">
+      <div>
+        <div class="nav-label">← BACK</div>
+        <div class="nav-title">الرئيسية 🏠</div>
+      </div>
+    </a>
+    <a href="termux.html" class="next">
+      <div>
+        <div class="nav-label">NEXT →</div>
+        <div class="nav-title">Termux + Kali 📱</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:16px">
+        <div class="logo-icon">🔐</div>
+        <div>SECRET<span class="hl">BOX</span></div>
+      </div>
+      <p>الموسوعة العربية الأضخم للأمن السيبراني — كل المحتوى مجاني بالكامل.</p>
+    </div>
+    <div class="footer-col">
+      <h4>الأقسام</h4>
+      <ul>
+        <li><a href="ethical.html">الاختراق الأخلاقي</a></li>
+        <li><a href="termux.html">Termux + Kali</a></li>
+        <li><a href="network.html">أمن الشبكات</a></li>
+        <li><a href="commands.html">مرجع الأوامر</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>مصادر</h4>
+      <ul>
+        <li><a href="books.html">الكتب</a></li>
+        <li><a href="commands.html">الأوامر</a></li>
+        <li><a href="faq.html">الأسئلة</a></li>
+        <li><a href="#" onclick="SecretBox.openDev();return false">المطور</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="#phases">9 مراحل</a></li>
+        <li><a href="#hackers">9 أنواع</a></li>
+        <li><a href="#certifications">14 شهادة</a></li>
+        <li><a href="#platforms">12 منصة</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="dev-credit">
+      تم التطوير بواسطة <span class="grad">أحمد علي — السيد الأسود 🖤</span>
+    </div>
+    <div class="share-note">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+    <div class="copyright">
+      SECRET BOX © 2026 — MEGA EDITION v15
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     FLOATING BUTTONS
+     ============================================================ -->
+<button id="backToTop" title="العودة للأعلى">↑</button>
+<div id="toast">✅ تم</div>
+
+<!-- ============================================================
+     DEVELOPER MODAL
+     ============================================================ -->
+<div class="modal" id="devModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="SecretBox.closeDev()" aria-label="إغلاق">✕</button>
+    <div class="dev-avatar">👨‍💻</div>
+    <div class="dev-title">DEVELOPER</div>
+    <div class="dev-name">أحمد <span class="grad">علي</span></div>
+    <div class="dev-nick">السيد الأسود</div>
+    <div class="dev-desc">
+      صانع ومطوّر منصة <strong style="color:var(--green)">Secret Box</strong> —
+      موسوعة عربية شاملة للأمن السيبراني. كل المحتوى مجاني بالكامل.
+    </div>
+    <div class="dev-tags">
+      <span class="dev-tag">Ethical Hacking</span>
+      <span class="dev-tag">Termux</span>
+      <span class="dev-tag">Kali Linux</span>
+      <span class="dev-tag">Cyber Security</span>
+    </div>
+    <div class="share-msg">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="../data/commands.js"></script>
+<script src="../data/books.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/companies.js"></script>
+<script src="../script.js"></script>
+
+</body>
+    </html>
