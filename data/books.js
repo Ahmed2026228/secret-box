@@ -1,1611 +1,742 @@
-/* ============================================================
-   SECRET BOX — BOOKS DATABASE
-   Developed by: Ahmed Ali (Black Lord / السيد الأسود)
-   Version: 15.0 — 30 Downloadable Books
-   ============================================================
-   أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
-   ============================================================
-   كل كتاب يُولّد محتواه ديناميكياً من قاعدة البيانات
-   ============================================================ */
-
+/* SECRET BOX — BOOKS DATABASE v4 FINAL */
 (function () {
   'use strict';
 
-  /* ============================================================
-     BOOK GENERATORS — Helper Functions
-     ============================================================ */
+  var HR = '='.repeat(60);
+  var HR2 = '-'.repeat(60);
 
-  const HR = '='.repeat(60);
-  const HR2 = '─'.repeat(50);
-  const HR3 = '━'.repeat(50);
-
-  function header(title, subtitle) {
-    let h = '';
-    h += '╔' + '═'.repeat(58) + '╗\n';
-    h += '║  ' + center(title, 54) + '  ║\n';
-    if (subtitle) h += '║  ' + center(subtitle, 54) + '  ║\n';
-    h += '║  ' + center('SECRET BOX', 54) + '  ║\n';
-    h += '║  ' + center('أحمد علي — السيد الأسود', 54) + '  ║\n';
-    h += '╚' + '═'.repeat(58) + '╝\n\n';
-    return h;
+  function H(t, s) {
+    return '╔' + '═'.repeat(58) + '╗\n║ ' + pad(t, 56) + ' ║\n║ ' + pad(s, 56) + ' ║\n║ ' + pad('SECRET BOX', 56) + ' ║\n║ ' + pad('أحمد علي — السيد الأسود', 56) + ' ║\n╚' + '═'.repeat(58) + '╝\n\n';
   }
-
-  function footer() {
-    let f = '\n\n' + HR + '\n';
-    f += '🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك\n';
-    f += 'المطور: أحمد علي — السيد الأسود 🖤\n';
-    f += HR + '\n';
-    return f;
+  function pad(s, n) { s = String(s); while (s.length < n) s = ' ' + s + ' '; return s.substring(0, n); }
+  function F() { return '\n\n' + HR + '\n🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك\nالمطور: أحمد علي — السيد الأسود 🖤\n' + HR + '\n'; }
+  function C(n, t) { return '\n\n' + HR2 + '\n  الفصل ' + n + ': ' + t + '\n' + HR2 + '\n\n'; }
+  function S(t) { return '\n▶ ' + t + '\n' + '-'.repeat(50) + '\n'; }
+  function L(arr) { return arr.map(function (x) { return '  • ' + x + '\n'; }).join(''); }
+  function N(arr) { return arr.map(function (x, i) { return '  ' + (i + 1) + ') ' + x + '\n'; }).join(''); }
+  function CODE(lines) {
+    var out = '\n';
+    lines.split('\n').forEach(function (l) { out += '   | ' + l + '\n'; });
+    return out + '\n';
   }
+  function P(t) { return t + '\n\n'; }
 
-  function center(str, width) {
-    const len = str.length;
-    if (len >= width) return str;
-    const pad = Math.floor((width - len) / 2);
-    return ' '.repeat(pad) + str + ' '.repeat(width - len - pad);
-  }
+  var BOOKS = [];
 
-  function section(num, title) {
-    return '\n\n' + HR3 + '\n  ' + num + '. ' + title + '\n' + HR3 + '\n\n';
-  }
+  /* 1. Termux */
+  BOOKS.push({ key: 'termux-master', title: 'Termux Master', icon: '📱', desc: 'دليل Termux الكامل', color: 'cyan', generate: function () {
+    var o = H('TERMUX MASTER BOOK', 'Linux على أندرويد');
+    o += C(1, 'ما هو Termux؟');
+    o += P('Termux تطبيق مفتوح المصدر يمنحك بيئة Linux كاملة على أندرويد بدون root. تستطيع تشغيل أدوات الأمن، كتابة السكربتات، وإدارة الخوادم من هاتفك.');
+    o += S('حمّل من F-Droid وليس Google Play');
+    o += P('نسخة Play مهجورة من 2020. النسخة الرسمية الوحيدة على f-droid.org.');
+    o += C(2, 'الإعداد الأولي');
+    o += CODE('pkg update && pkg upgrade -y\ntermux-setup-storage\npkg install root-repo x11-repo -y');
+    o += S('شرح الأوامر');
+    o += L(['pkg update — يحدّث قائمة الحزم المتاحة', 'pkg upgrade — يحدّث الحزم المثبتة', 'termux-setup-storage — يمنح صلاحية الوصول للملفات']);
+    o += C(3, 'الأدوات الأساسية');
+    o += CODE('pkg install git python nano vim curl wget openssh -y');
+    o += P('Git للتحكم بالإصدارات، Python لأدوات الأمن، nano و vim لتحرير النصوص.');
+    o += C(4, 'أدوات الأمن');
+    o += CODE('pkg install nmap hydra aircrack-ng -y\npip install sqlmap shodan');
+    o += P('Nmap لمسح الشبكات، Hydra لاختبار كلمات المرور، SQLMap لكشف SQL Injection.');
+    o += C(5, 'توزيعات Linux كاملة');
+    o += CODE('pkg install proot-distro -y\nproot-distro install ubuntu\nproot-distro login ubuntu');
+    o += P('تشغّل Ubuntu أو Kali كاملة داخل Termux. الخروج بـ exit.');
+    o += C(6, 'Termux:API');
+    o += CODE('pkg install termux-api -y\ntermux-battery-status\ntermux-location\ntermux-notification --title "t" --content "c"');
+    o += P('تحكم بميزات الهاتف من الطرفية: البطارية، الموقع، الإشعارات، الرسائل.');
+    o += C(7, 'نصائح');
+    o += N(['فعّل Wake Lock لمنع النوم.', 'احفظ نسخة من ~/.termux.', 'استخدم tmux للجلسات المتعددة.', 'لا تستخدم sudo — Termux لا يدعمه.']);
+    o += F();
+    return { filename: 'Termux-Master-Book.txt', content: o };
+  }});
 
-  function subsection(title) {
-    return '\n▶ ' + title + '\n' + HR2 + '\n';
-  }
+  /* 2. Linux */
+  BOOKS.push({ key: 'linux-master', title: 'Linux Master', icon: '🐧', desc: 'دليل Linux الشامل', color: 'green', generate: function () {
+    var o = H('LINUX MASTER BOOK', 'دليل شامل');
+    o += C(1, 'مقدمة');
+    o += P('Linux نظام مفتوح المصدر يشغّل معظم الخوادم. فلسفته: كل شيء ملف.');
+    o += C(2, 'التنقل');
+    o += CODE('pwd        # المسار الحالي\nls -la     # الملفات بتفاصيل\ncd /path   # تغيير مجلد\ncd ..      # رجوع\ncd ~       # المجلد الرئيسي');
+    o += C(3, 'الملفات');
+    o += L(['mkdir folder — إنشاء مجلد', 'touch file — ملف فارغ', 'cp src dst — نسخ', 'mv src dst — نقل', 'rm file — حذف', 'rm -rf folder — حذف مجلد']);
+    o += P('تحذير: rm -rf / يحذف كل شيء.');
+    o += C(4, 'الصلاحيات');
+    o += CODE('chmod 755 file    # rwxr-xr-x\nchmod 644 file    # rw-r--r--\nchmod 600 secret  # rw-------\nchmod +x script   # تنفيذ\nchown user:group file');
+    o += C(5, 'البحث');
+    o += CODE('find / -name "*.conf" 2>/dev/null\ngrep -r "password" /etc/');
+    o += C(6, 'العمليات');
+    o += L(['ps aux — كل العمليات', 'top / htop — مراقبة', 'kill -9 PID — إيقاف قسري', 'pkill firefox — بالاسم']);
+    o += C(7, 'الشبكات');
+    o += L(['ip a — عناوين IP', 'ping host — اختبار', 'netstat -tulnp — المنافذ', 'curl -I URL — ترويسات HTTP', 'ssh user@host — اتصال آمن']);
+    o += C(8, 'الحزم');
+    o += CODE('apt install pkg     # Debian/Ubuntu\ndnf install pkg     # Fedora\npacman -S pkg       # Arch');
+    o += C(9, 'نصائح');
+    o += N(['Tab للإكمال التلقائي.', 'Ctrl+R للبحث في السجل.', '!! لإعادة آخر أمر.', 'اقرأ man command لأي أمر.']);
+    o += F();
+    return { filename: 'Linux-Master-Book.txt', content: o };
+  }});
 
-  function bullet(text) {
-    return '   • ' + text + '\n';
-  }
+  /* 3. Kali */
+  BOOKS.push({ key: 'kali-master', title: 'Kali Master', icon: '🐉', desc: 'دليل Kali الشامل', color: 'purple', generate: function () {
+    var o = H('KALI LINUX MASTER', 'توزيعة اختبار الاختراق');
+    o += C(1, 'مقدمة');
+    o += P('Kali توزيعة Debian-based من Offensive Security، فيها 600+ أداة أمنية موزّعة على 14 فئة.');
+    o += C(2, 'طرق التثبيت');
+    o += N(['VirtualBox / VMware — الأسهل للمبتدئين.', 'Dual Boot — مع Windows.', 'Live USB — بدون تثبيت.', 'WSL2 — داخل Windows.', 'Docker — حاوية.', 'Cloud — Linode, DigitalOcean.']);
+    o += C(3, 'الإعداد بعد التثبيت');
+    o += CODE('sudo apt update && sudo apt full-upgrade -y\nsudo apt autoremove -y && sudo apt autoclean');
+    o += C(4, 'فئات الأدوات الـ14');
+    o += S('1) جمع المعلومات');
+    o += L(['Nmap — ماسح الشبكات', 'Masscan — سريع جداً', 'theHarvester — إيميلات ونطاقات', 'Maltego — تحليل علاقات']);
+    o += S('2) تحليل الثغرات');
+    o += L(['Nessus — تجاري', 'OpenVAS — مفتوح', 'Nikto — ثغرات الويب', 'Nuclei — قوالب YAML']);
+    o += S('3) تطبيقات الويب');
+    o += L(['Burp Suite — الأشهر', 'OWASP ZAP — مجاني', 'sqlmap — SQL Injection', 'ffuf, gobuster — Fuzzing', 'wpscan — WordPress']);
+    o += S('4) كلمات المرور');
+    o += L(['Hashcat — الأسرع (GPU)', 'John the Ripper', 'Hydra — هجوم قواميس', 'Crunch — إنشاء قوائم']);
+    o += S('5) اللاسلكي');
+    o += L(['Aircrack-ng', 'Wifite — آلية', 'Kismet — مراقبة', 'Reaver — WPS']);
+    o += S('6) الاستغلال');
+    o += L(['Metasploit — الأشهر', 'msfvenom — payloads', 'SearchSploit — قاعدة exploit-db', 'BeEF — XSS', 'SET — Social Eng']);
+    o += S('7) الاعتراض');
+    o += L(['Wireshark — محلل حزم', 'tcpdump — طرفية', 'Ettercap — MITM', 'Responder — NTLM']);
+    o += S('8) بعد الاختراق');
+    o += L(['Mimikatz — Windows', 'BloodHound — AD', 'LinPEAS / WinPEAS — تصعيد']);
+    o += S('9) التحليل الجنائي');
+    o += L(['Autopsy', 'Volatility — ذاكرة', 'Binwalk — firmware', 'ExifTool']);
+    o += S('10-14) فئات أخرى');
+    o += L(['Reporting: Dradis, CherryTree', 'Social Eng: Gophish, Evilginx2', 'Anonymity: Tor, Proxychains', 'Reverse: Ghidra, radare2', 'Stress: hping3']);
+    o += C(5, 'تحذير');
+    o += P('⚠️ استخدم أي أداة على أنظمة لا تملكها أو بدون إذن كتابي = جريمة في جميع الدول.');
+    o += F();
+    return { filename: 'Kali-Master-Book.txt', content: o };
+  }});
 
-  function numbered(i, text) {
-    return '   ' + i + '. ' + text + '\n';
-  }
+  /* 4. Python */
+  BOOKS.push({ key: 'python-hacking', title: 'Python for Hacking', icon: '🐍', desc: 'Python في الأمن', color: 'yellow', generate: function () {
+    var o = H('PYTHON FOR HACKING', 'اللغة رقم 1 في الأمن');
+    o += C(1, 'لماذا Python؟');
+    o += P('سهلة، سريعة، مكتبات ضخمة متخصصة. معظم أدوات الأمن مكتوبة بـ Python.');
+    o += C(2, 'الأساسيات');
+    o += CODE('name = "Ahmed"\nage = 25\nitems = [1, 2, 3]\ninfo = {"name": "Ali"}\n\nfor i in range(5):\n    print(i)');
+    o += C(3, 'مكتبة requests');
+    o += CODE('import requests\nr = requests.get("https://site.com")\nprint(r.status_code, r.text[:100])');
+    o += C(4, 'مكتبة socket');
+    o += CODE('import socket\ns = socket.socket()\ns.settimeout(2)\nresult = s.connect_ex(("192.168.1.1", 80))\nprint("open" if result == 0 else "closed")\ns.close()');
+    o += C(5, 'مكتبة scapy');
+    o += CODE('from scapy.all import *\npkt = IP(dst="8.8.8.8")/ICMP()\nreply = sr1(pkt, timeout=2)\nprint(reply.summary())');
+    o += C(6, 'مكتبة paramiko (SSH)');
+    o += CODE('import paramiko\nc = paramiko.SSHClient()\nc.set_missing_host_key_policy(paramiko.AutoAddPolicy())\nc.connect("host", username="u", password="p")\nstdin, stdout, stderr = c.exec_command("ls -la")\nprint(stdout.read().decode())\nc.close()');
+    o += C(7, 'سكربت: فحص عدة منافذ');
+    o += CODE('import socket\nhost = input("Host: ")\nports = [21,22,23,80,443,3306,3389]\nfor p in ports:\n    s = socket.socket()\n    s.settimeout(1)\n    if s.connect_ex((host,p))==0:\n        print(f"[+] {p} open")\n    s.close()');
+    o += C(8, 'نصائح');
+    o += L(['استخدم virtualenv لعزل المكتبات.', 'try/except للأخطاء.', 'argparse لتمرير معاملات.', 'وثّق كودك بتعليقات.']);
+    o += F();
+    return { filename: 'Python-Hacking-Book.txt', content: o };
+  }});
 
-  function fromCategory(key) {
-    if (!window.SB_DATA || !window.SB_DATA.raw[key]) return '';
-    const cmds = window.SB_DATA.raw[key];
-    let out = 'عدد الأوامر: ' + cmds.length + '\n\n';
-    let lastSub = '';
-    cmds.forEach((c, i) => {
-      if (c.sub !== lastSub) {
-        out += '\n' + HR2 + '\n  ' + c.sub + '\n' + HR2 + '\n\n';
-        lastSub = c.sub;
-      }
-      out += '[' + (i + 1) + '] ' + c.cmd + '\n';
-      out += '    💡 ' + c.desc + '\n';
-      out += '    🏷️  ' + c.platform + '\n\n';
+  /* 5. Git */
+  BOOKS.push({ key: 'git-commands', title: 'Git Commands', icon: '📦', desc: 'أوامر Git', color: 'orange', generate: function () {
+    var o = H('GIT COMMANDS BOOK', 'التحكم بالإصدارات');
+    o += C(1, 'الإعداد');
+    o += CODE('git config --global user.name "اسمك"\ngit config --global user.email "email"');
+    o += C(2, 'بدء مشروع');
+    o += CODE('git init              # مستودع جديد\ngit clone URL         # استنساخ');
+    o += C(3, 'سير يومي');
+    o += CODE('git status\ngit add .\ngit commit -m "msg"\ngit push');
+    o += C(4, 'الفروع');
+    o += CODE('git branch             # عرض\ngit branch new          # إنشاء\ngit checkout new        # تبديل\ngit checkout -b new     # إنشاء+تبديل\ngit merge new           # دمج');
+    o += C(5, 'السجلات');
+    o += CODE('git log\ngit log --oneline\ngit log --graph\ngit diff');
+    o += C(6, 'التراجع');
+    o += CODE('git checkout -- file     # استعادة\ngit reset HEAD file      # إلغاء add\ngit reset --soft HEAD~1  # إلغاء commit\ngit revert COMMIT');
+    o += C(7, 'Remote');
+    o += CODE('git remote add origin URL\ngit push -u origin main\ngit pull\ngit fetch');
+    o += C(8, 'Stash');
+    o += CODE('git stash\ngit stash list\ngit stash pop');
+    o += F();
+    return { filename: 'Git-Commands-Book.txt', content: o };
+  }});
+
+  /* 6. Docker */
+  BOOKS.push({ key: 'docker-master', title: 'Docker Master', icon: '🐳', desc: 'الحاويات', color: 'cyan', generate: function () {
+    var o = H('DOCKER MASTER', 'الحاويات');
+    o += C(1, 'مقدمة');
+    o += P('Docker منصة حاويات — بديل أخف من VMs. ممتاز لبناء مختبرات اختبار آمنة.');
+    o += C(2, 'الأساسيات');
+    o += CODE('docker ps\ndocker ps -a\ndocker images');
+    o += C(3, 'التشغيل');
+    o += CODE('docker pull ubuntu\ndocker run -it ubuntu bash\ndocker run -d nginx\ndocker run -p 8080:80 nginx');
+    o += C(4, 'الإدارة');
+    o += CODE('docker exec -it CONT bash\ndocker stop CONT\ndocker rm CONT\ndocker logs CONT\ndocker stats');
+    o += C(5, 'بناء صورة');
+    o += CODE('# Dockerfile\nFROM ubuntu:22.04\nRUN apt install -y python3\nCOPY app.py /app.py\nCMD ["python3","/app.py"]\n\n# Build\ndocker build -t myimage .');
+    o += C(6, 'مختبرات جاهزة');
+    o += CODE('docker run -d -p 3000:3000 bkimminich/juice-shop\ndocker run -d -p 80:80 vulnerables/web-dvwa\ndocker run -it kalilinux/kali-rolling bash');
+    o += C(7, 'التنظيف');
+    o += CODE('docker system prune -a\ndocker volume prune');
+    o += F();
+    return { filename: 'Docker-Master-Book.txt', content: o };
+  }});
+
+  /* 7. ADB */
+  BOOKS.push({ key: 'android-adb', title: 'Android & ADB', icon: '📲', desc: 'التحكم بأندرويد', color: 'green', generate: function () {
+    var o = H('ANDROID & ADB BOOK', 'التحكم بأندرويد');
+    o += C(1, 'ما هو ADB؟');
+    o += P('Android Debug Bridge — أداة رسمية للتحكم بأندرويد من الكمبيوتر.');
+    o += C(2, 'التفعيل');
+    o += N(['الإعدادات ← حول الهاتف.', 'اضغط رقم الإصدار 7 مرات.', 'خيارات المطوّر ← تصحيح USB.', 'وافق على البصمة.']);
+    o += C(3, 'الأساسيات');
+    o += CODE('adb devices\nadb shell\nadb reboot\nadb reboot recovery\nadb reboot bootloader');
+    o += C(4, 'التطبيقات');
+    o += CODE('adb install app.apk\nadb install -r app.apk\nadb uninstall com.pkg\nadb shell pm list packages\nadb shell pm list packages -3');
+    o += C(5, 'الملفات');
+    o += CODE('adb push file /sdcard/\nadb pull /sdcard/file ./');
+    o += C(6, 'السجلات');
+    o += CODE('adb logcat\nadb logcat -v time\nadb logcat *:E');
+    o += C(7, 'التحكم');
+    o += CODE('adb shell input tap 500 500\nadb shell input text "hello"\nadb shell input keyevent 26\nadb shell screencap -p /sdcard/s.png');
+    o += C(8, 'الشبكة');
+    o += CODE('adb tcpip 5555\nadb connect 192.168.1.5:5555');
+    o += F();
+    return { filename: 'Android-ADB-Book.txt', content: o };
+  }});
+
+  /* 8. Network */
+  BOOKS.push({ key: 'network-master', title: 'Network Master', icon: '📡', desc: 'أمن الشبكات', color: 'purple', generate: function () {
+    var o = H('NETWORK MASTER', 'دليل الشبكات الشامل');
+    o += C(1, 'طبقات OSI السبع');
+    o += L(['7. Application — HTTP, DNS, FTP', '6. Presentation — SSL/TLS', '5. Session — NetBIOS, RPC', '4. Transport — TCP, UDP', '3. Network — IP, ICMP, ARP', '2. Data Link — Ethernet, MAC', '1. Physical — كابلات']);
+    o += C(2, 'المنافذ الشهيرة');
+    o += L(['20/21 FTP', '22 SSH', '23 Telnet', '25 SMTP', '53 DNS', '80 HTTP', '443 HTTPS', '445 SMB', '3306 MySQL', '3389 RDP', '6379 Redis']);
+    o += C(3, 'البروتوكولات');
+    o += L(['TCP — موثوق متصل', 'UDP — سريع بدون اتصال', 'HTTP/HTTPS — الويب', 'DNS — ترجمة النطاقات', 'DHCP — عناوين تلقائية', 'ARP — IP إلى MAC', 'ICMP — ping']);
+    o += C(4, 'فحص بـ Nmap');
+    o += CODE('nmap 192.168.1.1\nnmap -sV 192.168.1.1\nnmap -p 1-1000 192.168.1.1\nnmap -sn 192.168.1.0/24\nnmap -A 192.168.1.1');
+    o += C(5, 'اختبار الاتصال');
+    o += CODE('ping 8.8.8.8\ntraceroute google.com\nmtr google.com');
+    o += C(6, 'تحليل DNS');
+    o += CODE('dig example.com\ndig @8.8.8.8 example.com ANY\nwhois example.com');
+    o += C(7, 'هجمات');
+    o += L(['MITM — رجل في المنتصف', 'ARP Spoofing', 'DNS Spoofing', 'DoS / DDoS', 'Session Hijacking', 'Rogue AP']);
+    o += C(8, 'الدفاعات');
+    o += L(['Firewall / NGFW', 'IDS / IPS', 'WAF', 'SIEM', 'Zero Trust', '802.1X']);
+    o += C(9, 'تحليل الحزم');
+    o += CODE('wireshark\ntshark -i eth0\ntcpdump -i eth0 port 80\ntcpdump -i eth0 -A');
+    o += F();
+    return { filename: 'Network-Master-Book.txt', content: o };
+  }});
+
+  /* 9. SQL */
+  BOOKS.push({ key: 'sql-commands', title: 'SQL Commands', icon: '🗄️', desc: 'قواعد البيانات', color: 'yellow', generate: function () {
+    var o = H('SQL COMMANDS BOOK', 'قواعد البيانات');
+    o += C(1, 'مقدمة');
+    o += P('SQL لغة قواعد البيانات العلائقية (MySQL, PostgreSQL, SQLite, Oracle).');
+    o += C(2, 'SELECT');
+    o += CODE('SELECT * FROM users;\nSELECT name, email FROM users;\nSELECT * FROM users WHERE id=1;\nSELECT * FROM users ORDER BY id DESC;\nSELECT * FROM users LIMIT 10;');
+    o += C(3, 'التجميع');
+    o += CODE('SELECT COUNT(*) FROM users;\nSELECT AVG(salary) FROM users;\nSELECT city, COUNT(*) FROM users GROUP BY city;');
+    o += C(4, 'INSERT/UPDATE/DELETE');
+    o += CODE('INSERT INTO users (name) VALUES ("Ali");\nUPDATE users SET name="Ahmed" WHERE id=1;\nDELETE FROM users WHERE id=1;');
+    o += C(5, 'JOIN');
+    o += CODE('SELECT * FROM users u\nINNER JOIN orders o ON u.id=o.uid;\n\nSELECT * FROM users u\nLEFT JOIN orders o ON u.id=o.uid;');
+    o += C(6, 'أنماط');
+    o += CODE('WHERE name LIKE "A%"\nWHERE id IN (1,2,3)\nWHERE id BETWEEN 1 AND 10\nWHERE email IS NULL');
+    o += C(7, 'الجداول');
+    o += CODE('CREATE DATABASE shop;\nCREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(50));\nALTER TABLE users ADD email VARCHAR(100);\nDROP TABLE users;');
+    o += C(8, 'الحماية من SQLi');
+    o += P('استخدم Prepared Statements دائماً:');
+    o += CODE('cursor.execute("SELECT * FROM users WHERE id=%s", (uid,))');
+    o += F();
+    return { filename: 'SQL-Commands-Book.txt', content: o };
+  }});
+
+  /* 10. Ethical Hacking */
+  BOOKS.push({ key: 'ethical-hacking', title: 'Ethical Hacking', icon: '🎯', desc: 'دليل الاختراق الأخلاقي', color: 'red', generate: function () {
+    var o = H('ETHICAL HACKING GUIDE', 'الفن والعلم');
+    o += C(1, 'مقدمة');
+    o += P('الاختراق الأخلاقي استخدام مهارات الاختراق بشكل قانوني بهدف اختبار أمان الأنظمة، بموافقة كتابية مسبقة.');
+    o += C(2, 'المراحل التسع');
+    o += N(['Reconnaissance — جمع المعلومات', 'Scanning — مسح الشبكة', 'Enumeration — تعداد الخدمات', 'Exploitation — استغلال الثغرات', 'Privilege Escalation — تصعيد', 'Lateral Movement — تنقل جانبي', 'Persistence — الثبات', 'Covering Tracks — تغطية', 'Reporting — التقرير']);
+    o += C(3, 'أنواع المخترقين');
+    o += L(['White Hat — أخلاقي بقانون', 'Black Hat — ضار ومجرم', 'Grey Hat — بينهما', 'Red Team — هجوم', 'Blue Team — دفاع', 'Purple Team — دمج', 'Script Kiddie — مبتدئ', 'APT — مدعوم دولة']);
+    o += C(4, 'الشهادات');
+    o += L(['مبتدئ: Security+, CEH, eJPT', 'متوسط: PNPT, GPEN, CRTP', 'متقدم: OSCP, OSWE, OSED, OSEP', 'خبير: CISSP, CISM, CISA']);
+    o += C(5, 'منصات التدريب');
+    o += L(['TryHackMe — مبتدئين', 'Hack The Box — واقعي', 'VulnHub — أجهزة', 'PortSwigger Academy — ويب', 'picoCTF — مسابقات', 'OverTheWire — Linux']);
+    o += C(6, 'الأدوات');
+    o += L(['Nmap, Wireshark, Burp Suite', 'Metasploit, sqlmap, Hydra', 'Hashcat, John, Aircrack-ng', 'Maltego, Ghidra, Volatility']);
+    o += C(7, 'الإطار القانوني');
+    o += L(['إذن كتابي دائماً', 'Scope واضح', 'Rules of Engagement', 'الإفصاح المسؤول', 'تسليم التقرير']);
+    o += P('⚠️ الاختراق بدون إذن = جريمة في كل الدول.');
+    o += C(8, 'خارطة التعلم');
+    o += N(['أساسيات الشبكات و Linux', 'Python و Bash', 'مفاهيم الأمن', 'TryHackMe و OverTheWire', 'تخصص', 'HTB و شهادات', 'OSCP ووظيفة']);
+    o += F();
+    return { filename: 'Ethical-Hacking-Guide.txt', content: o };
+  }});
+
+  /* 11. Web Security */
+  BOOKS.push({ key: 'web-security', title: 'Web Security', icon: '🌐', desc: 'أمن الويب و OWASP', color: 'cyan', generate: function () {
+    var o = H('WEB SECURITY GUIDE', 'أمن تطبيقات الويب');
+    o += C(1, 'OWASP Top 10');
+    o += N(['Broken Access Control', 'Cryptographic Failures', 'Injection', 'Insecure Design', 'Security Misconfiguration', 'Vulnerable Components', 'Auth Failures', 'Data Integrity Failures', 'Logging Failures', 'SSRF']);
+    o += C(2, 'SQL Injection');
+    o += P('المثال: admin\' OR \'1\'=\'1 — يفتح الدخول.');
+    o += L(['الأنواع: Classic, Union, Error, Blind, Time-based', 'الحماية: Prepared Statements', 'الأداة: sqlmap']);
+    o += C(3, 'XSS');
+    o += L(['Reflected — يعكس مباشرة', 'Stored — مخزن (الأخطر)', 'DOM-based — من JavaScript', 'الحماية: CSP، Escape، Sanitize']);
+    o += C(4, 'CSRF');
+    o += P('تزوير طلب من موقع آخر. الحماية: CSRF Tokens، SameSite.');
+    o += C(5, 'IDOR');
+    o += P('تغيير ?id=1000 إلى 1001 للوصول لبيانات آخرين. الحماية: UUIDs.');
+    o += C(6, 'SSRF');
+    o += L(['http://127.0.0.1:80', 'http://169.254.169.254/latest/meta-data/', 'file:///etc/passwd']);
+    o += C(7, 'الأدوات');
+    o += L(['Burp Suite — الأشهر', 'OWASP ZAP — مجاني', 'sqlmap — SQLi', 'ffuf, gobuster — Fuzzing', 'nuclei — قوالب']);
+    o += C(8, 'منصات التدريب');
+    o += L(['PortSwigger Academy (مجاني)', 'Juice Shop', 'DVWA', 'bWAPP', 'WebGoat']);
+    o += F();
+    return { filename: 'Web-Security-Guide.txt', content: o };
+  }});
+
+  /* 12. Crypto */
+  BOOKS.push({ key: 'crypto-guide', title: 'Cryptography', icon: '🔐', desc: 'علم التشفير', color: 'purple', generate: function () {
+    var o = H('CRYPTOGRAPHY GUIDE', 'علم التشفير');
+    o += C(1, 'أنواع التشفير');
+    o += L(['Symmetric — نفس المفتاح', 'Asymmetric — مفتاحان', 'Hash — اتجاه واحد', 'Digital Signature — توقيع']);
+    o += C(2, 'خوارزميات متماثلة');
+    o += L(['AES (128/192/256)', 'ChaCha20', 'Twofish', 'Blowfish (قديم)', '3DES (قديم)']);
+    o += C(3, 'خوارزميات غير متماثلة');
+    o += L(['RSA (2048/4096)', 'ECC', 'Ed25519', 'ECDSA']);
+    o += C(4, 'دوال الهاش');
+    o += L(['SHA-256/512', 'SHA-3', 'BLAKE2/BLAKE3', 'bcrypt/Argon2', 'MD5/SHA-1 (مكسورة)']);
+    o += C(5, 'GPG');
+    o += CODE('gpg --gen-key\ngpg -c file.txt          # تشفير\ngpg -d file.txt.gpg      # فك\ngpg -e -r user@x.com file');
+    o += C(6, 'OpenSSL');
+    o += CODE('openssl enc -aes-256-cbc -in f -out f.enc\nopenssl enc -d -aes-256-cbc -in f.enc -out f\nopenssl s_client -connect site.com:443');
+    o += C(7, 'Hash');
+    o += CODE('sha256sum file\nmd5sum file\necho -n "text" | sha256sum');
+    o += C(8, 'أدوات');
+    o += L(['GPG — بريد وملفات', 'OpenSSL — مكتبة شاملة', 'VeraCrypt — أقراص', 'Age — حديث', 'Cryptomator — سحابة']);
+    o += C(9, 'Post-Quantum');
+    o += L(['CRYSTALS-Kyber', 'CRYSTALS-Dilithium', 'Falcon', 'SPHINCS+']);
+    o += F();
+    return { filename: 'Cryptography-Guide.txt', content: o };
+  }});
+
+  /* 13. OSINT */
+  BOOKS.push({ key: 'osint-guide', title: 'OSINT Guide', icon: '🔍', desc: 'الاستخبارات المفتوحة', color: 'cyan', generate: function () {
+    var o = H('OSINT GUIDE', 'الاستخبارات المفتوحة');
+    o += C(1, 'مقدمة');
+    o += P('OSINT = Open Source Intelligence. جمع معلومات من مصادر عامة بشكل قانوني.');
+    o += C(2, 'محركات البحث');
+    o += L(['Shodan — أجهزة IoT', 'Censys — مسح الإنترنت', 'FOFA — محرك صيني', 'GreyNoise — تحليل تهديدات']);
+    o += C(3, 'Google Dorks');
+    o += CODE('site:example.com\ninurl:admin\nintitle:"index of"\nfiletype:pdf\nintext:"password"\next:env DB_PASSWORD');
+    o += C(4, 'البحث عن أشخاص');
+    o += L(['Have I Been Pwned', 'DeHashed', 'IntelX', 'Sherlock', 'Maigret']);
+    o += C(5, 'النطاقات');
+    o += L(['Whois', 'DNSDumpster', 'SecurityTrails', 'VirusTotal', 'urlscan.io', 'crt.sh', 'BuiltWith']);
+    o += C(6, 'الصور');
+    o += L(['Google Reverse', 'Yandex Images', 'TinEye', 'PimEyes', 'ExifTool']);
+    o += C(7, 'الأدوات');
+    o += L(['Maltego — تحليل علاقات', 'SpiderFoot — أتمتة', 'theHarvester', 'Recon-ng', 'Photon']);
+    o += C(8, 'أخلاقيات');
+    o += L(['استخدم فقط المعلومات المتاحة علناً', 'لا تخترق حسابات خاصة', 'احترم الخصوصية', 'وثّق المصادر']);
+    o += F();
+    return { filename: 'OSINT-Guide.txt', content: o };
+  }});
+
+  /* 14. Wireless */
+  BOOKS.push({ key: 'wireless-security', title: 'Wireless Security', icon: '📶', desc: 'أمن WiFi', color: 'purple', generate: function () {
+    var o = H('WIRELESS SECURITY', 'أمن WiFi و Bluetooth');
+    o += C(1, 'معايير WiFi');
+    o += L(['802.11n — WiFi 4', '802.11ac — WiFi 5', '802.11ax — WiFi 6', '802.11be — WiFi 7']);
+    o += C(2, 'التشفير');
+    o += L(['WEP — مكسور ❌', 'WPA — ضعيف ❌', 'WPA2 — مقبول ✅', 'WPA3 — الأفضل ✅']);
+    o += C(3, 'Monitor Mode');
+    o += CODE('sudo airmon-ng start wlan0\nsudo airmon-ng check kill\nsudo airodump-ng wlan0mon\nsudo airmon-ng stop wlan0mon');
+    o += C(4, 'التقاط Handshake');
+    o += CODE('sudo airodump-ng -c 6 --bssid MAC -w cap wlan0mon\n# نافذة أخرى:\nsudo aireplay-ng --deauth 10 -a MAC wlan0mon');
+    o += C(5, 'هجمات WiFi');
+    o += L(['Handshake Capture', 'Deauth Attack', 'Evil Twin', 'Rogue AP', 'WPS PIN', 'PMKID', 'KRACK']);
+    o += C(6, 'Bluetooth');
+    o += L(['Bluejacking', 'Bluesnarfing', 'Bluebugging', 'BLE Sniffing']);
+    o += C(7, 'حماية WiFi');
+    o += N(['WPA3 + AES', 'كلمة مرور 20+ حرف', 'تعطيل WPS', 'تعطيل الإدارة عن بعد', 'تحديث Firmware', 'شبكة ضيوف منفصلة']);
+    o += F();
+    return { filename: 'Wireless-Security-Book.txt', content: o };
+  }});
+
+  /* 15. Forensics */
+  BOOKS.push({ key: 'forensics-guide', title: 'Digital Forensics', icon: '🔬', desc: 'التحليل الجنائي', color: 'cyan', generate: function () {
+    var o = H('DIGITAL FORENSICS', 'التحليل الجنائي الرقمي');
+    o += C(1, 'المراحل');
+    o += N(['Identification', 'Preservation', 'Acquisition', 'Examination', 'Analysis', 'Documentation', 'Presentation']);
+    o += C(2, 'نسخ القرص');
+    o += CODE('dd if=/dev/sda of=image.dd bs=4M\ndc3dd if=/dev/sda of=image.dd hash=sha256\nsha256sum image.dd');
+    o += C(3, 'الأدوات');
+    o += L(['Autopsy — GUI', 'Sleuth Kit — CLI', 'Volatility — ذاكرة', 'Binwalk — firmware', 'Foremost — استعادة', 'ExifTool']);
+    o += C(4, 'تحليل الذاكرة');
+    o += CODE('vol.py -f mem.dump imageinfo\nvol.py -f mem.dump --profile=Win10x64 pslist\nvol.py -f mem.dump --profile=Win10x64 netscan');
+    o += C(5, 'قواعد');
+    o += L(['استخدم Write Blocker', 'وثّق كل خطوة', 'Chain of Custody', 'Hash للتحقق', 'بيئة معزولة']);
+    o += F();
+    return { filename: 'Forensics-Guide.txt', content: o };
+  }});
+
+  /* 16. Reverse */
+  BOOKS.push({ key: 'reverse-engineering', title: 'Reverse Engineering', icon: '🔧', desc: 'الهندسة العكسية', color: 'red', generate: function () {
+    var o = H('REVERSE ENGINEERING', 'الهندسة العكسية');
+    o += C(1, 'الأدوات');
+    o += L(['Ghidra — مفتوح', 'IDA Pro/Free', 'radare2 / Cutter', 'x64dbg — Windows', 'GDB + pwndbg — Linux', 'Jadx — Android']);
+    o += C(2, 'أنواع التحليل');
+    o += L(['Static — بدون تشغيل', 'Dynamic — أثناء التشغيل', 'Hybrid — مختلط']);
+    o += C(3, 'أوامر');
+    o += CODE('file binary\nstrings binary\nreadelf -h binary\nobjdump -d binary\nltrace ./binary\nstrace ./binary\ngdb ./binary');
+    o += C(4, 'ثغرات شائعة');
+    o += L(['Buffer Overflow', 'Use After Free', 'Double Free', 'Race Condition', 'Format String', 'Integer Overflow', 'ROP/JOP']);
+    o += C(5, 'حمايات');
+    o += L(['ASLR', 'DEP/NX', 'Stack Canary', 'PIE', 'CFI']);
+    o += C(6, 'Android');
+    o += CODE('jadx -d out app.apk\napktool d app.apk\nfrida -U -f com.app -l hook.js');
+    o += F();
+    return { filename: 'Reverse-Engineering.txt', content: o };
+  }});
+
+  /* 17. Cloud */
+  BOOKS.push({ key: 'cloud-security', title: 'Cloud Security', icon: '☁️', desc: 'أمن السحابة', color: 'cyan', generate: function () {
+    var o = H('CLOUD SECURITY', 'أمن AWS/Azure/GCP');
+    o += C(1, 'نماذج الخدمة');
+    o += L(['IaaS — بنية كخدمة', 'PaaS — منصة كخدمة', 'SaaS — برنامج كخدمة', 'FaaS — وظيفة كخدمة', 'Serverless']);
+    o += C(2, 'AWS');
+    o += L(['GuardDuty', 'Security Hub', 'IAM Access Analyzer', 'CloudTrail', 'Inspector', 'Macie']);
+    o += C(3, 'Azure');
+    o += L(['Defender for Cloud', 'Sentinel', 'Entra ID', 'Key Vault']);
+    o += C(4, 'GCP');
+    o += L(['Security Command Center', 'Cloud Armor', 'IAM', 'VPC Service Controls']);
+    o += C(5, 'أدوات تدقيق');
+    o += L(['ScoutSuite', 'Prowler', 'Cloudsplaining', 'Pacu', 'trufflehog', 'gitleaks']);
+    o += C(6, 'مخاطر');
+    o += N(['مفاتيح API مسربة', 'S3 Buckets مفتوحة', 'IAM Permissions زائدة', 'عدم تشفير', 'Security Groups مفتوحة', 'عدم استخدام MFA']);
+    o += C(7, 'أفضل ممارسات');
+    o += L(['Least Privilege', 'MFA على كل شيء', 'تشفير at-rest و in-transit', 'مراقبة مستمرة', 'تدوير المفاتيح', 'Zero Trust']);
+    o += F();
+    return { filename: 'Cloud-Security-Book.txt', content: o };
+  }});
+
+  /* 18. IoT */
+  BOOKS.push({ key: 'iot-security', title: 'IoT Security', icon: '🌐', desc: 'إنترنت الأشياء', color: 'green', generate: function () {
+    var o = H('IOT SECURITY', 'إنترنت الأشياء');
+    o += C(1, 'المخاطر');
+    o += N(['كلمات مرور افتراضية', 'Firmware قديم', 'منافذ مفتوحة', 'تشفير ضعيف', 'اتصالات غير آمنة', 'Hardcoded credentials']);
+    o += C(2, 'الأدوات');
+    o += L(['Binwalk — firmware', 'Firmware Analysis Toolkit', 'AttifyOS', 'RouterSploit', 'Shodan', 'UART/JTAG tools']);
+    o += C(3, 'منهجية');
+    o += N(['جمع معلومات', 'تحليل اتصالات', 'استخراج Firmware', 'تحليل Firmware', 'اختبار UART/JTAG', 'اختبار Wireless', 'اختبار APIs']);
+    o += C(4, 'أوامر');
+    o += CODE('binwalk firmware.bin\nbinwalk -e firmware.bin\nfirmwalker folder');
+    o += C(5, 'دفاعات');
+    o += L(['غيّر كلمات المرور الافتراضية', 'حدّث Firmware', 'افصل IoT', 'راقب التدفق', 'أغلق المنافذ', 'فعّل التشفير']);
+    o += F();
+    return { filename: 'IoT-Security-Book.txt', content: o };
+  }});
+
+  /* 19. Blockchain */
+  BOOKS.push({ key: 'blockchain-security', title: 'Blockchain Security', icon: '⛓️', desc: 'أمن العقود الذكية', color: 'orange', generate: function () {
+    var o = H('BLOCKCHAIN SECURITY', 'أمن العقود الذكية');
+    o += C(1, 'ثغرات شائعة');
+    o += L(['Reentrancy', 'Integer Overflow', 'Access Control', 'Front-running', 'Flash Loan', 'Oracle Manipulation', 'DoS']);
+    o += C(2, 'Reentrancy — مثال');
+    o += CODE('// خاطئ\nfunction withdraw() {\n    uint bal = balances[msg.sender];\n    msg.sender.call{value: bal}("");\n    balances[msg.sender] = 0;  // ← بعد الإرسال!\n}\n\n// صحيح\nfunction withdraw() {\n    uint bal = balances[msg.sender];\n    balances[msg.sender] = 0;  // ← قبل الإرسال\n    msg.sender.call{value: bal}("");\n}');
+    o += C(3, 'أدوات التدقيق');
+    o += L(['Slither — تحليل ثابت', 'Mythril', 'Manticore', 'Echidna — fuzzer', 'Remix IDE', 'Foundry']);
+    o += C(4, 'منهجية');
+    o += N(['فهم العقد', 'تحليل ثابت', 'اختبار يدوي', 'Fuzzing', 'Formal Verification', 'اختبار الغاز', 'التقرير']);
+    o += C(5, 'أفضل ممارسات');
+    o += L(['تدقيق من أكثر من جهة', 'Bug Bounty', 'Timelock', 'Multi-sig', 'اختبار شامل', 'OpenZeppelin']);
+    o += F();
+    return { filename: 'Blockchain-Security-Book.txt', content: o };
+  }});
+
+  /* 20. SCADA */
+  BOOKS.push({ key: 'scada-security', title: 'SCADA Security', icon: '🏭', desc: 'أنظمة التحكم', color: 'red', generate: function () {
+    var o = H('SCADA SECURITY', 'أنظمة التحكم الصناعية');
+    o += C(1, 'المفاهيم');
+    o += L(['SCADA — التحكم والإشراف', 'ICS — Industrial Control', 'PLC — Programmable Logic Controller', 'HMI — Human Machine Interface', 'RTU', 'DCS']);
+    o += C(2, 'البروتوكولات');
+    o += L(['Modbus', 'DNP3', 'Profinet', 'EtherNet/IP', 'OPC UA', 'IEC 61850', 'BACnet']);
+    o += C(3, 'هجمات معروفة');
+    o += L(['Stuxnet (2010)', 'Industroyer (2016)', 'Triton (2017)', 'Havex (2014)', 'BlackEnergy (2015)']);
+    o += C(4, 'مخاطر');
+    o += N(['اتصال ICS بالإنترنت', 'كلمات مرور ضعيفة', 'عدم تحديث', 'شبكات مسطحة', 'غياب المراقبة', 'USB غير موثوق']);
+    o += C(5, 'أدوات');
+    o += L(['GRASSMARLIN', 'Wireshark dissectors', 'PLCinject', 'Metasploit ICS', 'ModbusPal']);
+    o += C(6, 'دفاعات');
+    o += L(['فصل شبكة ICS', 'Data Diode', 'مراقبة مستمرة', 'تدريب الموظفين', 'Backups', 'IDS متخصص']);
+    o += F();
+    return { filename: 'SCADA-Security-Book.txt', content: o };
+  }});
+
+  /* 21. Threat Intel */
+  BOOKS.push({ key: 'threat-intel', title: 'Threat Intelligence', icon: '🕵️', desc: 'استخبارات التهديدات', color: 'purple', generate: function () {
+    var o = H('THREAT INTELLIGENCE', 'استخبارات التهديدات');
+    o += C(1, 'الأنواع');
+    o += L(['Strategic — للقادة', 'Operational — للعمليات', 'Tactical — للمحللين', 'Technical — للمهندسين']);
+    o += C(2, 'أطر');
+    o += L(['Cyber Kill Chain', 'MITRE ATT&CK — الأشهر', 'Diamond Model', 'Pyramid of Pain']);
+    o += C(3, 'MITRE ATT&CK — 14 تكتيك');
+    o += L(['Reconnaissance', 'Resource Development', 'Initial Access', 'Execution', 'Persistence', 'Privilege Escalation', 'Defense Evasion', 'Credential Access', 'Discovery', 'Lateral Movement', 'Collection', 'C2', 'Exfiltration', 'Impact']);
+    o += C(4, 'مصادر');
+    o += L(['MISP', 'OpenCTI', 'AlienVault OTX', 'ThreatConnect', 'Recorded Future', 'VirusTotal']);
+    o += C(5, 'مصطلحات');
+    o += L(['IOC — Indicator of Compromise', 'IOA — Indicator of Attack', 'TTPs — Tactics, Techniques, Procedures', 'APT — Advanced Persistent Threat', 'C2 — Command and Control']);
+    o += F();
+    return { filename: 'Threat-Intelligence.txt', content: o };
+  }});
+
+  /* 22. Malware Analysis */
+  BOOKS.push({ key: 'malware-analysis', title: 'Malware Analysis', icon: '🦠', desc: 'تحليل البرمجيات الخبيثة', color: 'red', generate: function () {
+    var o = H('MALWARE ANALYSIS', 'تحليل البرمجيات الخبيثة');
+    o += C(1, 'الأنواع');
+    o += L(['Virus — ينسخ نفسه', 'Worm — ينتشر', 'Trojan — متنكر', 'Ransomware — فدية', 'Spyware', 'Rootkit', 'Keylogger', 'Botnet', 'RAT', 'Dropper', 'Loader']);
+    o += C(2, 'التحليل الساكن');
+    o += CODE('file sample.exe\nstrings sample.exe\nobjdump -d sample\nreadelf -h sample');
+    o += P('أدوات: PEview, PEStudio, Detect It Easy, YARA.');
+    o += C(3, 'التحليل الديناميكي');
+    o += L(['Cuckoo / ANY.RUN — Sandbox', 'Process Monitor', 'Process Hacker', 'Regshot', 'Wireshark', 'Frida / x64dbg']);
+    o += C(4, 'بيئة آمنة');
+    o += N(['VM معزولة (VirtualBox)', 'بدون شبكة أو Host-Only', 'Snapshot قبل', 'Host Linux منفصل', 'أدوات مراقبة جاهزة']);
+    o += P('⚠️ لا تحلل Malware على جهاز حقيقي!');
+    o += C(5, 'قواعد YARA');
+    o += CODE('rule Example {\n    strings:\n        $a = "malicious_string"\n    condition:\n        $a\n}');
+    o += C(6, 'دفاعات');
+    o += L(['EDR على كل الأجهزة', 'تحديثات دورية', 'تدريب الموظفين', 'Email filtering', 'Backups منتظمة']);
+    o += F();
+    return { filename: 'Malware-Analysis-Book.txt', content: o };
+  }});
+
+  /* 23. SOC */
+  BOOKS.push({ key: 'soc-analyst', title: 'SOC Analyst Guide', icon: '🎯', desc: 'محلل SOC', color: 'cyan', generate: function () {
+    var o = H('SOC ANALYST GUIDE', 'مركز عمليات الأمن');
+    o += C(1, 'ما هو SOC؟');
+    o += P('Security Operations Center — فريق يعمل 24/7 لمراقبة الأنظمة والاستجابة للحوادث.');
+    o += C(2, 'المسؤوليات');
+    o += L(['مراقبة 24/7', 'تحليل التنبيهات', 'التحقق', 'الاستجابة', 'التصعيد', 'التقارير', 'Threat Hunting']);
+    o += C(3, 'المستويات');
+    o += N(['L1 — Triaging', 'L2 — Investigation', 'L3 — Threat Hunting', 'Manager']);
+    o += C(4, 'الأدوات');
+    o += L(['SIEM: Splunk, QRadar, Sentinel', 'EDR: CrowdStrike, SentinelOne', 'SOAR: Phantom, Demisto', 'TIP: MISP, OpenCTI']);
+    o += C(5, 'مصادر البيانات');
+    o += L(['Firewall logs', 'Proxy logs', 'DNS logs', 'EDR telemetry', 'Windows Events', 'Linux syslog', 'Cloud logs', 'NetFlow']);
+    o += C(6, 'مؤشرات IOC');
+    o += L(['عناوين IP مشبوهة', 'نطاقات DNS خبيثة', 'Hash files', 'URLs خطرة', 'User Agents غريبة', 'Registry Keys جديدة']);
+    o += C(7, 'أول 10 دقائق');
+    o += N(['تحقق من التنبيه', 'اجمع السياق', 'حدد المصدر', 'افحص الأثر', 'قرر التصعيد', 'وثّق', 'تواصل مع الفريق', 'اعزل', 'تعلّم', 'حدّث Playbook']);
+    o += F();
+    return { filename: 'SOC-Analyst-Guide.txt', content: o };
+  }});
+
+  /* 24. Career */
+  BOOKS.push({ key: 'career-guide', title: 'Cyber Career Guide', icon: '💼', desc: 'المسار الوظيفي', color: 'green', generate: function () {
+    var o = H('CYBER CAREER GUIDE', 'مسار وظيفي في الأمن');
+    o += C(1, 'خارطة التعلم');
+    o += N(['الشهر 1-2: شبكات + Linux', 'الشهر 3: Python + Bash', 'الشهر 4: مفاهيم أمن', 'الشهر 5-6: THM + OverTheWire', 'الشهر 7-9: تخصص', 'الشهر 10-12: HTB + شهادات', 'السنة 2: OSCP + وظيفة']);
+    o += C(2, 'المسارات الوظيفية');
+    o += L(['SOC Analyst — الأسهل دخولاً', 'Penetration Tester', 'Red Team Operator', 'Blue Team Analyst', 'Malware Analyst', 'Forensics Investigator', 'Cloud Security Engineer', 'AppSec Engineer', 'DevSecOps', 'Security Architect', 'CISO']);
+    o += C(3, 'المهارات');
+    o += L(['Networking (TCP/IP)', 'Linux + Windows', 'Python + Bash', 'Web fundamentals', 'Cryptography', 'Active Directory', 'Cloud', 'Reporting']);
+    o += C(4, 'الشهادات');
+    o += L(['مبتدئ: Security+, CEH, eJPT', 'متوسط: PNPT, GPEN, CRTP', 'متقدم: OSCP, OSWE', 'خبير: CISSP, CISM, CISA']);
+    o += C(5, 'بناء Portfolio');
+    o += N(['مدونة تقنية', 'GitHub بمشاريع', 'CTF Writeups', 'Bug Bounty Reports', 'LinkedIn احترافي']);
+    o += C(6, 'مصادر مجانية');
+    o += L(['TryHackMe', 'PortSwigger Academy', 'OWASP', 'YouTube: NetworkChuck, TCM, John Hammond', 'Cybrary']);
+    o += F();
+    return { filename: 'Cyber-Career-Guide.txt', content: o };
+  }});
+
+  /* 25. Certifications */
+  BOOKS.push({ key: 'certifications', title: 'Certifications Guide', icon: '📜', desc: 'دليل الشهادات', color: 'purple', generate: function () {
+    var o = H('CERTIFICATIONS GUIDE', 'دليل الشهادات');
+    o += C(1, 'المبتدئ');
+    o += L(['CompTIA Security+', 'CEH', 'eJPT', 'Google Cybersecurity', 'Cisco CyberOps']);
+    o += C(2, 'المتوسط');
+    o += L(['PNPT', 'GPEN', 'CRTP', 'CompTIA CySA+', 'CompTIA PenTest+']);
+    o += C(3, 'المتقدم');
+    o += L(['OSCP — الأشهر', 'OSWE', 'OSED', 'OSEP', 'CRTO']);
+    o += C(4, 'الخبير');
+    o += L(['CISSP', 'CISM', 'CISA', 'CCSP']);
+    o += C(5, 'سحابية');
+    o += L(['AWS Security Specialty', 'Azure AZ-500', 'Google Cloud Security', 'CCSP']);
+    o += C(6, 'جنائية');
+    o += L(['GCFA', 'CHFI', 'EnCE']);
+    o += C(7, 'نصائح');
+    o += N(['ابدأ بمستواك', 'ركّز على هدفك', 'لا تجمع بدون خبرة', 'المشاريع أهم', 'ابنِ مختبرك']);
+    o += F();
+    return { filename: 'Certifications-Guide.txt', content: o };
+  }});
+
+  /* 26. Pentest Methodology */
+  BOOKS.push({ key: 'pentest-methodology', title: 'Pentest Methodology', icon: '⚔️', desc: 'منهجية اختبار الاختراق', color: 'red', generate: function () {
+    var o = H('PENTEST METHODOLOGY', 'منهجية اختبار الاختراق');
+    o += C(1, 'المراحل السبع');
+    o += N(['Pre-engagement', 'Intelligence Gathering', 'Threat Modeling', 'Vulnerability Analysis', 'Exploitation', 'Post-Exploitation', 'Reporting']);
+    o += C(2, 'Pre-engagement');
+    o += L(['تحديد Scope', 'توقيع العقد', 'Rules of Engagement', 'جهات اتصال طارئة']);
+    o += C(3, 'جمع المعلومات');
+    o += L(['Passive: OSINT, Shodan, theHarvester', 'Active: Nmap, DNS, Port scan']);
+    o += C(4, 'تحليل الثغرات');
+    o += L(['Nessus / OpenVAS', 'يدوي', 'مراجعة كود', 'بحث CVE']);
+    o += C(5, 'الاستغلال');
+    o += L(['استغلال مؤكد فقط', 'وصول أولي', 'تجنب الاكتشاف', 'توثيق']);
+    o += C(6, 'بعد الاختراق');
+    o += L(['تصعيد الصلاحيات', 'التنقل الجانبي', 'جمع البيانات', 'Persistence', 'تغطية الآثار']);
+    o += C(7, 'التقرير');
+    o += L(['Executive Summary', 'Technical Findings', 'CVSS', 'الحلول', 'Appendix']);
+    o += C(8, 'الأدوات حسب المرحلة');
+    o += L(['Recon: Nmap, Masscan, Amass', 'Web: Burp, ZAP, sqlmap', 'Exploit: Metasploit', 'Post: Mimikatz, BloodHound', 'Wireless: Aircrack-ng']);
+    o += F();
+    return { filename: 'Pentest-Methodology.txt', content: o };
+  }});
+
+  /* 27. Glossary */
+  BOOKS.push({ key: 'glossary-book', title: 'Security Glossary', icon: '📖', desc: 'قاموس المصطلحات', color: 'yellow', generate: function () {
+    var o = H('SECURITY GLOSSARY', 'قاموس المصطلحات الأمنية');
+    o += C(1, 'الأساسيات');
+    var b1 = [['APT','تهديد متقدم مستمر'],['Payload','الحمولة'],['Exploit','كود استغلال'],['0-Day','ثغرة يوم الصفر'],['CVE','معرف ثغرة'],['CVSS','تقييم خطورة'],['PoC','إثبات المفهوم'],['Bug Bounty','مكافأة ثغرات']];
+    b1.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + '\n';});
+    o += C(2, 'البرمجيات الخبيثة');
+    var b2 = [['Virus','ينسخ نفسه'],['Worm','ينتشر'],['Trojan','متنكر'],['Ransomware','فدية'],['Spyware','تجسس'],['Rootkit','يخفي'],['Keylogger','يسجل مفاتيح'],['C2','خادم تحكم']];
+    b2.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + '\n';});
+    o += C(3, 'الاختراق');
+    var b3 = [['Reverse Shell','صدفة معكوسة'],['PrivEsc','تصعيد صلاحيات'],['Lateral Movement','تنقل جانبي'],['Persistence','ثبات'],['Fuzzing','اختبار عشوائي'],['Brute Force','قوة غاشمة']];
+    b3.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + '\n';});
+    o += C(4, 'التشفير');
+    var b4 = [['Symmetric','مفتاح واحد'],['Asymmetric','مفتاحان'],['Hash','اتجاه واحد'],['AES','معيار حديث'],['RSA','خوارزمية'],['TLS','نقل آمن'],['PKI','بنية مفاتيح']];
+    b4.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + '\n';});
+    o += C(5, 'الشبكات');
+    var b5 = [['TCP','موثوق'],['UDP','سريع'],['DNS','أسماء'],['DHCP','عناوين'],['VPN','افتراضية'],['MITM','رجل في المنتصف'],['DDoS','حجب موزع']];
+    b5.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + '\n';});
+    o += C(6, 'ثغرات الويب');
+    var b6 = [['SQLi','حقن SQL'],['XSS','برمجة عبر مواقع'],['CSRF','تزوير طلبات'],['SSRF','تزوير من خادم'],['LFI','تضمين محلي'],['IDOR','مرجع مباشر'],['RCE','تنفيذ عن بعد']];
+    b6.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + '\n';});
+    o += C(7, 'الأدوات');
+    var b7 = [['Kali','توزيعة اختراق'],['Termux','Linux للهاتف'],['Metasploit','إطار استغلال'],['Nmap','ماسح'],['Wireshark','محلل حزم'],['Burp','وسيط ويب'],['Hashcat','كسر هاش']];
+    b7.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + '\n';});
+    o += C(8, 'المعايير');
+    var b8 = [['GDPR','قانون أوروبي'],['HIPAA','قانون أمريكي'],['PCI-DSS','بطاقات'],['ISO 27001','إدارة أمن'],['NIST','معايير'],['OWASP','تطبيقات']];
+    b8.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + '\n';});
+    o += F();
+    return { filename: 'Glossary-Book.txt', content: o };
+  }});
+
+  /* 28. Companies */
+  BOOKS.push({ key: 'companies-book', title: 'Companies Directory', icon: '🏢', desc: 'دليل الشركات', color: 'cyan', generate: function () {
+    var o = H('COMPANIES DIRECTORY', 'شركات الأمن السيبراني');
+    o += C(1, 'EDR/XDR/Endpoint');
+    var c1 = [['CrowdStrike','EDR/XDR','USA'],['SentinelOne','EDR','USA'],['Cybereason','EDR','Israel'],['Carbon Black','EDR','USA'],['Sophos','Endpoint','UK'],['Kaspersky','AV','Russia'],['ESET','AV','Slovakia'],['Bitdefender','AV','Romania'],['Malwarebytes','Anti-Malware','USA']];
+    c1.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(2, 'NGFW/Firewall');
+    var c2 = [['Palo Alto','NGFW','USA'],['Fortinet','FortiGate','USA'],['Cisco','Networking','USA'],['Check Point','Firewall','Israel'],['Juniper','Networking','USA'],['SonicWall','Firewall','USA']];
+    c2.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(3, 'SIEM/SOC');
+    var c3 = [['Splunk','SIEM','USA'],['IBM QRadar','SIEM','USA'],['LogRhythm','SIEM','USA'],['Elastic','SIEM','Open'],['Exabeam','UEBA','USA'],['Microsoft Sentinel','SIEM','USA']];
+    c3.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(4, 'Threat Intel');
+    var c4 = [['Mandiant','IR','USA'],['Recorded Future','TI','USA'],['MISP','مفتوح','Open'],['OpenCTI','مفتوح','Open'],['AlienVault','TI','USA'],['VirusTotal','File Analysis','Google']];
+    c4.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(5, 'Web App Security');
+    var c5 = [['PortSwigger','Burp Suite','UK'],['OWASP','مفتوح','Open'],['Veracode','SAST/DAST','USA'],['Checkmarx','SAST','Israel'],['Snyk','DevSecOps','UK'],['SonarQube','SAST','Open']];
+    c5.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(6, 'IAM');
+    var c6 = [['Okta','Identity','USA'],['Ping Identity','IAM','USA'],['Auth0','Identity','USA'],['CyberArk','PAM','Israel'],['BeyondTrust','PAM','USA'],['1Password','Password','Canada'],['Bitwarden','Password','Open']];
+    c6.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(7, 'VPN/Privacy');
+    var c7 = [['Mullvad','VPN','Sweden'],['Proton','Privacy','Switzerland'],['IVPN','VPN','Gibraltar'],['ExpressVPN','VPN','BVI'],['NordVPN','VPN','Lithuania'],['Signal','Messaging','USA']];
+    c7.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(8, 'Cloud Security');
+    var c8 = [['Wiz','Cloud','Israel'],['Orca','Cloud','Israel'],['Lacework','Cloud','USA'],['Aqua','Container','Israel'],['Sysdig','Container','USA']];
+    c8.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(9, 'التدريب');
+    var c9 = [['OffSec','OSCP','USA'],['SANS','GIAC','USA'],['EC-Council','CEH','USA'],['ISC²','CISSP','USA'],['CompTIA','Security+','USA'],['HackTheBox','تدريب','UK'],['TryHackMe','تدريب','UK']];
+    c9.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += C(10, 'Bug Bounty');
+    var c10 = [['HackerOne','منصة','USA'],['Bugcrowd','منصة','USA'],['YesWeHack','منصة','France'],['Synack','منصة','USA'],['Intigriti','منصة','Belgium']];
+    c10.forEach(function(x){o += '  • ' + x[0] + ' — ' + x[1] + ' (' + x[2] + ')\n';});
+    o += F();
+    return { filename: 'Companies-Directory.txt', content: o };
+  }});
+
+  /* 29. Bundle */
+  BOOKS.push({ key: 'complete-bundle', title: 'Complete Bundle', icon: '📦', desc: 'فهرس شامل', color: 'green', generate: function () {
+    var o = H('SECRET BOX BUNDLE', 'فهرس كامل');
+    o += C(1, 'مقدمة');
+    o += P('فهرس لكل شيء في Secret Box — كل كتاب لاحتياج معين.');
+    o += C(2, 'الكتب المتاحة');
+    var books = ['Termux Master — Linux على أندرويد', 'Linux Master — Linux الشامل', 'Kali Master — أدوات Kali', 'Python for Hacking', 'Git Commands', 'Docker Master', 'Android & ADB', 'Network Master', 'SQL Commands', 'Ethical Hacking Guide', 'Web Security', 'Cryptography', 'OSINT Guide', 'Wireless Security', 'Digital Forensics', 'Reverse Engineering', 'Cloud Security', 'IoT Security', 'Blockchain Security', 'SCADA Security', 'Threat Intelligence', 'Malware Analysis', 'SOC Analyst Guide', 'Cyber Career Guide', 'Certifications Guide', 'Pentest Methodology', 'Security Glossary', 'Companies Directory'];
+    o += books.map(function(b,i){return '  ' + (i+1) + ') ' + b + '\n';}).join('');
+    o += C(3, 'كيف تستخدم؟');
+    o += P('للمبتدئ: Ethical Hacking + Linux + Termux');
+    o += P('للويب: Web Security + SQL + Python');
+    o += P('للشبكات: Network + Wireless + Kali');
+    o += P('للجنائي: Forensics + Malware + Reverse');
+    o += P('للسحابة: Cloud + Docker + Linux');
+    o += C(4, 'خاتمة');
+    o += P('اختر مساراً واحداً وأتقنه قبل الانتقال لغيره.');
+    o += F();
+    return { filename: 'SecretBox-Complete-Bundle.txt', content: o };
+  }});
+
+  /* 30. Quick Reference */
+  BOOKS.push({ key: 'quick-reference', title: 'Quick Reference', icon: '⚡', desc: 'مرجع سريع', color: 'yellow', generate: function () {
+    var o = H('QUICK REFERENCE', 'مرجع سريع للأوامر');
+    o += C(1, 'Linux');
+    o += CODE('pwd, ls -la, cd, mkdir, touch, cp, mv, rm\nfind, grep, cat, less, head, tail\nchmod 755, chown user:group, sudo su -\nps aux, top, kill -9 PID\nip a, ping, netstat, curl -I');
+    o += C(2, 'Termux');
+    o += CODE('pkg update && pkg upgrade -y\ntermux-setup-storage\npkg install git python nmap hydra -y\npip install sqlmap requests');
+    o += C(3, 'Kali');
+    o += CODE('nmap -sV target\nmsfconsole\nsqlmap -u URL --dbs\nhydra -l u -P list ssh://target\nairmon-ng start wlan0');
+    o += C(4, 'Windows');
+    o += CODE('dir, cd, md, rd, del, copy, move\ntasklist, taskkill /F /PID\ntasklist, ipconfig /all, netstat -an\nnet user, net localgroup\nwmic, reg, sfc /scannow');
+    o += C(5, 'Python');
+    o += CODE('import requests, socket, scapy, paramiko\nrequests.get(URL)\nsocket.socket()\nparamiko.SSHClient()');
+    o += C(6, 'Git');
+    o += CODE('git init, clone, status, add, commit, push\ngit branch, checkout, merge\ngit log --oneline, git diff');
+    o += C(7, 'Docker');
+    o += CODE('docker ps, images, run, exec, logs\ndocker compose up -d\ndocker system prune -a');
+    o += C(8, 'شهادات ومنصات');
+    o += L(['TryHackMe, HackTheBox', 'Security+, CEH, OSCP', 'PortSwigger, picoCTF, OverTheWire']);
+    o += F();
+    return { filename: 'Quick-Reference.txt', content: o };
+  }});
+
+  /* ========== PUBLIC API ========== */
+  function getAll() {
+    return BOOKS.map(function(b){
+      return { key: b.key, title: b.title, icon: b.icon, desc: b.desc, color: b.color || 'green' };
     });
-    return out;
   }
-
-  /* ============================================================
-     BOOKS DEFINITIONS
-     ============================================================ */
-
-  const BOOKS = [
-
-    /* -------- 01: Linux Master -------- */
-    {
-      key: 'linux-master',
-      title: 'Linux Master',
-      icon: '🐧',
-      desc: 'كل أوامر Linux بالتفصيل مع الشرح',
-      color: 'green',
-      generate: () => {
-        let out = header('LINUX MASTER BOOK', 'دليل شامل لأوامر Linux');
-        out += 'المقدمة:\n' + HR2 + '\n';
-        out += 'Linux هو نظام تشغيل مفتوح المصدر، أساس كل بيئة أمن سيبراني.\n';
-        out += 'هذا الكتاب يحتوي على ' + (window.SB_DATA?.getCategoryCount('linux') || 0) + ' أمر أساسي ومتقدم.\n';
-        out += section(1, 'أساسيات الملفات والمجلدات');
-        out += fromCategory('linux');
-        out += footer();
-        return { filename: 'Linux-Master-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 02: Termux Master -------- */
-    {
-      key: 'termux-master',
-      title: 'Termux Master',
-      icon: '📱',
-      desc: 'دليل Termux الكامل مع API',
-      color: 'cyan',
-      generate: () => {
-        let out = header('TERMUX MASTER BOOK', 'Linux كامل على أندرويد');
-        out += 'المقدمة:\n' + HR2 + '\n';
-        out += 'Termux هو محاكي Linux كامل على أندرويد، يمنحك طرفية قوية بدون root.\n';
-        out += 'حمّل من F-Droid (نسخة Play مهجورة)!\n\n';
-        out += section(1, 'كل أوامر Termux');
-        out += fromCategory('termux');
-        out += section(2, 'نصائح احترافية');
-        out += bullet('فعّل Wake Lock من القائمة اليسرى لمنع النوم');
-        out += bullet('استخدم tmux للجلسات المتعددة');
-        out += bullet('خد نسخة احتياطية من ~/.termux');
-        out += bullet('ثبّت Termux:Boot لتشغيل سكربتات عند الإقلاع');
-        out += bullet('استخدم proot-distro لتشغيل توزيعات Linux كاملة');
-        out += footer();
-        return { filename: 'Termux-Master-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 03: Kali Master -------- */
-    {
-      key: 'kali-master',
-      title: 'Kali Master',
-      icon: '🐉',
-      desc: 'كل أدوات Kali الـ14 فئة',
-      color: 'purple',
-      generate: () => {
-        let out = header('KALI LINUX MASTER BOOK', 'التوزيعة رقم 1 للاختراق الأخلاقي');
-        out += 'المقدمة:\n' + HR2 + '\n';
-        out += 'Kali Linux توزيعة Debian-based تحتوي على 600+ أداة أمنية.\n';
-        out += 'عدد الأوامر في هذا الكتاب: ' + (window.SB_DATA?.getCategoryCount('kali') || 0) + '\n\n';
-        out += section(1, 'فئات Kali الـ14');
-        ['Information Gathering', 'Vulnerability Analysis', 'Web Applications',
-         'Password Attacks', 'Wireless Attacks', 'Exploitation Tools',
-         'Sniffing & Spoofing', 'Post Exploitation', 'Forensics',
-         'Reporting Tools', 'Social Engineering', 'Anonymity',
-         'Reverse Engineering', 'Stress Testing'].forEach((s, i) => {
-          out += numbered(i + 1, s);
-        });
-        out += section(2, 'كل الأوامر');
-        out += fromCategory('kali');
-        out += section(3, 'تحذير');
-        out += '⚠️ استخدم Kali فقط في بيئة آمنة أو بإذن كتابي!\n';
-        out += footer();
-        return { filename: 'Kali-Master-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 04: Windows Commands -------- */
-    {
-      key: 'windows-commands',
-      title: 'Windows Commands',
-      icon: '🪟',
-      desc: 'CMD + PowerShell كامل',
-      color: 'cyan',
-      generate: () => {
-        let out = header('WINDOWS COMMANDS BOOK', 'CMD + PowerShell');
-        out += section(1, 'CMD — أوامر موجه الأوامر');
-        out += fromCategory('windows');
-        out += section(2, 'PowerShell');
-        out += fromCategory('powershell');
-        out += section(3, 'نصائح');
-        out += bullet('استخدم Tab للإكمال التلقائي');
-        out += bullet('F7 يعرض سجل الأوامر');
-        out += bullet('cls لتنظيف الشاشة');
-        out += bullet('Ctrl+C لإيقاف أمر يعمل');
-        out += footer();
-        return { filename: 'Windows-Commands-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 05: Python for Hacking -------- */
-    {
-      key: 'python-hacking',
-      title: 'Python for Hacking',
-      icon: '🐍',
-      desc: 'Python في الأمن السيبراني',
-      color: 'yellow',
-      generate: () => {
-        let out = header('PYTHON FOR HACKING', 'اللغة رقم 1 في الأمن السيبراني');
-        out += 'المقدمة:\n' + HR2 + '\n';
-        out += 'Python هي اللغة الأكثر استخداماً في كتابة أدوات الأمن السيبراني.\n';
-        out += 'سهلة، قوية، ومكتباتها ضخمة.\n\n';
-        out += section(1, 'أساسيات Python');
-        out += fromCategory('python');
-        out += section(2, 'مكتبات مهمة للأمن');
-        out += bullet('requests — HTTP requests');
-        out += bullet('scapy — تحليل الحزم');
-        out += bullet('paramiko — SSH');
-        out += bullet('cryptography — تشفير');
-        out += bullet('BeautifulSoup — تحليل HTML');
-        out += bullet('socket — اتصالات شبكية');
-        out += bullet('hashlib — hash functions');
-        out += bullet('base64 — ترميز');
-        out += section(3, 'أمثلة عملية');
-        out += '\n[مثال 1] فحص منفذ:\n';
-        out += '```python\n';
-        out += 'import socket\n';
-        out += 's = socket.socket()\n';
-        out += 's.settimeout(2)\n';
-        out += 'result = s.connect_ex(("target", 80))\n';
-        out += 'print("Open" if result == 0 else "Closed")\n';
-        out += 's.close()\n';
-        out += '```\n\n';
-        out += '[مثال 2] طلب HTTP:\n';
-        out += '```python\n';
-        out += 'import requests\n';
-        out += 'r = requests.get("https://example.com")\n';
-        out += 'print(r.status_code, r.text[:100])\n';
-        out += '```\n';
-        out += footer();
-        return { filename: 'Python-Hacking-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 06: Git Commands -------- */
-    {
-      key: 'git-commands',
-      title: 'Git Commands',
-      icon: '📦',
-      desc: 'كل أوامر Git',
-      color: 'orange',
-      generate: () => {
-        let out = header('GIT COMMANDS BOOK', 'نظام التحكم في الإصدارات');
-        out += section(1, 'كل الأوامر');
-        out += fromCategory('git');
-        out += section(2, 'سير عمل يومي');
-        out += numbered(1, 'git status           → اعرف الحالة');
-        out += numbered(2, 'git add .            → أضف كل التغييرات');
-        out += numbered(3, 'git commit -m "msg"  → التزم');
-        out += numbered(4, 'git push             → ارفع');
-        out += numbered(5, 'git pull             → اسحب');
-        out += footer();
-        return { filename: 'Git-Commands-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 07: Docker Master -------- */
-    {
-      key: 'docker-master',
-      title: 'Docker Master',
-      icon: '🐳',
-      desc: 'Docker + Compose كامل',
-      color: 'cyan',
-      generate: () => {
-        let out = header('DOCKER MASTER BOOK', 'الحاويات في الأمن السيبراني');
-        out += 'المقدمة:\n' + HR2 + '\n';
-        out += 'Docker منصة الحاويات الأولى عالمياً، تُستخدم في:\n';
-        out += bullet('بناء مختبرات اختبار آمنة');
-        out += bullet('نشر الأدوات الأمنية');
-        out += bullet('اختبار الاختراق السريع');
-        out += section(1, 'كل الأوامر');
-        out += fromCategory('docker');
-        out += section(2, 'أمثلة عملية');
-        out += '\n[بناء مختبر اختبار]:\n';
-        out += '```bash\n';
-        out += 'docker run -d -p 3000:3000 bkimminich/juice-shop\n';
-        out += '```\n\n';
-        out += '[تشغيل Kali]:\n';
-        out += '```bash\n';
-        out += 'docker run -it kalilinux/kali-rolling bash\n';
-        out += '```\n';
-        out += footer();
-        return { filename: 'Docker-Master-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 08: Android & ADB -------- */
-    {
-      key: 'android-adb',
-      title: 'Android & ADB',
-      icon: '📲',
-      desc: 'كل أوامر ADB + Android',
-      color: 'green',
-      generate: () => {
-        let out = header('ANDROID & ADB BOOK', 'التحكم الكامل بأندرويد');
-        out += section(1, 'كل أوامر ADB');
-        out += fromCategory('adb');
-        out += section(2, 'معلومات مهمة');
-        out += bullet('ADB = Android Debug Bridge');
-        out += bullet('يتطلب تفعيل Developer Options');
-        out += bullet('USB Debugging يجب أن يكون مفعلاً');
-        out += bullet('يعمل عبر USB أو WiFi (adb tcpip)');
-        out += section(3, 'استخدامات أمنية');
-        out += bullet('اختبار أمان التطبيقات');
-        out += bullet('تحليل الحزم المثبتة');
-        out += bullet('قراءة السجلات');
-        out += bullet('استخراج نسخ احتياطية');
-        out += footer();
-        return { filename: 'Android-ADB-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 09: Network Master -------- */
-    {
-      key: 'network-master',
-      title: 'Network Master',
-      icon: '📡',
-      desc: 'كل أوامر الشبكات',
-      color: 'purple',
-      generate: () => {
-        let out = header('NETWORK MASTER BOOK', 'دليل الشبكات الشامل');
-        out += section(1, 'طبقات OSI السبع');
-        ['7. Application — HTTP, DNS, FTP, SMTP',
-         '6. Presentation — SSL/TLS, JPEG',
-         '5. Session — NetBIOS, RPC',
-         '4. Transport — TCP, UDP',
-         '3. Network — IP, ICMP, ARP',
-         '2. Data Link — Ethernet, MAC',
-         '1. Physical — كابلات، إشارات'].forEach((s) => out += bullet(s));
-        out += section(2, 'المنافذ الشهيرة');
-        ['20/21 FTP', '22 SSH', '23 Telnet', '25 SMTP', '53 DNS',
-         '80 HTTP', '110 POP3', '143 IMAP', '443 HTTPS', '445 SMB',
-         '3306 MySQL', '3389 RDP', '5432 PostgreSQL', '6379 Redis',
-         '27017 MongoDB'].forEach((s) => out += bullet(s));
-        out += section(3, 'كل الأوامر');
-        out += fromCategory('network');
-        out += footer();
-        return { filename: 'Network-Master-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 10: SQL Commands -------- */
-    {
-      key: 'sql-commands',
-      title: 'SQL Commands',
-      icon: '🗄️',
-      desc: 'كل أوامر SQL',
-      color: 'yellow',
-      generate: () => {
-        let out = header('SQL COMMANDS BOOK', 'قواعد البيانات');
-        out += section(1, 'كل الأوامر');
-        out += fromCategory('sql');
-        out += section(2, 'أنواع الأوامر');
-        out += bullet('DDL — تعريف البيانات (CREATE, ALTER, DROP)');
-        out += bullet('DML — معالجة البيانات (SELECT, INSERT, UPDATE, DELETE)');
-        out += bullet('DCL — التحكم بالبيانات (GRANT, REVOKE)');
-        out += bullet('TCL — التحكم بالمعاملات (BEGIN, COMMIT, ROLLBACK)');
-        out += footer();
-        return { filename: 'SQL-Commands-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 11: Ethical Hacking Guide -------- */
-    {
-      key: 'ethical-hacking',
-      title: 'Ethical Hacking Guide',
-      icon: '🎯',
-      desc: 'دليل الاختراق الأخلاقي الشامل',
-      color: 'red',
-      generate: () => {
-        let out = header('ETHICAL HACKING GUIDE', 'الفن والعلم في اختبار الأمان');
-        out += section(1, 'مراحل الاختراق الأخلاقي (9)');
-        const phases = [
-          'Reconnaissance — جمع المعلومات',
-          'Scanning — مسح الشبكة',
-          'Enumeration — تعداد الخدمات',
-          'Exploitation — استغلال الثغرات',
-          'Privilege Escalation — تصعيد الصلاحيات',
-          'Lateral Movement — التنقل الجانبي',
-          'Persistence — الثبات',
-          'Covering Tracks — تغطية الآثار',
-          'Reporting — كتابة التقرير'
-        ];
-        phases.forEach((p, i) => out += numbered(i + 1, p));
-        out += section(2, 'أنواع المخترقين');
-        const types = [
-          'White Hat — أخلاقي بقانون',
-          'Black Hat — ضار ومجرم',
-          'Grey Hat — بينهما',
-          'Red Team — هجوم',
-          'Blue Team — دفاع',
-          'Purple Team — دمج الفريقين',
-          'Hacktivist — سياسي',
-          'Script Kiddie — مبتدئ',
-          'APT — مدعوم من دولة'
-        ];
-        types.forEach((t) => out += bullet(t));
-        out += section(3, 'الشهادات الاحترافية');
-        const certs = [
-          'مبتدئ: CompTIA Security+, CEH, eJPT',
-          'متوسط: PNPT, GPEN, CRTP',
-          'متقدم: OSCP, OSWE, OSED, OSEP',
-          'خبير: CISSP, CISM, OSCE³',
-          'سحابي: AWS Security, CCSP',
-          'جنائي: GCFA, CHFI'
-        ];
-        certs.forEach((c) => out += bullet(c));
-        out += section(4, 'منصات التدريب');
-        const platforms = [
-          'TryHackMe — للمبتدئين',
-          'Hack The Box — تحديات واقعية',
-          'VulnHub — أجهزة وهمية',
-          'PortSwigger Academy — ويب (مجاني)',
-          'picoCTF — مسابقات',
-          'OverTheWire — أساسيات Linux',
-          'Root-Me — تحديات متنوعة',
-          'PentesterLab — تمارين ويب'
-        ];
-        platforms.forEach((p) => out += bullet(p));
-        out += section(5, 'الأدوات الأساسية');
-        const tools = [
-          'Nmap — فحص الشبكات',
-          'Wireshark — تحليل الحزم',
-          'Burp Suite — اختبار الويب',
-          'Metasploit — إطار الاستغلال',
-          'Hashcat — كسر الهاش',
-          'John the Ripper — كلمات المرور',
-          'Hydra — هجمات القواميس',
-          'sqlmap — حقن SQL',
-          'Aircrack-ng — شبكات لاسلكية',
-          'Maltego — تحليل العلاقات',
-          'Ghidra — هندسة عكسية',
-          'Volatility — تحليل الذاكرة'
-        ];
-        tools.forEach((t) => out += bullet(t));
-        out += section(6, 'تحذير قانوني صارم');
-        out += '⚠️ الاختراق بدون إذن كتابي مسبق = جريمة في كل الدول.\n';
-        out += '⚠️ هذا الكتاب للأغراض التعليمية والدفاعية فقط.\n';
-        out += '⚠️ المسؤولية القانونية تقع عليك وحدك.\n';
-        out += footer();
-        return { filename: 'Ethical-Hacking-Guide.txt', content: out };
-      }
-    },
-
-    /* -------- 12: Web Security Guide -------- */
-    {
-      key: 'web-security',
-      title: 'Web Security',
-      icon: '🌐',
-      desc: 'OWASP Top 10 + كل الثغرات',
-      color: 'cyan',
-      generate: () => {
-        let out = header('WEB SECURITY GUIDE', 'أمن تطبيقات الويب');
-        out += section(1, 'OWASP Top 10 (2021)');
-        const owasp = [
-          'A01 — Broken Access Control',
-          'A02 — Cryptographic Failures',
-          'A03 — Injection',
-          'A04 — Insecure Design',
-          'A05 — Security Misconfiguration',
-          'A06 — Vulnerable and Outdated Components',
-          'A07 — Identification and Authentication Failures',
-          'A08 — Software and Data Integrity Failures',
-          'A09 — Security Logging and Monitoring Failures',
-          'A10 — Server-Side Request Forgery (SSRF)'
-        ];
-        owasp.forEach((o) => out += bullet(o));
-        out += section(2, 'SQL Injection');
-        out += 'النوع: حقن استعلامات SQL\n';
-        out += 'الخطورة: عالية جداً\n';
-        out += 'الحماية: Prepared Statements، ORM، Parameterized Queries\n\n';
-        out += 'أمثلة Payload:\n';
-        out += "  admin' OR '1'='1\n";
-        out += "  ' UNION SELECT NULL,NULL--\n";
-        out += "  1' AND SLEEP(5)--\n";
-        out += "  sqlmap -u \"URL?id=1\" --dbs\n";
-        out += section(3, 'XSS — Cross-Site Scripting');
-        out += bullet('Reflected — يعكس مباشرة');
-        out += bullet('Stored — مخزن (الأخطر)');
-        out += bullet('DOM-based — من JavaScript');
-        out += 'الحماية: CSP، Escape Output، Sanitize Input\n';
-        out += 'Payload: <script>alert(1)</script>\n';
-        out += section(4, 'CSRF — Cross-Site Request Forgery');
-        out += 'الحماية: CSRF Tokens، SameSite Cookies، Referer Check\n';
-        out += section(5, 'IDOR — Insecure Direct Object Reference');
-        out += 'تغيير المعرّفات: ?id=1000 → ?id=1001\n';
-        out += 'الحماية: UUIDs، Authorization Checks\n';
-        out += section(6, 'SSRF — Server-Side Request Forgery');
-        out += 'Payloads:\n';
-        out += bullet('http://127.0.0.1:80');
-        out += bullet('http://169.254.169.254/latest/meta-data/');
-        out += bullet('file:///etc/passwd');
-        out += bullet('gopher://127.0.0.1:6379/');
-        out += section(7, 'JWT Attacks');
-        out += bullet('none algorithm');
-        out += bullet('Weak secret brute-force');
-        out += bullet('Algorithm confusion (RS → HS)');
-        out += section(8, 'الأدوات');
-        out += bullet('Burp Suite — الأقوى');
-        out += bullet('OWASP ZAP — مجاني');
-        out += bullet('Caido — حديث');
-        out += bullet('sqlmap — SQLi');
-        out += bullet('ffuf, gobuster — Fuzzing');
-        out += bullet('nuclei — قوالب');
-        out += bullet('wpscan — WordPress');
-        out += section(9, 'منصات التدريب');
-        out += bullet('PortSwigger Academy (مجاني)');
-        out += bullet('OWASP Juice Shop');
-        out += bullet('DVWA');
-        out += bullet('bWAPP');
-        out += bullet('WebGoat');
-        out += footer();
-        return { filename: 'Web-Security-Guide.txt', content: out };
-      }
-    },
-
-    /* -------- 13: Cryptography Guide -------- */
-    {
-      key: 'crypto-guide',
-      title: 'Cryptography',
-      icon: '🔐',
-      desc: 'علم التشفير الشامل',
-      color: 'purple',
-      generate: () => {
-        let out = header('CRYPTOGRAPHY GUIDE', 'علم التشفير من الصفر');
-        out += section(1, 'أنواع التشفير');
-        out += bullet('Symmetric — نفس المفتاح للتشفير والفك');
-        out += bullet('Asymmetric — مفتاح عام للتشفير، خاص للفك');
-        out += bullet('Hash — اتجاه واحد (لا يمكن عكسه)');
-        out += bullet('HMAC — Hash + مفتاح');
-        out += bullet('Digital Signature — توقيع رقمي');
-        out += section(2, 'الخوارزميات المتماثلة');
-        out += bullet('AES (128/192/256) — المعيار الحالي');
-        out += bullet('ChaCha20 — حديث سريع');
-        out += bullet('Twofish — بديل AES');
-        out += bullet('Blowfish — قديم');
-        out += bullet('3DES — قديم ومكسور');
-        out += section(3, 'الخوارزميات غير المتماثلة');
-        out += bullet('RSA (2048/4096) — الأشهر');
-        out += bullet('ECC — مفاتيح أصغر');
-        out += bullet('Ed25519 — حديث للتوقيع');
-        out += bullet('ECDSA — منحنى بيضاوي');
-        out += bullet('Diffie-Hellman — تبادل مفاتيح');
-        out += section(4, 'دوال الهاش');
-        out += bullet('SHA-256/512 — آمن');
-        out += bullet('SHA-3 — الأحدث');
-        out += bullet('BLAKE2 / BLAKE3 — سريع');
-        out += bullet('bcrypt — كلمات المرور');
-        out += bullet('Argon2 — الأفضل للكلمات');
-        out += bullet('MD5 — مكسور ❌');
-        out += bullet('SHA-1 — ضعيف ❌');
-        out += section(5, 'أدوات التشفير');
-        out += bullet('GPG — تشفير البريد والملفات');
-        out += bullet('OpenSSL — مكتبة شاملة');
-        out += bullet('VeraCrypt — تشفير الأقراص');
-        out += bullet('Age — حديث وسريع');
-        out += bullet('Cryptomator — تشفير السحابة');
-        out += section(6, 'أمثلة عملية');
-        out += '\n[تشفير ملف بـ GPG]:\n';
-        out += 'gpg -c secret.txt\n';
-        out += 'gpg -d secret.txt.gpg\n\n';
-        out += '[تشفير AES بـ OpenSSL]:\n';
-        out += 'openssl enc -aes-256-cbc -in file -out file.enc\n';
-        out += 'openssl enc -d -aes-256-cbc -in file.enc -out file\n\n';
-        out += '[Hash لملف]:\n';
-        out += 'sha256sum file\n';
-        out += 'md5sum file\n';
-        out += section(7, 'Post-Quantum Cryptography');
-        out += bullet('CRYSTALS-Kyber — تبادل مفاتيح');
-        out += bullet('CRYSTALS-Dilithium — توقيع');
-        out += bullet('Falcon — توقيع');
-        out += bullet('SPHINCS+ — hash-based');
-        out += footer();
-        return { filename: 'Cryptography-Guide.txt', content: out };
-      }
-    },
-
-    /* -------- 14: OSINT Guide -------- */
-    {
-      key: 'osint-guide',
-      title: 'OSINT Guide',
-      icon: '🔍',
-      desc: 'الاستخبارات مفتوحة المصدر',
-      color: 'cyan',
-      generate: () => {
-        let out = header('OSINT GUIDE', 'الاستخبارات مفتوحة المصدر');
-        out += 'المقدمة:\n' + HR2 + '\n';
-        out += 'OSINT = Open Source Intelligence\n';
-        out += 'جمع المعلومات من المصادر العامة بشكل قانوني.\n';
-        out += 'أساس كل تحقيق أمني.\n\n';
-        out += section(1, 'محركات البحث');
-        out += bullet('Google Dorks — بحث متقدم');
-        out += bullet('Shodan — الأجهزة المتصلة بالإنترنت');
-        out += bullet('Censys — مسح الإنترنت');
-        out += bullet('FOFA — محرك صيني');
-        out += bullet('ZoomEye — أجهزة وخدمات');
-        out += bullet('GreyNoise — تحليل التهديدات');
-        out += bullet('BinaryEdge — بيانات الإنترنت');
-        out += section(2, 'Google Dorks الشهيرة');
-        out += bullet('site:example.com');
-        out += bullet('inurl:admin');
-        out += bullet('intitle:"index of"');
-        out += bullet('filetype:pdf');
-        out += bullet('intext:"password"');
-        out += bullet('ext:env DB_PASSWORD');
-        out += bullet('inurl:".git/config"');
-        out += bullet('inurl:phpmyadmin');
-        out += section(3, 'البحث عن الأشخاص');
-        out += bullet('Have I Been Pwned — التسريبات');
-        out += bullet('DeHashed — تسريبات مدفوعة');
-        out += bullet('IntelX — بحث شامل');
-        out += bullet('Sherlock — اسم مستخدم');
-        out += bullet('Maigret — بديل Sherlock');
-        out += bullet('WhatsMyName — خدمات');
-        out += section(4, 'النطاقات والشبكات');
-        out += bullet('Whois — تسجيل النطاق');
-        out += bullet('DNSDumpster — تعداد DNS');
-        out += bullet('SecurityTrails — تاريخ DNS');
-        out += bullet('VirusTotal — فحص شامل');
-        out += bullet('urlscan.io — تحليل المواقع');
-        out += bullet('crt.sh — الشهادات');
-        out += bullet('BuiltWith — تقنيات الموقع');
-        out += bullet('Wappalyzer — كشف التقنيات');
-        out += section(5, 'تحليل الصور');
-        out += bullet('Google Reverse Image Search');
-        out += bullet('Yandex Images — الأفضل للوجه');
-        out += bullet('TinEye — بحث بالصورة');
-        out += bullet('PimEyes — التعرف على الوجه');
-        out += bullet('ExifTool — بيانات الصورة');
-        out += bullet('FotoForensics — ELA');
-        out += section(6, 'الأدوات الشاملة');
-        out += bullet('Maltego — تحليل العلاقات');
-        out += bullet('SpiderFoot — أتمتة OSINT');
-        out += bullet('theHarvester — إيميلات ونطاقات');
-        out += bullet('Recon-ng — إطار استطلاع');
-        out += bullet('Photon — زاحف سريع');
-        out += bullet('Metagoofil — استخراج البيانات');
-        out += section(7, 'نصائح أخلاقية');
-        out += '⚠️ استخدم فقط المعلومات المتاحة علناً\n';
-        out += '⚠️ لا تخترق حسابات خاصة\n';
-        out += '⚠️ احترم خصوصية الآخرين\n';
-        out += '⚠️ التوثيق مهم في كل تحقيق\n';
-        out += footer();
-        return { filename: 'OSINT-Guide.txt', content: out };
-      }
-    },
-
-    /* -------- 15: Wireless Security -------- */
-    {
-      key: 'wireless-security',
-      title: 'Wireless Security',
-      icon: '📶',
-      desc: 'أمن WiFi + Bluetooth',
-      color: 'purple',
-      generate: () => {
-        let out = header('WIRELESS SECURITY', 'أمن الشبكات اللاسلكية');
-        out += section(1, 'معايير WiFi');
-        out += bullet('802.11a/b/g — قديم');
-        out += bullet('802.11n — WiFi 4');
-        out += bullet('802.11ac — WiFi 5');
-        out += bullet('802.11ax — WiFi 6 / 6E');
-        out += bullet('802.11be — WiFi 7');
-        out += section(2, 'تشفير WiFi');
-        out += bullet('WEP — مكسور بالكامل ❌');
-        out += bullet('WPA — ضعيف (TKIP) ❌');
-        out += bullet('WPA2 — مقبول (AES-CCMP)');
-        out += bullet('WPA3 — الأفضل (SAE) ✅');
-        out += section(3, 'وضع المراقبة (Monitor Mode)');
-        out += 'الأوامر الأساسية:\n';
-        out += 'airmon-ng start wlan0\n';
-        out += 'airmon-ng check kill\n';
-        out += 'iwconfig\n';
-        out += 'airodump-ng wlan0mon\n';
-        out += 'airodump-ng -c 6 --bssid MAC -w cap wlan0mon\n';
-        out += 'aireplay-ng --deauth 10 -a MAC wlan0mon\n';
-        out += 'aircrack-ng -w wordlist.txt cap.cap\n';
-        out += 'airmon-ng stop wlan0mon\n';
-        out += section(4, 'هجمات WiFi');
-        out += bullet('Handshake Capture — التقاط المصافحة');
-        out += bullet('Deauth Attack — قطع الاتصال');
-        out += bullet('Evil Twin — نقطة وصول مزيفة');
-        out += bullet('Rogue AP — AP خبيث');
-        out += bullet('WPS PIN Attack — كسر WPS');
-        out += bullet('PMKID Attack — بدون handshake');
-        out += bullet('KRACK — ثغرة WPA2');
-        out += bullet('FragAttacks — هجمات التجزئة');
-        out += section(5, 'Bluetooth');
-        out += bullet('Bluejacking — إرسال رسائل');
-        out += bullet('Bluesnarfing — سرقة بيانات');
-        out += bullet('Bluebugging — تحكم كامل');
-        out += bullet('BLE Sniffing — اعتراض BLE');
-        out += section(6, 'RFID / NFC');
-        out += bullet('Proxmark3 — الأقوى');
-        out += bullet('ChameleonMini — محمول');
-        out += bullet('ACR122U — USB reader');
-        out += bullet('Mifare Classic Attack');
-        out += bullet('Nested Attack');
-        out += bullet('Darkside Attack');
-        out += section(7, 'حماية WiFi');
-        out += bullet('WPA3 + AES');
-        out += bullet('كلمة مرور قوية (20+ حرف)');
-        out += bullet('تعطيل WPS');
-        out += bullet('تعطيل الإدارة عن بعد');
-        out += bullet('SSID مخفي (فائدة محدودة)');
-        out += bullet('فلترة MAC (سهلة التجاوز)');
-        out += bullet('تحديث Firmware دورياً');
-        out += bullet('شبكة ضيوف منفصلة');
-        out += footer();
-        return { filename: 'Wireless-Security-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 16: Digital Forensics -------- */
-    {
-      key: 'forensics-guide',
-      title: 'Digital Forensics',
-      icon: '🔬',
-      desc: 'التحليل الجنائي الرقمي',
-      color: 'cyan',
-      generate: () => {
-        let out = header('DIGITAL FORENSICS', 'التحليل الجنائي الرقمي');
-        out += section(1, 'المراحل السبع');
-        ['Identification — تحديد الأدلة',
-         'Preservation — الحفظ',
-         'Acquisition — الاستحواذ',
-         'Examination — الفحص',
-         'Analysis — التحليل',
-         'Documentation — التوثيق',
-         'Presentation — العرض'].forEach((s, i) => out += numbered(i + 1, s));
-        out += section(2, 'أخذ نسخة من القرص');
-        out += '\n[الأساسي — dd]:\n';
-        out += 'dd if=/dev/sda of=image.dd bs=4M status=progress\n';
-        out += 'dd if=/dev/sda | gzip > image.dd.gz\n\n';
-        out += '[مع Hashing — dc3dd]:\n';
-        out += 'dc3dd if=/dev/sda of=image.dd hash=sha256\n\n';
-        out += '[أدوات GUI]:\n';
-        out += bullet('Guymager — Linux');
-        out += bullet('FTK Imager — Windows');
-        out += bullet('EnCase — تجاري');
-        out += '\n[التحقق]:\n';
-        out += 'sha256sum image.dd\n';
-        out += section(3, 'أدوات جنائية');
-        out += bullet('Autopsy — تحليل شامل GUI');
-        out += bullet('Sleuth Kit — أدوات CLI');
-        out += bullet('Volatility — تحليل الذاكرة');
-        out += bullet('Rekall — بديل Volatility');
-        out += bullet('Foremost — استعادة ملفات');
-        out += bullet('Scalpel — بديل Foremost');
-        out += bullet('Binwalk — تحليل firmware');
-        out += bullet('ExifTool — metadata');
-        out += bullet('Bulk Extractor — استخراج شامل');
-        out += bullet('Plaso / log2timeline — timeline');
-        out += section(4, 'تحليل الذاكرة');
-        out += 'vol.py -f mem.dump imageinfo\n';
-        out += 'vol.py -f mem.dump --profile=Win10x64 pslist\n';
-        out += 'vol.py -f mem.dump --profile=Win10x64 netscan\n';
-        out += 'vol.py -f mem.dump --profile=Win10x64 hashdump\n';
-        out += 'vol.py -f mem.dump --profile=Win10x64 cmdline\n';
-        out += 'vol.py -f mem.dump --profile=Win10x64 dlllist\n';
-        out += section(5, 'استعادة الملفات المحذوفة');
-        out += bullet('TestDisk — استعادة أقسام');
-        out += bullet('PhotoRec — صور وملفات');
-        out += bullet('R-Studio — تجاري');
-        out += bullet('Recuva — Windows');
-        out += bullet('extundelete — Linux ext3/4');
-        out += bullet('ext4magic — Linux');
-        out += section(6, 'Mobile Forensics');
-        out += bullet('Autopsy — تحليل صور');
-        out += bullet('Magnet AXIOM — تجاري');
-        out += bullet('Cellebrite UFED — المعيار');
-        out += bullet('Oxygen Forensic — أدوات');
-        out += bullet('ALEAPP — Android مفتوح');
-        out += bullet('iLEAPP — iOS مفتوح');
-        out += bullet('Andriller — أندرويد');
-        out += section(7, 'قواعد مهمة');
-        out += '⚠️ لا تلمس الأدلة الأصلية\n';
-        out += '⚠️ استخدم Write Blocker\n';
-        out += '⚠️ وثّق كل خطوة\n';
-        out += '⚠️ احفظ Chain of Custody\n';
-        out += footer();
-        return { filename: 'Forensics-Guide.txt', content: out };
-      }
-    },
-
-    /* -------- 17: Reverse Engineering -------- */
-    {
-      key: 'reverse-engineering',
-      title: 'Reverse Engineering',
-      icon: '🔧',
-      desc: 'الهندسة العكسية للبرامج',
-      color: 'red',
-      generate: () => {
-        let out = header('REVERSE ENGINEERING', 'الهندسة العكسية للبرامج');
-        out += section(1, 'الأدوات');
-        out += bullet('Ghidra — NSA مفتوح المصدر');
-        out += bullet('IDA Pro — تجاري (المعيار)');
-        out += bullet('IDA Free — مجاني');
-        out += bullet('radare2 — طرفية مفتوحة');
-        out += bullet('Cutter — واجهة لـ radare2');
-        out += bullet('x64dbg — Windows debugger');
-        out += bullet('OllyDbg — Windows قديم');
-        out += bullet('GDB + pwndbg — Linux');
-        out += bullet('ltrace — مكتبات');
-        out += bullet('strace — استدعاءات النظام');
-        out += section(2, 'أنواع التحليل');
-        out += bullet('Static Analysis — بدون تشغيل');
-        out += bullet('Dynamic Analysis — أثناء التشغيل');
-        out += bullet('Hybrid — مختلط');
-        out += bullet('Symbolic Execution — تنفيذ رمزي');
-        out += bullet('Taint Analysis — تحليل تلوث');
-        out += section(3, 'أوامر أساسية');
-        out += 'file binary              # نوع الملف\n';
-        out += 'strings binary           # استخراج نصوص\n';
-        out += 'readelf -h binary        # ترويسات ELF\n';
-        out += 'objdump -d binary        # تفكيك\n';
-        out += 'nm binary                # رموز\n';
-        out += 'gdb ./binary             # debugger\n';
-        out += 'ltrace ./binary          # تتبع مكتبات\n';
-        out += 'strace ./binary          # تتبع calls\n';
-        out += section(4, 'ثغرات شائعة في البرامج');
-        out += bullet('Buffer Overflow — تجاوز سعة');
-        out += bullet('Heap Overflow — تجاوز الكومة');
-        out += bullet('Use After Free — استخدام بعد تحرير');
-        out += bullet('Double Free — تحرير مزدوج');
-        out += bullet('Race Condition — حالة تسابق');
-        out += bullet('Format String — ثغرة صيغة');
-        out += bullet('Integer Overflow — تجاوز رقمي');
-        out += bullet('ROP / JOP — برمجة عائدية');
-        out += section(5, 'حمايات حديثة');
-        out += bullet('ASLR — عشوائية عناوين');
-        out += bullet('DEP/NX — منع تنفيذ');
-        out += bullet('Stack Canary — كناري');
-        out += bullet('PIE — تنفيذ مستقل');
-        out += bullet('CFI — سلامة تدفق التحكم');
-        out += bullet('Fortify Source');
-        out += section(6, 'أدوات تحليل أندرويد');
-        out += bullet('Jadx — فك APK');
-        out += bullet('APKTool — تفكيك وإعادة بناء');
-        out += bullet('Frida — تحليل ديناميكي');
-        out += bullet('Objection — أتمتة Frida');
-        out += bullet('MobSF — تحليل شامل');
-        out += bullet('Drozer — اختبار أندرويد');
-        out += footer();
-        return { filename: 'Reverse-Engineering.txt', content: out };
-      }
-    },
-
-    /* -------- 18: Cloud Security -------- */
-    {
-      key: 'cloud-security',
-      title: 'Cloud Security',
-      icon: '☁️',
-      desc: 'أمن AWS + Azure + GCP',
-      color: 'cyan',
-      generate: () => {
-        let out = header('CLOUD SECURITY', 'أمن الحوسبة السحابية');
-        out += section(1, 'AWS — أدوات أمنية');
-        out += bullet('GuardDuty — كشف التهديدات');
-        out += bullet('Security Hub — مركز أمني');
-        out += bullet('IAM Access Analyzer');
-        out += bullet('CloudTrail — تسجيل الأنشطة');
-        out += bullet('Inspector — فحص الثغرات');
-        out += bullet('Macie — حماية البيانات');
-        out += bullet('WAF & Shield — حماية');
-        out += section(2, 'Azure — أدوات أمنية');
-        out += bullet('Microsoft Defender for Cloud');
-        out += bullet('Microsoft Sentinel — SIEM');
-        out += bullet('Azure AD / Entra ID');
-        out += bullet('Key Vault — إدارة المفاتيح');
-        out += bullet('Security Center');
-        out += section(3, 'GCP — أدوات أمنية');
-        out += bullet('Security Command Center');
-        out += bullet('Cloud Armor — WAF');
-        out += bullet('IAM — إدارة الهويات');
-        out += bullet('VPC Service Controls');
-        out += bullet('Cloud KMS');
-        out += section(4, 'أدوات متعددة السحابة');
-        out += bullet('ScoutSuite — تدقيق متعدد');
-        out += bullet('Prowler — AWS/Azure/GCP');
-        out += bullet('Cloudsplaining — AWS IAM');
-        out += bullet('Pacu — AWS exploitation');
-        out += bullet('trufflehog — بحث secrets');
-        out += bullet('gitleaks — Git secrets');
-        out += bullet('Steampipe — استعلام السحابة');
-        out += section(5, 'مخاطر السحابة الشائعة');
-        out += bullet('مفاتيح API مسربة');
-        out += bullet('S3 Buckets مفتوحة');
-        out += bullet('IAM Permissions زائدة');
-        out += bullet('عدم تشفير البيانات');
-        out += bullet('Logging غير مفعّل');
-        out += bullet('Security Groups مفتوحة');
-        out += bullet('عدم استخدام MFA');
-        out += section(6, 'أفضل الممارسات');
-        out += bullet('مبدأ أقل صلاحية (Least Privilege)');
-        out += bullet('تشفير at-rest و in-transit');
-        out += bullet('MFA على كل شيء');
-        out += bullet('مراقبة مستمرة');
-        out += bullet('تدوير المفاتيح دورياً');
-        out += bullet('استخدام Secrets Manager');
-        out += bullet('Zero Trust Architecture');
-        out += footer();
-        return { filename: 'Cloud-Security-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 19: IoT Security -------- */
-    {
-      key: 'iot-security',
-      title: 'IoT Security',
-      icon: '🌐',
-      desc: 'أمن إنترنت الأشياء',
-      color: 'green',
-      generate: () => {
-        let out = header('IoT SECURITY', 'أمن إنترنت الأشياء');
-        out += section(1, 'المخاطر الشائعة');
-        out += bullet('كلمات مرور افتراضية');
-        out += bullet('Firmware قديم بدون تحديثات');
-        out += bullet('منافذ شبكة مفتوحة');
-        out += bullet('تشفير ضعيف أو معدوم');
-        out += bullet('اتصالات غير آمنة');
-        out += bullet('عدم وجود تحديثات تلقائية');
-        out += bullet('Hardcoded credentials');
-        out += section(2, 'أدوات تحليل');
-        out += bullet('Binwalk — تحليل firmware');
-        out += bullet('Firmware Analysis Toolkit');
-        out += bullet('AttifyOS — توزيعة IoT');
-        out += bullet('RouterSploit — أجهزة الراوتر');
-        out += bullet('IoTSeeker — فحص شبكة');
-        out += bullet('Shodan — أجهزة متصلة');
-        out += bullet('UART/JTAG tools');
-        out += section(3, 'منهجية اختبار');
-        out += numbered(1, 'جمع المعلومات عن الجهاز');
-        out += numbered(2, 'تحليل الاتصالات');
-        out += numbered(3, 'استخراج Firmware');
-        out += numbered(4, 'تحليل Firmware');
-        out += numbered(5, 'اختبار الواجهات (UART, JTAG)');
-        out += numbered(6, 'اختبار Wireless');
-        out += numbered(7, 'اختبار APIs');
-        out += section(4, 'الدفاعات');
-        out += bullet('غيّر كلمات المرور الافتراضية');
-        out += bullet('حدّث Firmware دورياً');
-        out += bullet('افصل IoT في شبكة منفصلة');
-        out += bullet('راقب التدفق الشبكي');
-        out += bullet('أغلق المنافذ غير المستخدمة');
-        out += bullet('فعّل التشفير');
-        out += bullet('استخدم كلمات مرور قوية');
-        out += footer();
-        return { filename: 'IoT-Security-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 20: Blockchain Security -------- */
-    {
-      key: 'blockchain-security',
-      title: 'Blockchain Security',
-      icon: '⛓️',
-      desc: 'أمن العقود الذكية والبلوكتشين',
-      color: 'orange',
-      generate: () => {
-        let out = header('BLOCKCHAIN SECURITY', 'أمن العقود الذكية');
-        out += section(1, 'الثغرات الشائعة');
-        out += bullet('Reentrancy — إعادة الدخول');
-        out += bullet('Integer Overflow/Underflow');
-        out += bullet('Access Control Issues');
-        out += bullet('Front-running');
-        out += bullet('Flash Loan Attacks');
-        out += bullet('Oracle Manipulation');
-        out += bullet('Denial of Service');
-        out += bullet('Unchecked External Calls');
-        out += section(2, 'أدوات التدقيق');
-        out += bullet('Slither — تحليل ثابت');
-        out += bullet('Mythril — تحليل رمزي');
-        out += bullet('Manticore — تنفيذ رمزي');
-        out += bullet('Echidna — fuzzer');
-        out += bullet('Remix IDE — بيئة تطوير');
-        out += bullet('Foundry — إطار اختبار');
-        out += bullet('Hardhat — بيئة');
-        out += section(3, 'منهجية التدقيق');
-        out += numbered(1, 'فهم العقد كاملاً');
-        out += numbered(2, 'تحليل ثابت (Slither)');
-        out += numbered(3, 'اختبار يدوي');
-        out += numbered(4, 'اختبار Fuzzing');
-        out += numbered(5, 'Formal Verification');
-        out += numbered(6, 'اختبار الغاز');
-        out += numbered(7, 'كتابة التقرير');
-        out += section(4, 'أمثلة عملية');
-        out += '\n[Reentrancy — نموذج]:\n';
-        out += 'function withdraw() public {\n';
-        out += '    uint bal = balances[msg.sender];\n';
-        out += '    require(bal > 0);\n';
-        out += '    (bool sent, ) = msg.sender.call{value: bal}("");\n';
-        out += '    require(sent, "Failed");\n';
-        out += '    balances[msg.sender] = 0;\n';
-        out += '}\n';
-        out += '\nالحماية:\n';
-        out += bullet('استخدم Checks-Effects-Interactions');
-        out += bullet('استخدم ReentrancyGuard من OpenZeppelin');
-        out += bullet('حدّث الحالة قبل الاتصال الخارجي');
-        out += section(5, 'أفضل الممارسات');
-        out += bullet('تدقيق من أكثر من جهة');
-        out += bullet('Bug Bounty قبل الإطلاق');
-        out += bullet('Timelock للعقود الحساسة');
-        out += bullet('Multi-sig للمحافظ');
-        out += bullet('اختبار شامل قبل النشر');
-        out += footer();
-        return { filename: 'Blockchain-Security-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 21: SCADA Security -------- */
-    {
-      key: 'scada-security',
-      title: 'SCADA Security',
-      icon: '🏭',
-      desc: 'أمن أنظمة التحكم الصناعي',
-      color: 'red',
-      generate: () => {
-        let out = header('SCADA SECURITY', 'أمن أنظمة التحكم الصناعية');
-        out += section(1, 'المفاهيم الأساسية');
-        out += bullet('SCADA — Supervisory Control And Data Acquisition');
-        out += bullet('ICS — Industrial Control Systems');
-        out += bullet('PLC — Programmable Logic Controller');
-        out += bullet('HMI — Human Machine Interface');
-        out += bullet('RTU — Remote Terminal Unit');
-        out += bullet('DCS — Distributed Control System');
-        out += section(2, 'البروتوكولات الشائعة');
-        out += bullet('Modbus (TCP/RTU) — الأشهر');
-        out += bullet('DNP3 — للكهرباء');
-        out += bullet('Profinet — سيمنز');
-        out += bullet('EtherNet/IP — ألن-برادلي');
-        out += bullet('OPC UA — حديث');
-        out += bullet('IEC 61850 — كهرباء');
-        out += bullet('BACnet — مباني');
-        out += section(3, 'هجمات معروفة');
-        out += bullet('Stuxnet — 2010 (إيران)');
-        out += bullet('Industroyer — 2016 (أوكرانيا)');
-        out += bullet('Triton — 2017 (السعودية)');
-        out += bullet('Havex — 2014');
-        out += bullet('BlackEnergy — 2015');
-        out += section(4, 'مخاطر رئيسية');
-        out += bullet('اتصال ICS بالإنترنت');
-        out += bullet('كلمات مرور ضعيفة');
-        out += bullet('عدم تحديث الأنظمة');
-        out += bullet('شبكات مسطحة (Flat)');
-        out += bullet('غياب المراقبة');
-        out += bullet('USB غير موثوق');
-        out += section(5, 'أدوات');
-        out += bullet('GRASSMARLIN — رسم شبكة');
-        out += bullet('Wireshark dissectors');
-        out += bullet('PLCinject');
-        out += bullet('Metasploit ICS modules');
-        out += bullet('ModbusPal — محاكي');
-        out += bullet('Snort IDS للـ ICS');
-        out += section(6, 'الدفاعات');
-        out += bullet('فصل شبكة ICS عن IT');
-        out += bullet('Data Diode للاتجاه الواحد');
-        out += bullet('مراقبة مستمرة');
-        out += bullet('تدريب الموظفين');
-        out += bullet('Backup للأنظمة');
-        out += bullet('تحكم في الوصول');
-        out += bullet('IDS متخصص');
-        out += footer();
-        return { filename: 'SCADA-Security-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 22: Threat Intelligence -------- */
-    {
-      key: 'threat-intel',
-      title: 'Threat Intelligence',
-      icon: '🕵️',
-      desc: 'استخبارات التهديدات',
-      color: 'purple',
-      generate: () => {
-        let out = header('THREAT INTELLIGENCE', 'استخبارات التهديدات');
-        out += section(1, 'أنواع Intel');
-        out += bullet('Strategic — للقادة (طويل المدى)');
-        out += bullet('Operational — للعمليات');
-        out += bullet('Tactical — للمحللين');
-        out += bullet('Technical — للمهندسين');
-        out += section(2, 'أطر العمل');
-        out += bullet('Cyber Kill Chain — Lockheed Martin');
-        out += bullet('MITRE ATT&CK — الأشهر');
-        out += bullet('Diamond Model — نموذج ماسي');
-        out += bullet('Pyramid of Pain — هرم الألم');
-        out += bullet('Unified Kill Chain');
-        out += section(3, 'مصادر Intel');
-        out += bullet('MISP — منصة مشتركة');
-        out += bullet('OpenCTI — مفتوح المصدر');
-        out += bullet('AlienVault OTX — مجاني');
-        out += bullet('ThreatConnect — تجاري');
-        out += bullet('Recorded Future — تجاري');
-        out += bullet('VirusTotal — فحص');
-        out += bullet('Shodan — أجهزة');
-        out += section(4, 'المصطلحات');
-        out += bullet('IOC — Indicators of Compromise');
-        out += bullet('IOA — Indicators of Attack');
-        out += bullet('TTPs — Tactics, Techniques, Procedures');
-        out += bullet('APT — Advanced Persistent Threat');
-        out += bullet('C2 — Command and Control');
-        out += bullet('TTPs — Tactics and Techniques');
-        out += section(5, 'MITRE ATT&CK — 14 تكتيك');
-        out += bullet('1. Reconnaissance — استطلاع');
-        out += bullet('2. Resource Development — تطوير');
-        out += bullet('3. Initial Access — وصول أولي');
-        out += bullet('4. Execution — تنفيذ');
-        out += bullet('5. Persistence — ثبات');
-        out += bullet('6. Privilege Escalation — تصعيد');
-        out += bullet('7. Defense Evasion — مراوغة');
-        out += bullet('8. Credential Access — بيانات الدخول');
-        out += bullet('9. Discovery — استكشاف');
-        out += bullet('10. Lateral Movement — تنقل');
-        out += bullet('11. Collection — جمع');
-        out += bullet('12. C2 — تحكم');
-        out += bullet('13. Exfiltration — تسريب');
-        out += bullet('14. Impact — تأثير');
-        out += footer();
-        return { filename: 'Threat-Intelligence.txt', content: out };
-      }
-    },
-
-    /* -------- 23: Malware Analysis -------- */
-    {
-      key: 'malware-analysis',
-      title: 'Malware Analysis',
-      icon: '🦠',
-      desc: 'تحليل البرمجيات الخبيثة',
-      color: 'red',
-      generate: () => {
-        let out = header('MALWARE ANALYSIS', 'تحليل البرمجيات الخبيثة');
-        out += section(1, 'أنواع البرمجيات الخبيثة');
-        out += bullet('Virus — ينسخ نفسه في ملفات');
-        out += bullet('Worm — ينتشر ذاتياً عبر الشبكة');
-        out += bullet('Trojan — يتنكر بتطبيق مشروع');
-        out += bullet('Ransomware — يشفر البيانات ويطلب فدية');
-        out += bullet('Spyware — يتجسس على النشاط');
-        out += bullet('Adware — إعلانات مزعجة');
-        out += bullet('Rootkit — يخفي وجوده');
-        out += bullet('Keylogger — يسجل ضغطات المفاتيح');
-        out += bullet('Botnet — جعل الجهاز جزءاً من شبكة');
-        out += bullet('RAT — تحكم عن بعد');
-        out += bullet('Dropper — يُنزل ملفات أخرى');
-        out += bullet('Loader — يحمل الكود الخبيث');
-        out += bullet('Wiper — يمحو البيانات');
-        out += bullet('Cryptominer — تعدين خفي');
-        out += section(2, 'التحليل الساكن (Static)');
-        out += bullet('strings binary');
-        out += bullet('file binary');
-        out += bullet('objdump -d binary');
-        out += bullet('readelf -h binary');
-        out += bullet('PEview / PEStudio');
-        out += bullet('Detect It Easy');
-        out += bullet('YARA rules');
-        out += section(3, 'التحليل الديناميكي (Dynamic)');
-        out += bullet('Sandbox: Cuckoo, ANY.RUN');
-        out += bullet('Process Monitor');
-        out += bullet('Process Hacker');
-        out += bullet('Regshot — مراقبة السجل');
-        out += bullet('Wireshark — مراقبة الشبكة');
-        out += bullet('Frida / x64dbg');
-        out += section(4, 'بيئة آمنة');
-        out += '⚠️ لا تحلل malware على جهازك الحقيقي!\n';
-        out += bullet('VM معزولة بدون شبكة');
-        out += bullet('Host-only networking');
-        out += bullet('Snapshot قبل التحليل');
-        out += bullet('استخدم Linux VM للتحليل');
-        out += bullet('أدوات مراقبة قبل التشغيل');
-        out += section(5, 'قواعد YARA');
-        out += '\nrule Example_Malware {\n';
-        out += '    meta:\n';
-        out += '        description = "Example"\n';
-        out += '    strings:\n';
-        out += '        $a = "suspicious_string"\n';
-        out += '    condition:\n';
-        out += '        $a\n';
-        out += '}\n';
-        out += section(6, 'الدفاع');
-        out += bullet('EDR على كل الأجهزة');
-        out += bullet('تحديثات دورية');
-        out += bullet('تدريب الموظفين');
-        out += bullet('Email filtering');
-        out += bullet('Application whitelisting');
-        out += bullet('Network segmentation');
-        out += bullet('Backups منتظمة');
-        out += footer();
-        return { filename: 'Malware-Analysis-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 24: SOC Analyst Guide -------- */
-    {
-      key: 'soc-analyst',
-      title: 'SOC Analyst Guide',
-      icon: '🎯',
-      desc: 'دليل محلل SOC',
-      color: 'cyan',
-      generate: () => {
-        let out = header('SOC ANALYST GUIDE', 'مركز عمليات الأمن');
-        out += section(1, 'ما هو SOC؟');
-        out += 'SOC = Security Operations Center\n';
-        out += 'فريق يعمل 24/7 لمراقبة الأنظمة والاستجابة للحوادث.\n\n';
-        out += section(2, 'مسؤوليات SOC');
-        out += bullet('مراقبة مستمرة (24/7)');
-        out += bullet('تحليل التنبيهات');
-        out += bullet('التحقق من الحوادث');
-        out += bullet('الاستجابة الأولية');
-        out += bullet('التصعيد للفريق المختص');
-        out += bullet('كتابة التقارير');
-        out += bullet('Threat Hunting');
-        out += section(3, 'المستويات');
-        out += numbered(1, 'L1 — Triaging (فحص أولي)');
-        out += numbered(2, 'L2 — Investigation (تحقيق)');
-        out += numbered(3, 'L3 — Threat Hunting (صيد)');
-        out += numbered(4, 'SOC Manager — الإدارة');
-        out += section(4, 'أدوات SOC');
-        out += bullet('SIEM: Splunk, QRadar, Sentinel');
-        out += bullet('EDR: CrowdStrike, SentinelOne');
-        out += bullet('SOAR: Phantom, Demisto, Shuffle');
-        out += bullet('TIP: MISP, OpenCTI');
-        out += bullet('NDR: Darktrace, Vectra');
-        out += bullet('Forensics: Volatility, Autopsy');
-        out += section(5, 'مصادر البيانات');
-        out += bullet('Firewall logs');
-        out += bullet('Proxy logs');
-        out += bullet('DNS logs');
-        out += bullet('EDR telemetry');
-        out += bullet('Windows Event Logs');
-        out += bullet('Linux syslog');
-        out += bullet('Cloud logs (CloudTrail, etc.)');
-        out += bullet('NetFlow / IPFIX');
-        out += section(6, 'مؤشرات الاختراق IOC');
-        out += bullet('عناوين IP مشبوهة');
-        out += bullet('نطاقات DNS خبيثة');
-        out += bullet('Hash files خبيثة');
-        out += bullet('URLs خطرة');
-        out += bullet('User Agents غريبة');
-        out += bullet('Registry Keys جديدة');
-        out += bullet('عمليات غير معروفة');
-        out += section(7, 'أهم 10 دقائق في SOC');
-        out += numbered(1, 'تحقق من التنبيه');
-        out += numbered(2, 'اجمع السياق');
-        out += numbered(3, 'حدد المصدر');
-        out += numbered(4, 'افحص الأثر');
-        out += numbered(5, 'قرر التصعيد');
-        out += numbered(6, 'وثّق الخطوات');
-        out += numbered(7, 'تواصل مع الفريق');
-        out += numbered(8, 'اعزل إن لزم');
-        out += numbered(9, 'تعلّم من الحادثة');
-        out += numbered(10, 'حدّث الـ Playbook');
-        out += footer();
-        return { filename: 'SOC-Analyst-Guide.txt', content: out };
-      }
-    },
-
-    /* -------- 25: Career Guide -------- */
-    {
-      key: 'career-guide',
-      title: 'Cyber Career Guide',
-      icon: '💼',
-      desc: 'مسار وظيفي في الأمن السيبراني',
-      color: 'green',
-      generate: () => {
-        let out = header('CYBER CAREER GUIDE', 'مسار وظيفي في الأمن السيبراني');
-        out += section(1, 'خارطة التعلم');
-        out += numbered(1, 'الشهر 1-2: أساسيات الشبكات + Linux');
-        out += numbered(2, 'الشهر 3: البرمجة (Python + Bash)');
-        out += numbered(3, 'الشهر 4: مفاهيم أمن (CIA, Crypto)');
-        out += numbered(4, 'الشهر 5-6: تدريب عملي (THM, HTB)');
-        out += numbered(5, 'الشهر 7-9: تخصص (Web/Network/Cloud)');
-        out += numbered(6, 'الشهر 10-12: HTB + شهادات');
-        out += numbered(7, 'السنة 2: OSCP + وظيفة');
-        out += section(2, 'المسارات الوظيفية');
-        out += bullet('SOC Analyst — محلل');
-        out += bullet('Penetration Tester — مخترق أخلاقي');
-        out += bullet('Red Team Operator — فريق أحمر');
-        out += bullet('Blue Team Analyst — فريق أزرق');
-        out += bullet('Malware Analyst — محلل برمجيات');
-        out += bullet('Forensics Investigator — محقق جنائي');
-        out += bullet('Cloud Security Engineer — سحابة');
-        out += bullet('AppSec Engineer — أمن تطبيقات');
-        out += bullet('DevSecOps — دمج الأمن');
-        out += bullet('Security Architect — معماري');
-        out += bullet('CISO — مدير أمن معلومات');
-        out += section(3, 'المهارات الأساسية');
-        out += bullet('Networking (TCP/IP)');
-        out += bullet('Linux + Windows');
-        out += bullet('Python + Bash');
-        out += bullet('Web fundamentals');
-        out += bullet('Cryptography basics');
-        out += bullet('Active Directory');
-        out += bullet('Cloud (AWS/Azure)');
-        out += bullet('Reporting');
-        out += section(4, 'الشهادات');
-        out += subsection('مبتدئ');
-        out += bullet('CompTIA Security+');
-        out += bullet('CEH — Certified Ethical Hacker');
-        out += bullet('eJPT — Junior Penetration Tester');
-        out += subsection('متوسط');
-        out += bullet('PNPT — Practical Network Pen Tester');
-        out += bullet('GPEN — GIAC Penetration Tester');
-        out += bullet('CRTP — Certified Red Team Professional');
-        out += subsection('متقدم');
-        out += bullet('OSCP — الأصعب والأشهر');
-        out += bullet('OSWE, OSED, OSEP');
-        out += bullet('CRTO — Certified Red Team Operator');
-        out += subsection('خبير');
-        out += bullet('CISSP — Certified Information Systems Security Professional');
-        out += bullet('CISM — Certified Information Security Manager');
-        out += bullet('CISA — Certified Information Systems Auditor');
-        out += section(5, 'نصائح للحصول على وظيفة');
-        out += bullet('ابنِ Portfolio قوي');
-        out += bullet('شارك في Bug Bounty');
-        out += bullet('اكتب Writeups للـ CTF');
-        out += bullet('شارك في المجتمعات');
-        out += bullet('ساهم في Open Source');
-        out += bullet('أنشئ مدونة تقنية');
-        out += bullet('تواصل مع المهنيين');
-        out += section(6, 'مصادر مجانية');
-        out += bullet('TryHackMe (بعض المسارات مجانية)');
-        out += bullet('PortSwigger Academy');
-        out += bullet('OWASP');
-        out += bullet('Hack The Box (بعض التحديات)');
-        out += bullet('Cybrary');
-        out += bullet('YouTube: NetworkChuck, TCM, John Hammond');
-        out += footer();
-        return { filename: 'Cyber-Career-Guide.txt', content: out };
-      }
-    },
-
-    /* -------- 26: Certifications Guide -------- */
-    {
-      key: 'certifications',
-      title: 'Certifications Guide',
-      icon: '📜',
-      desc: 'دليل الشهادات الأمنية',
-      color: 'purple',
-      generate: () => {
-        let out = header('CERTIFICATIONS GUIDE', 'دليل الشهادات الأمنية');
-        out += section(1, 'شهادات المبتدئين');
-        out += bullet('CompTIA Security+ — الأشهر للمبتدئين');
-        out += bullet('CEH — Certified Ethical Hacker');
-        out += bullet('eJPT — eLearnSecurity Junior Penetration Tester');
-        out += bullet('Google Cybersecurity — مجانية');
-        out += bullet('Cisco CyberOps Associate');
-        out += bullet('CompTIA Network+ — أساس الشبكات');
-        out += section(2, 'شهادات متوسطة');
-        out += bullet('PNPT — Practical Network Pen Tester');
-        out += bullet('GPEN — GIAC Penetration Tester');
-        out += bullet('CRTP — Certified Red Team Professional');
-        out += bullet('CompTIA CySA+ — محلل');
-        out += bullet('CompTIA PenTest+ — اختبار اختراق');
-        out += bullet('ECSA — EC-Council Certified Security Analyst');
-        out += section(3, 'شهادات متقدمة');
-        out += bullet('OSCP — Offensive Security Certified Professional');
-        out += bullet('OSWE — Web Expert');
-        out += bullet('OSED — Exploit Developer');
-        out += bullet('OSEP — Experienced Penetration Tester');
-        out += bullet('CRTO — Certified Red Team Operator');
-        out += bullet('CRTL — Red Team Lead');
-        out += section(4, 'شهادات الخبراء');
-        out += bullet('CISSP — Certified Information Systems Security Professional');
-        out += bullet('CISM — Certified Information Security Manager');
-        out += bullet('CISA — Certified Information Systems Auditor');
-        out += bullet('CCSP — Certified Cloud Security Professional');
-        out += bullet('ISSAP — Information Systems Security Architecture Professional');
-        out += section(5, 'شهادات سحابية');
-        out += bullet('AWS Certified Security — Specialty');
-        out += bullet('Microsoft Azure Security Engineer (AZ-500)');
-        out += bullet('Google Professional Cloud Security Engineer');
-        out += bullet('CCSP — ISC2');
-        out += section(6, 'شهادات جنائية');
-        out += bullet('GCFA — GIAC Certified Forensic Analyst');
-        out += bullet('GCFE — Windows Forensic Examiner');
-        out += bullet('CHFI — Computer Hacking Forensic Investigator');
-        out += bullet('EnCE — EnCase Certified Examiner');
-        out += section(7, 'نصائح للاختيار');
-        out += bullet('ابدأ بشهادة مبتدئ تناسب مستواك');
-        out += bullet('ركّز على شهادة تخدم هدفك الوظيفي');
-        out += bullet('لا تجمع شهادات بدون خبرة عملية');
-        out += bullet('الأداء العملي أهم من الشهادات');
-        out += bullet('ابنِ مختبرك وطبّق');
-        out += footer();
-        return { filename: 'Certifications-Guide.txt', content: out };
-      }
-    },
-
-    /* -------- 27: Pentest Methodology -------- */
-    {
-      key: 'pentest-methodology',
-      title: 'Pentest Methodology',
-      icon: '⚔️',
-      desc: 'منهجية اختبار الاختراق',
-      color: 'red',
-      generate: () => {
-        let out = header('PENTEST METHODOLOGY', 'منهجية اختبار الاختراق');
-        out += section(1, 'المراحل السبع');
-        out += numbered(1, 'Pre-engagement — التحضير');
-        out += numbered(2, 'Intelligence Gathering — جمع المعلومات');
-        out += numbered(3, 'Threat Modeling — نمذجة التهديدات');
-        out += numbered(4, 'Vulnerability Analysis — تحليل الثغرات');
-        out += numbered(5, 'Exploitation — الاستغلال');
-        out += numbered(6, 'Post-Exploitation — بعد الاختراق');
-        out += numbered(7, 'Reporting — التقرير');
-        out += section(2, 'المرحلة 1: Pre-engagement');
-        out += bullet('تحديد النطاق (Scope)');
-        out += bullet('توقيع العقد');
-        out += bullet('Rules of Engagement');
-        out += bullet('جهات الاتصال الطارئة');
-        out += bullet('تحديد الأهداف');
-        out += section(3, 'المرحلة 2: Intelligence Gathering');
-        out += bullet('Passive Recon — سلبي');
-        out += bullet('Active Recon — نشط');
-        out += bullet('OSINT — مصادر مفتوحة');
-        out += bullet('Social Media');
-        out += bullet('DNS enumeration');
-        out += bullet('Subdomain discovery');
-        out += bullet('Port scanning');
-        out += bullet('Service enumeration');
-        out += section(4, 'المرحلة 3: Threat Modeling');
-        out += bullet('تحديد الأصول');
-        out += bullet('تحديد التهديدات');
-        out += bullet('تحليل المخاطر');
-        out += bullet('تحديد الأولويات');
-        out += section(5, 'المرحلة 4: Vulnerability Analysis');
-        out += bullet('ماسحات آلية (Nessus, OpenVAS)');
-        out += bullet('تحليل يدوي');
-        out += bullet('مراجعة الكود');
-        out += bullet('بحث CVE');
-        out += bullet('تحقق من الثغرات');
-        out += section(6, 'المرحلة 5: Exploitation');
-        out += bullet('استغلال الثغرات المؤكدة');
-        out += bullet('الحصول على وصول أولي');
-        out += bullet('تجنب اكتشافه');
-        out += bullet('توثيق كل خطوة');
-        out += section(7, 'المرحلة 6: Post-Exploitation');
-        out += bullet('تصعيد الصلاحيات');
-        out += bullet('التنقل الجانبي');
-        out += bullet('جمع البيانات');
-        out += bullet('إنشاء Persistence');
-        out += bullet('تغطية الآثار');
-        out += section(8, 'المرحلة 7: Reporting');
-        out += bullet('Executive Summary');
-        out += bullet('Scope & Methodology');
-        out += bullet('Findings (مع CVSS)');
-        out += bullet('Risk Rating');
-        out += bullet('Remediation (الحلول)');
-        out += bullet('Appendix (الأدلة)');
-        out += section(9, 'أدوات كل مرحلة');
-        out += subsection('Recon');
-        out += bullet('Nmap, Masscan, Amass, Subfinder');
-        out += subsection('Web');
-        out += bullet('Burp, ZAP, sqlmap, ffuf');
-        out += subsection('Exploit');
-        out += bullet('Metasploit, Cobalt Strike, SearchSploit');
-        out += subsection('Post');
-        out += bullet('Mimikatz, BloodHound, LinPEAS');
-        out += subsection('Wireless');
-        out += bullet('Aircrack-ng, Bettercap, Kismet');
-        out += footer();
-        return { filename: 'Pentest-Methodology.txt', content: out };
-      }
-    },
-
-    /* -------- 28: Glossary -------- */
-    {
-      key: 'glossary-book',
-      title: 'Security Glossary',
-      icon: '📖',
-      desc: 'قاموس المصطلحات الأمنية',
-      color: 'yellow',
-      generate: () => {
-        let out = header('SECURITY GLOSSARY', 'قاموس المصطلحات الأمنية');
-        out += 'هذا الكتاب يحتوي على جميع المصطلحات الأمنية بالعربية والإنجليزية.\n';
-        out += 'يتم توليده من قاعدة بيانات المصطلحات في الموقع.\n\n';
-        if (window.SB_GLOSSARY) {
-          out += 'عدد المصطلحات: ' + window.SB_GLOSSARY.length + '\n\n';
-          out += HR + '\n\n';
-          window.SB_GLOSSARY.forEach(([term, desc], i) => {
-            out += '[' + (i + 1) + '] ' + term + '\n';
-            out += '    → ' + desc + '\n\n';
-          });
-        } else {
-          out += 'قم بتشغيل الموقع لتحميل المصطلحات تلقائياً.\n';
-        }
-        out += footer();
-        return { filename: 'Glossary-Book.txt', content: out };
-      }
-    },
-
-    /* -------- 29: Companies Directory -------- */
-    {
-      key: 'companies-book',
-      title: 'Companies Directory',
-      icon: '🏢',
-      desc: 'دليل الشركات الأمنية',
-      color: 'cyan',
-      generate: () => {
-        let out = header('COMPANIES DIRECTORY', 'دليل شركات الأمن السيبراني');
-        out += 'هذا الكتاب يحتوي على أشهر شركات الأمن السيبراني عالمياً.\n';
-        out += 'يتم توليده من قاعدة البيانات في الموقع.\n\n';
-        if (window.SB_COMPANIES) {
-          out += 'عدد الشركات: ' + window.SB_COMPANIES.length + '\n\n';
-          out += HR + '\n\n';
-          window.SB_COMPANIES.forEach(([name, field, country], i) => {
-            out += '[' + (i + 1) + '] ' + name + '\n';
-            out += '    🏷️  ' + field + '\n';
-            out += '    🌍  ' + country + '\n\n';
-          });
-        } else {
-          out += 'قم بتشغيل الموقع لتحميل الشركات تلقائياً.\n';
-        }
-        out += footer();
-        return { filename: 'Companies-Directory.txt', content: out };
-      }
-    },
-
-    /* -------- 30: Complete Bundle -------- */
-    {
-      key: 'complete-bundle',
-      title: 'Complete Bundle',
-      icon: '📦',
-      desc: 'كل شيء في ملف واحد',
-      color: 'green',
-      generate: () => {
-        let out = header('SECRET BOX — COMPLETE BUNDLE', 'كل شيء في ملف واحد');
-        out += 'هذا الملف يحتوي على كل شيء:\n';
-        out += bullet('كل الأوامر من جميع الفئات');
-        out += bullet('المصطلحات الأمنية');
-        out += bullet('الشركات');
-        out += bullet('النصائح والأدوات');
-        out += '\n\n';
-
-        if (window.SB_DATA && window.SB_DATA.raw) {
-          Object.keys(window.SB_DATA.raw).forEach((cat) => {
-            const catMeta = window.SB_DATA.categories.find((c) => c.key === cat);
-            if (!catMeta) return;
-            const cmds = window.SB_DATA.raw[cat];
-            out += '\n\n' + '█'.repeat(60) + '\n';
-            out += '█  ' + catMeta.icon + ' ' + catMeta.name.toUpperCase() + ' — ' + cmds.length + ' أمر\n';
-            out += '█'.repeat(60) + '\n\n';
-
-            let lastSub = '';
-            cmds.forEach((c, i) => {
-              if (c.sub !== lastSub) {
-                out += '\n' + HR2 + '\n  ' + c.sub + '\n' + HR2 + '\n\n';
-                lastSub = c.sub;
-              }
-              out += '[' + (i + 1) + '] ' + c.cmd + '\n';
-              out += '    💡 ' + c.desc + '\n\n';
-            });
-          });
-        }
-
-        out += footer();
-        return { filename: 'SecretBox-Complete-Bundle.txt', content: out };
+  function generate(key) {
+    for (var i = 0; i < BOOKS.length; i++) {
+      if (BOOKS[i].key === key) {
+        try { return BOOKS[i].generate(); }
+        catch (e) { return { filename: key + '.txt', content: 'خطأ: ' + e.message + '\n' }; }
       }
     }
-  ];
-
-  /* ============================================================
-     PUBLIC API
-     ============================================================ */
-
-  function getAllBooks() {
-    return BOOKS.map((b) => ({
-      key: b.key,
-      title: b.title,
-      icon: b.icon,
-      desc: b.desc,
-      color: b.color || 'green'
-    }));
+    return null;
   }
 
-  function generateBook(key) {
-    const book = BOOKS.find((b) => b.key === key);
-    if (!book) return null;
-    try {
-      return book.generate();
-    } catch (err) {
-      console.error('Book generation error:', err);
-      return {
-        filename: key + '.txt',
-        content: 'خطأ في توليد الكتاب: ' + err.message + '\n'
-      };
-    }
-  }
-
-  function renderBooksGrid() {
-    return BOOKS.map((b) => {
-      return '<div class="file-item">' +
-        '<div class="file-ico">' + b.icon + '</div>' +
-        '<div class="file-info">' +
-          '<h4>' + b.title + '</h4>' +
-          '<p>' + b.desc + '</p>' +
-        '</div>' +
-        '<span class="file-meta">TXT</span>' +
-        '<button class="file-dl" data-book="' + b.key + '">⬇</button>' +
-      '</div>';
-    }).join('');
-  }
-
-  /* ============================================================
-     EXPORT TO WINDOW
-     ============================================================ */
   window.SB_BOOKS = {
     books: BOOKS,
-    getAll: getAllBooks,
-    generate: generateBook,
-    render: renderBooksGrid,
+    getAll: getAll,
+    generate: generate,
     count: BOOKS.length
   };
 
-  console.log(
-    '%c📚 SECRET BOX — ' + BOOKS.length + ' Books Loaded',
-    'background:linear-gradient(90deg,#a855f7,#ff2d95);color:#fff;font-size:14px;font-weight:bold;padding:6px 12px;border-radius:6px'
-  );
-  console.log('%c🎁 أعطيك معلومات مجاناً — انشر الموقع ليستفيد غيرك', 'color:#ffcc00;font-size:12px');
+  console.log('%c📚 SECRET BOX — ' + BOOKS.length + ' Books Loaded v4',
+    'background:linear-gradient(90deg,#a855f7,#ff2d95);color:#fff;font-size:13px;font-weight:bold;padding:5px 10px;border-radius:5px');
 
 })();
