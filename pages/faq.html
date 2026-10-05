@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04060a">
+<meta name="description" content="الأسئلة الشائعة + معلومات المطور أحمد علي (السيد الأسود) | Secret Box">
+<title>الأسئلة والمطور | Secret Box — أحمد علي</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❓</text></svg>">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-box">❓</div>
+  <div class="loader-text" id="loaderText">LOADING FAQ...</div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">FAQ + DEVELOPER</div>
+</div>
+
+<!-- BACKGROUND -->
+<canvas id="matrix"></canvas>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+<div class="bg-glow g3"></div>
+
+<!-- HEADER -->
+<header id="header">
+  <nav class="nav">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">🔐</div>
+      <div>SECRET<span class="hl">BOX</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">الرئيسية</a></li>
+      <li><a href="ethical.html">الأخلاقي</a></li>
+      <li><a href="termux.html">Termux</a></li>
+      <li><a href="network.html">الشبكات</a></li>
+      <li><a href="commands.html">الأوامر</a></li>
+      <li><a href="books.html">الكتب</a></li>
+      <li><a href="faq.html" class="active">الأسئلة</a></li>
+    </ul>
+    <div class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="../index.html">الرئيسية</a>
+  <span class="sep">/</span>
+  <span class="current">الأسئلة والمطور</span>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1 class="reveal">الأسئلة <span class="grad">الشائعة</span></h1>
+  <p class="reveal">
+    20 سؤالاً وجواباً عن الاختراق الأخلاقي، التعلم، الشهادات، والمجال.
+  </p>
+  <div class="stats-mini reveal">
+    <span>❓ <strong>20</strong> سؤال</span>
+    <span>👨‍💻 المطور: أحمد علي</span>
+    <span>🖤 السيد الأسود</span>
+  </div>
+</div>
+
+<!-- FAQ SECTION -->
+<section class="block" id="faqSection">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// FAQ</span>
+    <h2>أجوبة <span class="grad">مباشرة</span></h2>
+    <p>إجابات واضحة على أكثر الأسئلة تكراراً في المجال.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto">
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل الاختراق الأخلاقي قانوني؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>نعم، بشرط الحصول على إذن كتابي مسبق من مالك النظام وتحديد نطاق العمل بوضوح. الاختراق بدون إذن يُعتبر جريمة إلكترونية في جميع الدول تقريباً بغض النظر عن النية. المسؤولية القانونية تقع عليك وحدك.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل يمكنني تعلم الأمن السيبراني من الهاتف فقط؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>نعم! باستخدام Termux يمكنك تعلم أساسيات Linux، Python، والشبكات. لكن للتقدم المتقدم يُنصح بحاسوب مع Kali Linux أو جهاز افتراضي. الهاتف جيد للبداية والتعلّم، لكن الحاسوب أفضل للاحتراف.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">ما الفرق بين Kali Linux و Parrot OS؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>كلاهما توزيعتان لاختبار الاختراق مبنيتان على Debian. Kali أشهر وأوسع دعماً، بينما Parrot تركز أكثر على الخصوصية والأداء الخفيف. المبتدئ يُنصح بـ Kali لسهولة استخدامه وكثرة المصادر العربية له.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">كم يستغرق تعلم الأمن السيبراني؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>للمستوى الأساسي: 3-6 أشهر بمعدل ساعة يومياً. للاحتراف والحصول على وظيفة: 1-2 سنة من التعلم والتطبيق المستمر. المفتاح هو التطبيق العملي وليس الحفظ. المشاركة في CTFs تسرّع التعلم كثيراً.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل أحتاج شهادة جامعية للعمل في المجال؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>ليست شرطاً إلزامياً. كثير من المحترفين دخلوا المجال بالمهارات والشهادات المهنية مثل CEH و OSCP. لكن الشهادة الجامعية تفتح أبواباً في الشركات الكبيرة والقطاع الحكومي. المهم هو portfolio قوي ومشاريع حقيقية.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">ما هي أفضل منصة للبدء في التدريب؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>TryHackMe هي الأفضل للمبتدئين تماماً بسبب مساراتها التعليمية المنظمة. بعد إتقان الأساسيات، انتقل إلى Hack The Box و VulnHub للتحديات الواقعية. لتعلم الويب، PortSwigger Academy لا يضاهى (مجاني!).</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل أدوات Kali Linux خطيرة؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>الأداة نفسها محايدة — الخطورة تكمن في الاستخدام. نفس أداة Nmap يستخدمها المخترق الأخلاقي لفحص شبكته، والمخترق الضار لاستهداف الآخرين. الفرق هو الإذن والنية. استخدم دائماً في بيئة معزولة أو بإذن.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">كيف أحمي نفسي من الاختراق؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>أهم 5 خطوات: 1) كلمات مرور قوية وفريدة لكل حساب، 2) تفعيل المصادقة الثنائية (2FA) على كل شيء، 3) تحديث الأنظمة والتطبيقات دورياً، 4) تجنّب الشبكات العامة أو استخدم VPN، 5) توعية نفسك بأساليب التصيّد الاحتيالي.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">ما هو أفضل VPN؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>Mullvad هو الأفضل للخصوصية (سويدي، بلا logs)، ProtonVPN يوفّر خطة مجانية بدون تسجيل، IVPN مفتوح المصدر. تجنّب VPN المجاني تماماً — إذا كان مجانياً فأنت المنتج، وهو يبيع بياناتك.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل Linux أفضل من Windows للأمن؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>لكل استخدام. Linux أكثر أماناً وشعبية في مجال الأمن (Kali, Parrot)، Windows مستهدف أكثر لأن عدد مستخدميه أكبر، لكن أدواته الأمنية تحسنت كثيراً (Defender, Sentinel). الأفضل: تعلّم الاثنين.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">كيف أبدأ Bug Bounty؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>الخطوات: 1) تعلم أمن الويب جيداً (PortSwigger Academy)، 2) سجّل في HackerOne أو Bugcrowd، 3) ابدأ ببرامج VDP (بدون مكافأة) للتدريب، 4) تدرّج إلى برامج بمكافآت، 5) لا تستسلم — أول ثغرة تأخذ وقتاً.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">ما هي أفضل لغة برمجة للأمن؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>Python هي الأساسية (سكربتات، أدوات، أتمتة)، Bash للـ shell scripting، JavaScript لفهم الويب، C/C++ للهندسة العكسية والثغرات، PowerShell لـ Windows، Go للأدوات الحديثة.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل استخدام Tor قانوني؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>نعم في معظم الدول، لكن استخدامه لأغراض غير قانونية مجرّم. Tor بحد ذاته أداة خصوصية مشروعة يستخدمها الصحفيون والناشطون والباحثون الأمنيون. لا تخف من استخدامه للخصوصية.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">ما هو أفضل كتاب للمبتدئ؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>Georgia Weidman's "Penetration Testing" هو الأفضل للبداية الشاملة. للويب: "The Web Application Hacker's Handbook". للبرمجيات الخبيثة: "Practical Malware Analysis". لـ Python: "Black Hat Python".</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">كيف أحصل على أول وظيفة في المجال؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>ابنِ portfolio قوي: مدونة تقنية، GitHub بمشاريع، شهادات مهنية، CTF writeups، Bug Bounty reports. ابدأ بوظيفة SOC Analyst (أسهل دخولاً)، ثم انتقل إلى Penetration Tester بعد اكتساب خبرة.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل أستخدم بياناتي الحقيقية في التدريب؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>لا! استخدم دائماً بيئة معزولة (Virtual Machines) وأجهزة وهمية. لا تجرّب على شبكتك الحقيقية أو أجهزة العائلة أو شبكة العمل. حتى "اختبار بسيط" على جهاز لا تملكه قد يكون جريمة.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">ما الفرق بين Red, Blue, Purple Team؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>Red Team يهاجم (محاكاة مهاجم حقيقي)، Blue Team يدافع (مراقبة، كشف، استجابة)، Purple Team يدمج الفريقين لتحسين الدفاعات وتبادل المعرفة. كل التخصصات مطلوبة في السوق.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">كيف أتابع أحدث الثغرات؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>تابع: CVE.org و NVD للثغرات الرسمية، Twitter (Infosec community)، Hacker News، Krebs on Security، Bleeping Computer. اشترك في نشرات Threat Intel من Recorded Future و Mandiant. راقب تحديثات Kali Linux (apt update).</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل Wireless pentesting صعب؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>يحتاج كرت شبكة يدعم Monitor Mode (مثل Alfa AWUS036NHA أو AWUS036ACH). الصعوبة الأساسية هي إعداد الكرت والبيئة. بعد ذلك، الأدوات (Aircrack-ng, Wifite) تسهّل العملية. ابدأ بمختبرك الخاص.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">هل أحتاج لتعلم الرياضيات؟<span class="plus">+</span></div>
+      <div class="faq-a"><p>للاختراق العادي (Web, Network): أساسيات كافية. للتشفير والهندسة العكسية المتقدمة: رياضيات مهمة (جبر خطي، نظرية الأعداد، احتمالات). ابدأ بالأساسيات، ثم تعمّق حسب تخصصك.</p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     DEVELOPER SECTION
+     ============================================================ -->
+<section class="block" id="developer">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// DEVELOPER</span>
+    <h2>عن <span class="grad">المطور</span></h2>
+    <p>من يقف وراء Secret Box؟</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="card reveal" style="max-width:800px;margin:0 auto;text-align:center;padding:40px 30px">
+    <div class="dev-avatar" style="margin-bottom:20px">👨‍💻</div>
+
+    <div class="dev-title" style="font-family:var(--font-code);color:var(--cyan);font-size:13px;letter-spacing:3px;margin-bottom:10px">
+      DEVELOPER
+    </div>
+
+    <div class="dev-name" style="font-size:2.4rem;font-weight:900;color:#fff;margin-bottom:8px">
+      أحمد <span class="grad" style="background:linear-gradient(90deg,var(--purple),var(--pink),var(--green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">علي</span>
+    </div>
+
+    <div class="dev-nick" style="font-size:1.3rem;color:var(--yellow);font-weight:700;margin-bottom:24px">
+      « السيد الأسود »
+    </div>
+
+    <div class="dev-desc" style="color:var(--txt-dim);font-size:15px;line-height:2;margin-bottom:24px;padding:20px;background:rgba(0,255,156,.05);border:1px solid rgba(0,255,156,.2);border-radius:14px;text-align:right">
+      <p style="margin-bottom:12px">
+        صانع ومطوّر منصة <strong style="color:var(--green)">Secret Box</strong> — مشروع شخصي غير ربحي يهدف إلى نشر الوعي الأمني بالعربية.
+      </p>
+      <p style="margin-bottom:12px">
+        المؤمن بمبدأ <strong style="color:var(--cyan)">"المعرفة حق للجميع"</strong> —
+        كل المحتوى مجاني بدون اشتراكات أو قيود.
+      </p>
+      <p>
+        الموقع يضم أكثر من <strong style="color:var(--green)">1500 أمر</strong>،
+        <strong style="color:var(--cyan)">200 شركة أمنية</strong>،
+        <strong style="color:var(--yellow)">350 مصطلح</strong>،
+        و<strong style="color:var(--purple)">30 كتاب مجاني</strong> —
+        كل ذلك في مكان واحد.
+      </p>
+    </div>
+
+    <div class="dev-tags" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px">
+      <span class="dev-tag">Ethical Hacking</span>
+      <span class="dev-tag">Termux</span>
+      <span class="dev-tag">Kali Linux</span>
+      <span class="dev-tag">Linux</span>
+      <span class="dev-tag">Cyber Security</span>
+      <span class="dev-tag">Arabic Content</span>
+      <span class="dev-tag">Open Source</span>
+      <span class="dev-tag">Free Education</span>
+    </div>
+
+    <div class="share-msg" style="background:linear-gradient(90deg,rgba(255,204,0,.1),rgba(255,149,0,.1));border:1px solid rgba(255,204,0,.35);color:var(--yellow);padding:16px 20px;border-radius:12px;font-size:14px;font-weight:600;line-height:1.8">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+  </div>
+
+  <!-- Stats about developer -->
+  <div class="grid grid-4 reveal" style="margin-top:30px;max-width:900px;margin-left:auto;margin-right:auto">
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-family:var(--font-code);color:var(--green)" id="devTotal">1500</div>
+      <div style="color:var(--txt-dim);margin-top:6px;font-size:13px">أمر</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-family:var(--font-code);color:var(--cyan)" id="devCompanies">200</div>
+      <div style="color:var(--txt-dim);margin-top:6px;font-size:13px">شركة</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-family:var(--font-code);color:var(--yellow)" id="devTerms">350</div>
+      <div style="color:var(--txt-dim);margin-top:6px;font-size:13px">مصطلح</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-family:var(--font-code);color:var(--purple)" id="devBooks">30</div>
+      <div style="color:var(--txt-dim);margin-top:6px;font-size:13px">كتاب</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SHARE SECTION
+     ============================================================ -->
+<section class="block" id="share">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// SHARE</span>
+    <h2>شارك <span class="grad">الموقع</span></h2>
+    <p>كلمة واحدة منك قد تغيّر مسار شخص آخر. لا تبخل علينا.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div style="max-width:700px;margin:0 auto">
+    <div class="card reveal" style="text-align:center;padding:30px 24px">
+      <div style="font-size:3rem;margin-bottom:16px">📢</div>
+      <h3 style="color:#fff;margin-bottom:12px">انشر Secret Box</h3>
+      <p style="color:var(--txt-dim);margin-bottom:20px">
+        إذا استفدت من هذا الموقع، ساعدنا بنشره لأصدقائك وزملائك. هذه هي أفضل طريقة لدعمنا.
+      </p>
+
+      <div class="hero-buttons" style="justify-content:center">
+        <button class="btn btn-primary" onclick="shareWebsite()">🔗 نسخ الرابط</button>
+        <button class="btn btn-cyan" onclick="shareWhatsApp()">💬 واتساب</button>
+        <button class="btn btn-ghost" onclick="shareTelegram()">✈️ تليجرام</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE NAV -->
+<section class="block" id="pageNav">
+  <div class="page-nav">
+    <a href="books.html">
+      <div>
+        <div class="nav-label">← PREVIOUS</div>
+        <div class="nav-title">الكتب المجانية 📚</div>
+      </div>
+    </a>
+    <a href="../index.html" class="next">
+      <div>
+        <div class="nav-label">NEXT →</div>
+        <div class="nav-title">العودة للرئيسية 🏠</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:16px">
+        <div class="logo-icon">🔐</div>
+        <div>SECRET<span class="hl">BOX</span></div>
+      </div>
+      <p>الموسوعة العربية الأضخم للأمن السيبراني — كل المحتوى مجاني بالكامل.</p>
+    </div>
+    <div class="footer-col">
+      <h4>الأقسام</h4>
+      <ul>
+        <li><a href="ethical.html">الاختراق الأخلاقي</a></li>
+        <li><a href="termux.html">Termux + Kali</a></li>
+        <li><a href="network.html">أمن الشبكات</a></li>
+        <li><a href="commands.html">مرجع الأوامر</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>مصادر</h4>
+      <ul>
+        <li><a href="books.html">الكتب</a></li>
+        <li><a href="commands.html">الأوامر</a></li>
+        <li><a href="faq.html">الأسئلة</a></li>
+        <li><a href="#developer">عن المطور</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="#faqSection">الأسئلة</a></li>
+        <li><a href="#developer">المطور</a></li>
+        <li><a href="#share">شارك الموقع</a></li>
+        <li><a href="../index.html">الرئيسية</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="dev-credit">
+      تم التطوير بواسطة <span class="grad">أحمد علي — السيد الأسود 🖤</span>
+    </div>
+    <div class="share-note">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+    <div class="copyright">
+      SECRET BOX © 2026 — MEGA EDITION v15
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" title="العودة للأعلى">↑</button>
+<div id="toast">✅ تم</div>
+
+<!-- DEV MODAL -->
+<div class="modal" id="devModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="SecretBox.closeDev()" aria-label="إغلاق">✕</button>
+    <div class="dev-avatar">👨‍💻</div>
+    <div class="dev-title">DEVELOPER</div>
+    <div class="dev-name">أحمد <span class="grad">علي</span></div>
+    <div class="dev-nick">السيد الأسود</div>
+    <div class="dev-desc">
+      صانع منصة <strong style="color:var(--green)">Secret Box</strong> —
+      مشروع شخصي غير ربحي لنشر الوعي الأمني بالعربية.
+    </div>
+    <div class="dev-tags">
+      <span class="dev-tag">Ethical Hacking</span>
+      <span class="dev-tag">Termux</span>
+      <span class="dev-tag">Kali Linux</span>
+      <span class="dev-tag">Cyber Security</span>
+    </div>
+    <div class="share-msg">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="../data/commands.js"></script>
+<script src="../data/books.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/companies.js"></script>
+<script src="../script.js"></script>
+
+<!-- INLINE — STATS + SHARE -->
+<script>
+(function () {
+  'use strict';
+
+  function updateDevStats() {
+    const set = function (id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    };
+    if (window.SB_DATA && window.SB_DATA.stats) set('devTotal', window.SB_DATA.stats.total);
+    if (window.SB_COMPANIES) set('devCompanies', window.SB_COMPANIES.length);
+    if (window.SB_GLOSSARY) set('devTerms', window.SB_GLOSSARY.length);
+    if (window.SB_BOOKS) set('devBooks', window.SB_BOOKS.count);
+  }
+
+  window.shareWebsite = function () {
+    const url = window.location.origin + window.location.pathname.replace(/\/pages\/.*$/, '/');
+    if (navigator.share) {
+      navigator.share({
+        title: 'Secret Box — أحمد علي',
+        text: 'أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك',
+        url: url
+      }).catch(function () {});
+    } else {
+      navigator.clipboard.writeText(url).then(function () {
+        SecretBox.toast('🔗 تم نسخ الرابط');
+      });
+    }
+  };
+
+  window.shareWhatsApp = function () {
+    const url = window.location.origin + window.location.pathname.replace(/\/pages\/.*$/, '/');
+    const text = encodeURIComponent('🎁 ' + url + '\nأعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك');
+    window.open('https://wa.me/?text=' + text, '_blank');
+  };
+
+  window.shareTelegram = function () {
+    const url = window.location.origin + window.location.pathname.replace(/\/pages\/.*$/, '/');
+    const text = encodeURIComponent('🎁 Secret Box — موسوعة أمنية مجانية بالكامل');
+    window.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + text, '_blank');
+  };
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(updateDevStats, 300);
+  } else {
+    window.addEventListener('load', function () {
+      setTimeout(updateDevStats, 300);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
