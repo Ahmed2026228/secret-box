@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04060a">
+<meta name="description" content="30 كتاب مجاني قابل للتحميل — Linux, Kali, Termux, Web Security, Cryptography | Secret Box">
+<title>الكتب المجانية | Secret Box — أحمد علي</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-box">📚</div>
+  <div class="loader-text" id="loaderText">LOADING BOOKS...</div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">30 FREE BOOKS</div>
+</div>
+
+<!-- BACKGROUND -->
+<canvas id="matrix"></canvas>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+<div class="bg-glow g3"></div>
+
+<!-- HEADER -->
+<header id="header">
+  <nav class="nav">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">🔐</div>
+      <div>SECRET<span class="hl">BOX</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">الرئيسية</a></li>
+      <li><a href="ethical.html">الأخلاقي</a></li>
+      <li><a href="termux.html">Termux</a></li>
+      <li><a href="network.html">الشبكات</a></li>
+      <li><a href="commands.html">الأوامر</a></li>
+      <li><a href="books.html" class="active">الكتب</a></li>
+      <li><a href="faq.html">الأسئلة</a></li>
+    </ul>
+    <div class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="../index.html">الرئيسية</a>
+  <span class="sep">/</span>
+  <span class="current">الكتب المجانية</span>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1 class="reveal">الكتب <span class="grad">المجانية</span></h1>
+  <p class="reveal">
+    <strong id="totalBooks">30</strong> كتاب احترافي قابل للتحميل الفعلي — كل شيء يُولّد داخل متصفحك، بدون سيرفر.
+  </p>
+  <div class="stats-mini reveal">
+    <span>📖 <strong id="miniTotal">30</strong> كتاب</span>
+    <span>📥 تحميل فوري</span>
+    <span>💾 بدون سيرفر</span>
+    <span>🆓 مجاني</span>
+  </div>
+</div>
+
+<!-- HERO ACTIONS -->
+<section class="block" style="padding-top:30px">
+  <div class="hero-buttons reveal" style="justify-content:center">
+    <button class="btn btn-primary" onclick="downloadAllBooks()">📦 تحميل الفهرس الكامل</button>
+    <button class="btn btn-cyan" onclick="downloadCompleteBundle()">🎁 تحميل الحزمة الكاملة (Bundle)</button>
+    <button class="btn btn-dev" onclick="SecretBox.openDev()">👨‍💻 المطور</button>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="block" style="padding-top:20px">
+  <div class="alert alert-info reveal">
+    <div class="alert-icon">💡</div>
+    <div>
+      <h4>كيف يعمل التحميل؟</h4>
+      <p>
+        كل كتاب يُولّد محتواه ديناميكياً من قاعدة البيانات المُحمّلة في متصفحك.
+        اضغط زر <strong>⬇</strong> على أي كتاب ليبدأ التحميل فوراً.
+        لا حاجة لإنترنت — كل شيء محلي.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKS GRID -->
+<section class="block" id="booksSection">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// ALL 30 BOOKS</span>
+    <h2>مكتبة <span class="grad">Secret Box</span></h2>
+    <p>جميع الكتب مرتبة حسب الفئة — اضغط ⬇ للتحميل.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-2" id="booksGrid">
+    <!-- سيتم توليدها بـ JavaScript -->
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--txt-dim)">
+      ⏳ جاري تحميل الكتب...
+    </div>
+  </div>
+</section>
+
+<!-- PAGE NAV -->
+<section class="block" id="pageNav">
+  <div class="page-nav">
+    <a href="commands.html">
+      <div>
+        <div class="nav-label">← PREVIOUS</div>
+        <div class="nav-title">مرجع الأوامر ⚡</div>
+      </div>
+    </a>
+    <a href="faq.html" class="next">
+      <div>
+        <div class="nav-label">NEXT →</div>
+        <div class="nav-title">الأسئلة الشائعة ❓</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:16px">
+        <div class="logo-icon">🔐</div>
+        <div>SECRET<span class="hl">BOX</span></div>
+      </div>
+      <p>الموسوعة العربية الأضخم للأمن السيبراني — كل المحتوى مجاني.</p>
+    </div>
+    <div class="footer-col">
+      <h4>الأقسام</h4>
+      <ul>
+        <li><a href="ethical.html">الاختراق الأخلاقي</a></li>
+        <li><a href="termux.html">Termux + Kali</a></li>
+        <li><a href="network.html">أمن الشبكات</a></li>
+        <li><a href="commands.html">مرجع الأوامر</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>مصادر</h4>
+      <ul>
+        <li><a href="books.html">الكتب</a></li>
+        <li><a href="commands.html">الأوامر</a></li>
+        <li><a href="faq.html">الأسئلة</a></li>
+        <li><a href="#" onclick="SecretBox.openDev();return false">المطور</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="#booksSection">كل الكتب</a></li>
+        <li><a href="javascript:downloadAllBooks()">تحميل الفهرس</a></li>
+        <li><a href="javascript:downloadCompleteBundle()">Bundle كامل</a></li>
+        <li><a href="../index.html">الرئيسية</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="dev-credit">
+      تم التطوير بواسطة <span class="grad">أحمد علي — السيد الأسود 🖤</span>
+    </div>
+    <div class="share-note">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+    <div class="copyright">
+      SECRET BOX © 2026 — MEGA EDITION v15
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" title="العودة للأعلى">↑</button>
+<div id="toast">✅ تم</div>
+
+<!-- DEV MODAL -->
+<div class="modal" id="devModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="SecretBox.closeDev()" aria-label="إغلاق">✕</button>
+    <div class="dev-avatar">👨‍💻</div>
+    <div class="dev-title">DEVELOPER</div>
+    <div class="dev-name">أحمد <span class="grad">علي</span></div>
+    <div class="dev-nick">السيد الأسود</div>
+    <div class="dev-desc">
+      صانع منصة <strong style="color:var(--green)">Secret Box</strong> —
+      كل الكتب مجانية بالكامل. لنشر الوعي الأمني بالعربية.
+    </div>
+    <div class="dev-tags">
+      <span class="dev-tag">Ethical Hacking</span>
+      <span class="dev-tag">Termux</span>
+      <span class="dev-tag">Kali Linux</span>
+    </div>
+    <div class="share-msg">
+      🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="../data/commands.js"></script>
+<script src="../data/books.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/companies.js"></script>
+<script src="../script.js"></script>
+
+<!-- INLINE — RENDER BOOKS -->
+<script>
+(function () {
+  'use strict';
+
+  function renderBooks() {
+    const grid = document.getElementById('booksGrid');
+    if (!grid) return;
+
+    if (!window.SB_BOOKS || !window.SB_BOOKS.books) {
+      grid.innerHTML = '<div class="alert alert-warn" style="grid-column:1/-1"><div class="alert-icon">⚠️</div><div><h4>خطأ في التحميل</h4><p>تعذّر تحميل قاعدة بيانات الكتب. تأكد من وجود ملف <code>data/books.js</code>.</p></div></div>';
+      return;
+    }
+
+    const books = window.SB_BOOKS.books;
+    let html = '';
+    books.forEach(function (b) {
+      html += '<div class="file-item">';
+      html += '  <div class="file-ico">' + b.icon + '</div>';
+      html += '  <div class="file-info">';
+      html += '    <h4>' + b.title + '</h4>';
+      html += '    <p>' + b.desc + '</p>';
+      html += '  </div>';
+      html += '  <span class="file-meta">TXT</span>';
+      html += '  <button class="file-dl" data-book="' + b.key + '">⬇</button>';
+      html += '</div>';
+    });
+    grid.innerHTML = html;
+
+    // Bind download buttons
+    grid.querySelectorAll('[data-book]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const key = btn.dataset.book;
+        if (!window.SB_BOOKS || !window.SB_BOOKS.generate) return;
+
+        const result = window.SB_BOOKS.generate(key);
+        if (!result || !result.content) {
+          SecretBox.toast('⚠️ الملف غير متوفر', 'error');
+          return;
+        }
+
+        btn.classList.add('loading');
+        btn.textContent = '⏳';
+
+        setTimeout(function () {
+          if (SecretBox && SecretBox.download) {
+            SecretBox.download(result.filename, result.content);
+            btn.classList.remove('loading');
+            btn.classList.add('done');
+            btn.textContent = '✓';
+            SecretBox.toast('✅ تم تحميل: ' + key);
+            setTimeout(function () {
+              btn.classList.remove('done');
+              btn.textContent = '⬇';
+            }, 1800);
+          }
+        }, 250);
+      });
+    });
+
+    // Update counts
+    const el = document.getElementById('totalBooks');
+    const el2 = document.getElementById('miniTotal');
+    if (el) el.textContent = books.length;
+    if (el2) el2.textContent = books.length;
+  }
+
+  window.downloadAllBooks = function () {
+    if (!window.SB_BOOKS) {
+      SecretBox.toast('⚠️ قاعدة الكتب غير محمّلة', 'error');
+      return;
+    }
+
+    const books = window.SB_BOOKS.books;
+    let content = '';
+    content += '='.repeat(60) + '\n';
+    content += '  SECRET BOX — فهرس الكتب الكامل\n';
+    content += '  المطور: أحمد علي (السيد الأسود)\n';
+    content += '  عدد الكتب: ' + books.length + '\n';
+    content += '='.repeat(60) + '\n\n';
+
+    books.forEach(function (b, i) {
+      content += '[' + (i + 1) + '] ' + b.title + '\n';
+      content += '    ' + b.desc + '\n';
+      content += '    🔑 Key: ' + b.key + '\n\n';
+    });
+
+    content += '\n' + '='.repeat(60) + '\n';
+    content += '🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك\n';
+    content += '='.repeat(60) + '\n';
+
+    SecretBox.download('SecretBox-Books-Index.txt', content);
+    SecretBox.toast('✅ تم تحميل الفهرس');
+  };
+
+  window.downloadCompleteBundle = function () {
+    if (!window.SB_BOOKS || !window.SB_BOOKS.generate) {
+      SecretBox.toast('⚠️ قاعدة الكتب غير محمّلة', 'error');
+      return;
+    }
+
+    const result = window.SB_BOOKS.generate('complete-bundle');
+    if (!result) {
+      SecretBox.toast('⚠️ Bundle غير متوفر', 'error');
+      return;
+    }
+
+    SecretBox.download(result.filename, result.content);
+    SecretBox.toast('📦 جاري تحميل Bundle كامل');
+  };
+
+  // Wait for data to load
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(renderBooks, 300);
+  } else {
+    window.addEventListener('load', function () {
+      setTimeout(renderBooks, 300);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
