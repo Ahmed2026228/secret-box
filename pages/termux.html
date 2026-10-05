@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04060a">
+<meta name="description" content="Termux + Kali + Linux + Android — كل الأوامر والأدوات | Secret Box">
+<title>Termux & Kali & Linux & Android | Secret Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-box">📱</div>
+  <div class="loader-text" id="loaderText">LOADING TERMUX + KALI...</div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">PART 3 OF 6</div>
+</div>
+
+<canvas id="matrix"></canvas>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+<div class="bg-glow g3"></div>
+
+<header id="header">
+  <nav class="nav">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">🔐</div>
+      <div>SECRET<span class="hl">BOX</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">الرئيسية</a></li>
+      <li><a href="ethical.html">الأخلاقي</a></li>
+      <li><a href="termux.html" class="active">Termux</a></li>
+      <li><a href="network.html">الشبكات</a></li>
+      <li><a href="commands.html">الأوامر</a></li>
+      <li><a href="books.html">الكتب</a></li>
+      <li><a href="faq.html">الأسئلة</a></li>
+    </ul>
+    <div class="burger" id="burger"><span></span><span></span><span></span></div>
+  </nav>
+</header>
+
+<div class="breadcrumb">
+  <a href="../index.html">الرئيسية</a>
+  <span class="sep">/</span>
+  <span class="current">Termux + Kali + Linux + Android</span>
+</div>
+
+<div class="page-header">
+  <h1 class="reveal">Termux <span class="grad">+ Kali + Linux + Android</span></h1>
+  <p class="reveal">كل الأوامر والأدوات لهذه المنصات — مع سكربتات جاهزة للنسخ.</p>
+  <div class="stats-mini reveal">
+    <span>📱 <strong id="tcount">0</strong> أمر Termux</span>
+    <span>🐉 <strong id="kcount">0</strong> أمر Kali</span>
+    <span>🐧 <strong id="lcount">0</strong> أمر Linux</span>
+    <span>📲 <strong id="acount">0</strong> أمر ADB</span>
+  </div>
+</div>
+
+<!-- ========== TERMUX ========== -->
+<section class="block" id="termux">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 01 - TERMUX MASTER</span>
+    <h2>دليل <span class="grad">Termux</span> الشامل</h2>
+    <p>Linux كامل على أندرويد — كل الأوامر والأدوات.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card reveal">
+      <div class="card-icon">📥</div>
+      <h3>التثبيت الصحيح</h3>
+      <p>حمّل من F-Droid أو GitHub — نسخة Play مهجورة!</p>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">setup.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre>pkg update && pkg upgrade -y
+termux-setup-storage
+pkg install root-repo x11-repo -y
+pkg install git python nano curl wget vim openssh -y
+pkg install zsh starship -y
+chsh -s zsh</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">🐍</div>
+      <h3>Python والأدوات</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">python.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre>pkg install python python-pip -y
+pip install --upgrade pip
+pip install requests beautifulsoup4
+pip install colorama argparse rich
+pip install scapy paramiko
+pip install cryptography pycryptodome
+pip install sqlmap shodan virtualenv</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon purple">🐧</div>
+      <h3>توزيعات Linux داخل Termux</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">proot.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre>pkg install proot-distro -y
+proot-distro list
+proot-distro install ubuntu
+proot-distro install kali
+proot-distro install debian
+proot-distro install archlinux
+proot-distro install alpine
+proot-distro login ubuntu
+proot-distro login kali
+exit</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon yellow">🔧</div>
+      <h3>أدوات الأمن الشهيرة</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">tools.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre>pkg install nmap hydra aircrack-ng -y
+pkg install openssh -y
+pip install sqlmap shodan
+git clone https://github.com/htr-tech/zphisher
+proot-distro login ubuntu
+apt install metasploit-framework</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon orange">🌐</div>
+      <h3>خوادم ومشاركة</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">servers.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre># خادم HTTP
+python -m http.server 8080
+
+# خادم FTP
+pkg install busybox -y
+busybox ftpd -w /sdcard
+
+# SSH
+sshd
+ssh user@PHONE-IP -p 8022
+
+# Ngrok للنشر
+wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz
+tar xvzf ngrok*.tgz
+./ngrok http 8080</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon pink">📱</div>
+      <h3>Termux:API — تحكم بالهاتف</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">api.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre>pkg install termux-api -y
+termux-battery-status
+termux-camera-photo -c 0 photo.jpg
+termux-location
+termux-notification --title "t" --content "c"
+termux-sms-send -n +1234567890 "text"
+termux-sms-list
+termux-call-log
+termux-contact-list
+termux-tts-speak "مرحباً"
+termux-clipboard-get
+termux-clipboard-set "نص"
+termux-toast "msg"
+termux-vibrate -d 1000
+termux-torch on
+termux-wifi-connectioninfo
+termux-wifi-scaninfo
+termux-fingerprint</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-tip reveal">
+    <div class="alert-icon">💡</div>
+    <div>
+      <h4>نصائح احترافية</h4>
+      <p>1) Wake Lock لمنع النوم. 2) Termux:Boot لتشغيل سكربتات عند الإقلاع. 3) tmux للجلسات المتعددة. 4) احتفظ بنسخة من <code>~/.termux</code>.</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button class="btn btn-primary" data-download="termux">📥 تحميل كل أوامر Termux</button>
+  </div>
+</section>
+
+<!-- ========== KALI ========== -->
+<section class="block" id="kali">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 02 - KALI LINUX</span>
+    <h2>موسوعة <span class="grad">Kali</span></h2>
+    <p>التوزيعة رقم 1 عالمياً — 14 فئة أدوات.</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card reveal">
+      <div class="card-icon purple">📦</div>
+      <h3>طرق التثبيت</h3>
+      <ul>
+        <li><strong>VirtualBox / VMware</strong> — الأسهل</li>
+        <li><strong>Dual Boot</strong> — أداء كامل</li>
+        <li><strong>Live USB</strong> — بدون تثبيت</li>
+        <li><strong>WSL2</strong> — داخل Windows</li>
+        <li><strong>Docker</strong> — حاويات</li>
+        <li><strong>Termux + NetHunter</strong> — على الهاتف</li>
+        <li><strong>Cloud</strong> — Linode, DigitalOcean</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">⚡</div>
+      <h3>إعداد ما بعد التثبيت</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">post.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre>sudo apt update && sudo apt full-upgrade -y
+sudo apt autoremove -y && sudo apt autoclean
+sudo apt --fix-broken install
+sudo apt install -y virtualbox-guest-x11
+lsb_release -a
+uname -r</pre>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="color:#fff;margin:40px 0 20px;font-size:1.3rem;text-align:center">🧰 فئات Kali الـ14</h3>
+
+  <div class="grid grid-3">
+    <div class="card reveal"><div class="card-icon">🔎</div><h3>Information Gathering</h3><ul><li>Nmap, Masscan, RustScan</li><li>theHarvester, Recon-ng</li><li>Maltego, SpiderFoot</li><li>Amass, Subfinder</li></ul></div>
+    <div class="card reveal"><div class="card-icon cyan">🌐</div><h3>Web Applications</h3><ul><li>Burp Suite, ZAP, Caido</li><li>sqlmap, ffuf, gobuster</li><li>nuclei, wpscan</li><li>dirb, nikto</li></ul></div>
+    <div class="card reveal"><div class="card-icon purple">🔓</div><h3>Password Attacks</h3><ul><li>Hashcat, John</li><li>Hydra, Medusa</li><li>Crunch, Cewl</li><li>Responder</li></ul></div>
+    <div class="card reveal"><div class="card-icon yellow">📡</div><h3>Wireless</h3><ul><li>Aircrack-ng</li><li>Kismet, Wifite</li><li>Reaver, Pixiewps</li><li>Bettercap</li></ul></div>
+    <div class="card reveal"><div class="card-icon orange">🔨</div><h3>Exploitation</h3><ul><li>Metasploit</li><li>msfvenom, SearchSploit</li><li>BeEF, SET</li><li>RouterSploit</li></ul></div>
+    <div class="card reveal"><div class="card-icon red">🎧</div><h3>Sniffing</h3><ul><li>Wireshark, tcpdump</li><li>Bettercap, Ettercap</li><li>mitmproxy</li><li>Responder</li></ul></div>
+    <div class="card reveal"><div class="card-icon pink">🕹️</div><h3>Post Exploitation</h3><ul><li>Mimikatz</li><li>BloodHound</li><li>PowerSploit</li><li>LinPEAS / WinPEAS</li></ul></div>
+    <div class="card reveal"><div class="card-icon">🔬</div><h3>Forensics</h3><ul><li>Autopsy, Sleuth Kit</li><li>Volatility</li><li>Binwalk, Foremost</li><li>ExifTool</li></ul></div>
+    <div class="card reveal"><div class="card-icon cyan">🕶️</div><h3>Anonymity</h3><ul><li>Tor, Tails, Whonix</li><li>Proxychains</li><li>Macchanger</li><li>Anonsurf</li></ul></div>
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button class="btn btn-primary" data-download="kali">📥 تحميل كل أوامر Kali</button>
+  </div>
+</section>
+
+<!-- ========== LINUX ========== -->
+<section class="block" id="linux">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 03 - LINUX</span>
+    <h2>موسوعة <span class="grad">لينكس</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal"><div class="card-icon">📂</div><h3>الملفات</h3><ul><li>pwd, ls, cd, mkdir</li><li>touch, cp, mv, rm, ln</li><li>find, locate, stat, file</li><li>tar, gzip, zip, 7z</li></ul></div>
+    <div class="card reveal"><div class="card-icon cyan">🔐</div><h3>الصلاحيات</h3><ul><li>chmod, chown, chgrp</li><li>umask, getfacl, setfacl</li><li>sudo, su, whoami, id</li><li>useradd, userdel, usermod</li></ul></div>
+    <div class="card reveal"><div class="card-icon purple">⚙️</div><h3>العمليات</h3><ul><li>ps, top, htop</li><li>kill, pkill, killall</li><li>jobs, bg, fg, nohup</li><li>screen, tmux, crontab</li></ul></div>
+    <div class="card reveal"><div class="card-icon yellow">📊</div><h3>النظام</h3><ul><li>uname, hostname, uptime</li><li>dmesg, journalctl</li><li>systemctl</li><li>free, vmstat, iostat</li></ul></div>
+    <div class="card reveal"><div class="card-icon orange">🌐</div><h3>الشبكات</h3><ul><li>ip, ifconfig, route</li><li>netstat, ss, lsof</li><li>ping, traceroute, mtr</li><li>dig, nslookup, whois</li><li>curl, wget, nc</li><li>ssh, scp, rsync</li></ul></div>
+    <div class="card reveal"><div class="card-icon red">📦</div><h3>الحزم</h3><ul><li>apt (Debian/Kali)</li><li>dnf (Fedora)</li><li>pacman (Arch)</li><li>apk (Alpine)</li></ul></div>
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button class="btn btn-primary" data-download="linux">📥 تحميل كل أوامر Linux</button>
+  </div>
+</section>
+
+<!-- ========== ANDROID ========== -->
+<section class="block" id="android">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 04 - ANDROID + ADB</span>
+    <h2>أمن <span class="grad">أندرويد</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal"><div class="card-icon">🛡️</div><h3>الحماية</h3><ul><li>قفل 6+ أرقام</li><li>تشفير تلقائي</li><li>تحديثات النظام</li><li>مراجعة الأذونات</li><li>Play Protect</li></ul></div>
+    <div class="card reveal"><div class="card-icon cyan">🔎</div><h3>أدوات تحليل</h3><ul><li>MobSF, Jadx</li><li>APKTool, Frida</li><li>Objection, Drozer</li><li>Exodus Privacy</li></ul></div>
+    <div class="card reveal"><div class="card-icon purple">📱</div><h3>تطبيقات خصوصية</h3><ul><li>NetGuard, AdAway</li><li>Aegis, Bitwarden</li><li>Signal, ProtonMail</li><li>Orbot, F-Droid</li></ul></div>
+    <div class="card reveal"><div class="card-icon yellow">🧩</div><h3>أذونات خطيرة</h3><ul><li>الموقع الدقيق</li><li>SMS والمكالمات</li><li>الكاميرا والميكروفون</li><li>Accessibility</li></ul></div>
+    <div class="card reveal"><div class="card-icon orange">🔓</div><h3>ROOT</h3><ul><li>Magisk — الأشهر</li><li>KernelSU — حديث</li><li>APatch</li><li>Zygisk, Shamiko</li></ul></div>
+    <div class="card reveal"><div class="card-icon red">📲</div><h3>Custom ROMs</h3><ul><li>LineageOS</li><li>GrapheneOS — الأأمن</li><li>CalyxOS</li><li>e/OS — بلا Google</li></ul></div>
+  </div>
+
+  <div class="card reveal" style="margin-top:24px">
+    <h3 style="margin-bottom:14px">🔧 أوامر ADB الأساسية</h3>
+    <div class="cb">
+      <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">adb.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre>adb devices
+adb shell
+adb install -r app.apk
+adb uninstall com.pkg
+adb push file /sdcard/
+adb pull /sdcard/file ./
+adb logcat -v time
+adb shell pm list packages
+adb shell pm list packages -3
+adb shell dumpsys battery
+adb shell screencap -p /sdcard/s.png
+adb shell screenrecord /sdcard/v.mp4
+adb shell input tap 500 500
+adb shell input text 'hello'
+adb reboot bootloader
+adb reboot recovery
+adb tcpip 5555
+adb connect 192.168.1.5:5555</pre>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button class="btn btn-primary" data-download="adb">📥 تحميل كل أوامر ADB</button>
+  </div>
+</section>
+
+<section class="block">
+  <div class="page-nav">
+    <a href="ethical.html">
+      <div>
+        <div class="nav-label">← PREVIOUS</div>
+        <div class="nav-title">الاختراق الأخلاقي 🎯</div>
+      </div>
+    </a>
+    <a href="network.html" class="next">
+      <div>
+        <div class="nav-label">NEXT →</div>
+        <div class="nav-title">أمن الشبكات 📡</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:16px"><div class="logo-icon">🔐</div><div>SECRET<span class="hl">BOX</span></div></div>
+      <p>الموسوعة العربية الأضخم للأمن السيبراني — كل المحتوى مجاني.</p>
+    </div>
+    <div class="footer-col"><h4>الأقسام</h4><ul><li><a href="ethical.html">الاختراق الأخلاقي</a></li><li><a href="termux.html">Termux + Kali</a></li><li><a href="network.html">أمن الشبكات</a></li><li><a href="commands.html">مرجع الأوامر</a></li></ul></div>
+    <div class="footer-col"><h4>مصادر</h4><ul><li><a href="books.html">الكتب</a></li><li><a href="commands.html">الأوامر</a></li><li><a href="faq.html">الأسئلة</a></li><li><a href="#" onclick="SecretBox.openDev();return false">المطور</a></li></ul></div>
+    <div class="footer-col"><h4>روابط سريعة</h4><ul><li><a href="#termux">Termux</a></li><li><a href="#kali">Kali</a></li><li><a href="#linux">Linux</a></li><li><a href="#android">Android</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="dev-credit">تم التطوير بواسطة <span class="grad">أحمد علي — السيد الأسود 🖤</span></div>
+    <div class="share-note">🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك</div>
+    <div class="copyright">SECRET BOX © 2026 — MEGA EDITION v15</div>
+  </div>
+</footer>
+
+<button id="backToTop">↑</button>
+<div id="toast">✅ تم</div>
+
+<div class="modal" id="devModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="SecretBox.closeDev()">✕</button>
+    <div class="dev-avatar">👨‍💻</div>
+    <div class="dev-title">DEVELOPER</div>
+    <div class="dev-name">أحمد <span class="grad">علي</span></div>
+    <div class="dev-nick">السيد الأسود</div>
+    <div class="dev-desc">صانع منصة <strong style="color:var(--green)">Secret Box</strong> — مشروع غير ربحي لنشر الوعي الأمني بالعربية.</div>
+    <div class="dev-tags"><span class="dev-tag">Termux</span><span class="dev-tag">Kali</span><span class="dev-tag">Linux</span><span class="dev-tag">Android</span></div>
+    <div class="share-msg">🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك</div>
+  </div>
+</div>
+
+<script src="../data/commands.js"></script>
+<script src="../data/books.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/companies.js"></script>
+<script src="../script.js"></script>
+
+<script>
+(function(){
+  'use strict';
+  function updateCounts(){
+    const set=function(id,v){const e=document.getElementById(id);if(e)e.textContent=v;};
+    if(window.SB_DATA&&window.SB_DATA.getCategoryCount){
+      set('tcount',window.SB_DATA.getCategoryCount('termux'));
+      set('kcount',window.SB_DATA.getCategoryCount('kali'));
+      set('lcount',window.SB_DATA.getCategoryCount('linux'));
+      set('acount',window.SB_DATA.getCategoryCount('adb'));
+    }
+  }
+  document.querySelectorAll('[data-download]').forEach(function(b){
+    b.addEventListener('click',function(){
+      const key=b.dataset.download;
+      if(!window.SB_DATA||!window.SB_DATA.getFileContent){SecretBox.toast('⚠️ قاعدة البيانات غير محمّلة','error');return;}
+      const r=window.SB_DATA.getFileContent(key);
+      if(!r){SecretBox.toast('⚠️ الملف غير متوفر','error');return;}
+      b.textContent='⏳';
+      setTimeout(function(){
+        SecretBox.download(r.filename,r.content);
+        b.textContent='✓ تم';
+        SecretBox.toast('✅ تم تحميل '+r.count+' أمر');
+        setTimeout(function(){b.textContent='📥 تحميل';},2000);
+      },200);
+    });
+  });
+  if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(updateCounts,300);}
+  else{window.addEventListener('load',function(){setTimeout(updateCounts,300);});}
+})();
+</script>
+</body>
+        </html>
