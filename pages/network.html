@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04060a">
+<meta name="description" content="أمن الشبكات + الويب + OSINT + التشفير | Secret Box">
+<title>أمن الشبكات والويب | Secret Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-box">📡</div>
+  <div class="loader-text" id="loaderText">LOADING NETWORK + WEB...</div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">PART 4 OF 6</div>
+</div>
+
+<canvas id="matrix"></canvas>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+<div class="bg-glow g3"></div>
+
+<header id="header">
+  <nav class="nav">
+    <a href="../index.html" class="logo"><div class="logo-icon">🔐</div><div>SECRET<span class="hl">BOX</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">الرئيسية</a></li>
+      <li><a href="ethical.html">الأخلاقي</a></li>
+      <li><a href="termux.html">Termux</a></li>
+      <li><a href="network.html" class="active">الشبكات</a></li>
+      <li><a href="commands.html">الأوامر</a></li>
+      <li><a href="books.html">الكتب</a></li>
+      <li><a href="faq.html">الأسئلة</a></li>
+    </ul>
+    <div class="burger" id="burger"><span></span><span></span><span></span></div>
+  </nav>
+</header>
+
+<div class="breadcrumb">
+  <a href="../index.html">الرئيسية</a>
+  <span class="sep">/</span>
+  <span class="current">أمن الشبكات والويب</span>
+</div>
+
+<div class="page-header">
+  <h1 class="reveal">أمن <span class="grad">الشبكات والويب</span></h1>
+  <p class="reveal">OSI، البروتوكولات، الهجمات، الدفاعات، ثغرات الويب، OSINT، التشفير، اللاسلكي، والتحليل الجنائي.</p>
+  <div class="stats-mini reveal">
+    <span>📡 <strong id="ncount">0</strong> أمر شبكة</span>
+    <span>🗄️ <strong id="scount">0</strong> أمر SQL</span>
+    <span>🔐 تشفير شامل</span>
+    <span>🌐 OWASP Top 10</span>
+  </div>
+</div>
+
+<!-- NETWORK -->
+<section class="block" id="network">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 01 - NETWORK</span>
+    <h2>أمن <span class="grad">الشبكات</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal"><div class="card-icon">📡</div><h3>طبقات OSI السبع</h3><ul>
+      <li><strong>7. Application</strong> — HTTP, DNS, FTP</li>
+      <li><strong>6. Presentation</strong> — SSL/TLS, JPEG</li>
+      <li><strong>5. Session</strong> — NetBIOS, RPC</li>
+      <li><strong>4. Transport</strong> — TCP, UDP</li>
+      <li><strong>3. Network</strong> — IP, ICMP, ARP</li>
+      <li><strong>2. Data Link</strong> — Ethernet, MAC</li>
+      <li><strong>1. Physical</strong> — كابلات، إشارات</li>
+    </ul></div>
+
+    <div class="card reveal"><div class="card-icon cyan">🔢</div><h3>المنافذ الشهيرة</h3><ul>
+      <li><strong>20/21</strong> FTP</li>
+      <li><strong>22</strong> SSH</li>
+      <li><strong>23</strong> Telnet</li>
+      <li><strong>25</strong> SMTP</li>
+      <li><strong>53</strong> DNS</li>
+      <li><strong>80</strong> HTTP</li>
+      <li><strong>110</strong> POP3</li>
+      <li><strong>143</strong> IMAP</li>
+      <li><strong>443</strong> HTTPS</li>
+      <li><strong>445</strong> SMB</li>
+      <li><strong>3306</strong> MySQL</li>
+      <li><strong>3389</strong> RDP</li>
+      <li><strong>6379</strong> Redis</li>
+      <li><strong>27017</strong> MongoDB</li>
+    </ul></div>
+
+    <div class="card reveal"><div class="card-icon purple">🛰️</div><h3>البروتوكولات</h3><ul>
+      <li>TCP / UDP / IP</li>
+      <li>HTTP / HTTPS</li>
+      <li>DNS / DoH / DoT</li>
+      <li>FTP / SFTP / FTPS</li>
+      <li>SMTP / IMAP / POP3</li>
+      <li>DHCP / ARP / ICMP</li>
+      <li>BGP / OSPF / SNMP</li>
+      <li>SMB / NFS / LDAP</li>
+    </ul></div>
+
+    <div class="card reveal"><div class="card-icon yellow">⚠️</div><h3>هجمات الشبكات</h3><ul>
+      <li>MITM — رجل في المنتصف</li>
+      <li>ARP Spoofing</li>
+      <li>DNS Spoofing</li>
+      <li>DoS / DDoS</li>
+      <li>Session Hijacking</li>
+      <li>VLAN Hopping</li>
+      <li>DHCP Starvation</li>
+      <li>Rogue AP</li>
+    </ul></div>
+
+    <div class="card reveal"><div class="card-icon green">🛡️</div><h3>الدفاعات</h3><ul>
+      <li>Firewall / NGFW</li>
+      <li>IDS / IPS</li>
+      <li>WAF</li>
+      <li>SIEM</li>
+      <li>Network Segmentation</li>
+      <li>Zero Trust</li>
+      <li>802.1X</li>
+      <li>Port Security</li>
+    </ul></div>
+
+    <div class="card reveal"><div class="card-icon red">🔍</div><h3>أدوات الفحص</h3><ul>
+      <li>Nmap, Masscan, RustScan</li>
+      <li>Netcat, hping3</li>
+      <li>Wireshark, tcpdump</li>
+      <li>Bettercap, Ettercap</li>
+      <li>Zmap, Responder</li>
+    </ul></div>
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button class="btn btn-primary" data-download="network">📥 تحميل كل أوامر الشبكات</button>
+  </div>
+</section>
+
+<!-- WEB SECURITY -->
+<section class="block" id="web">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 02 - WEB SECURITY</span>
+    <h2>أمن <span class="grad">تطبيقات الويب</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <h3 style="color:#fff;text-align:center;margin-bottom:20px">🛡️ OWASP Top 10 (2021)</h3>
+  <div class="grid grid-3">
+    <div class="card reveal"><div class="card-icon red">💉</div><h3>A01 — Broken Access Control</h3><p>تجاوز صلاحيات الوصول — IDOR, Path Traversal, CORS.</p></div>
+    <div class="card reveal"><div class="card-icon purple">🔐</div><h3>A02 — Cryptographic Failures</h3><p>فشل التشفير — بيانات غير مشفرة، خوارزميات ضعيفة.</p></div>
+    <div class="card reveal"><div class="card-icon">💥</div><h3>A03 — Injection</h3><p>SQLi, NoSQLi, Command Injection, LDAP Injection.</p></div>
+    <div class="card reveal"><div class="card-icon yellow">🏗️</div><h3>A04 — Insecure Design</h3><p>تصميم غير آمن — مشاكل في المعمارية الأساسية.</p></div>
+    <div class="card reveal"><div class="card-icon orange">⚙️</div><h3>A05 — Security Misconfiguration</h3><p>إعدادات خاطئة — منافذ مفتوحة، حسابات افتراضية.</p></div>
+    <div class="card reveal"><div class="card-icon cyan">📦</div><h3>A06 — Vulnerable Components</h3><p>مكونات قديمة — مكتبات وإضافات مصابة.</p></div>
+    <div class="card reveal"><div class="card-icon pink">👤</div><h3>A07 — Auth Failures</h3><p>فشل المصادقة — كلمات مرور ضعيفة، جلسات.</p></div>
+    <div class="card reveal"><div class="card-icon purple">📊</div><h3>A08 — Data Integrity Failures</h3><p>فشل سلامة البيانات — تحديثات غير موثقة.</p></div>
+    <div class="card reveal"><div class="card-icon yellow">📝</div><h3>A09 — Logging Failures</h3><p>فشل التسجيل — لا مراقبة، لا كشف.</p></div>
+    <div class="card reveal"><div class="card-icon orange">🎭</div><h3>A10 — SSRF</h3><p>تزوير الطلبات من الخادم — استغلال خدمات داخلية.</p></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:30px">
+    <div class="card reveal">
+      <div class="card-icon red">💉</div>
+      <h3>SQL Injection</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">sqli.txt</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre><span class="comment"># Payloads أساسية</span>
+admin' OR '1'='1
+' UNION SELECT NULL,NULL--
+1' AND SLEEP(5)--
+' OR 1=1-- -
+admin'--
+
+<span class="comment"># الأدوات</span>
+sqlmap -u "URL?id=1" --dbs
+sqlmap -u "URL?id=1" --dump
+
+<span class="comment"># الحماية</span>
+Prepared Statements
+Parameterized Queries
+ORM Frameworks</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon yellow">📜</div>
+      <h3>XSS — Cross-Site Scripting</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">xss.txt</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre><span class="comment"># الأنواع</span>
+Reflected — يعكس مباشرة
+Stored — مخزن (الأخطر)
+DOM-based — من JavaScript
+
+<span class="comment"># Payload</span>
+&lt;script&gt;alert(1)&lt;/script&gt;
+&lt;img src=x onerror=alert(1)&gt;
+&lt;svg/onload=alert(1)&gt;
+
+<span class="comment"># الحماية</span>
+CSP — Content Security Policy
+HTML Escape
+Sanitize Input</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon purple">🎭</div>
+      <h3>SSRF</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">ssrf.txt</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre>?url=http://127.0.0.1:80
+?url=http://169.254.169.254/latest/meta-data/
+?url=file:///etc/passwd
+?url=gopher://127.0.0.1:6379/_INFO
+?url=dict://127.0.0.1:11211/</pre>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon cyan">🔓</div>
+      <h3>IDOR</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">idor.txt</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre><span class="comment"># تغيير المعرّفات</span>
+/user?id=1000  →  /user?id=1001
+/api/v1/orders/5555  →  5556
+GET /download?file=1234.pdf
+
+<span class="comment"># الحماية</span>
+UUIDs بدل أرقام
+Authorization Checks
+Indirect References</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRYPTOGRAPHY -->
+<section class="block" id="crypto">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 03 - CRYPTOGRAPHY</span>
+    <h2>علم <span class="grad">التشفير</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal"><div class="card-icon">🔐</div><h3>تشفير متماثل</h3><ul>
+      <li>AES (128/192/256)</li>
+      <li>ChaCha20</li>
+      <li>Twofish</li>
+      <li>Blowfish (قديم)</li>
+      <li>3DES (قديم)</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon cyan">🔓</div><h3>غير متماثل</h3><ul>
+      <li>RSA (2048/4096)</li>
+      <li>ECC</li>
+      <li>Ed25519</li>
+      <li>ECDSA</li>
+      <li>Diffie-Hellman</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon purple">#️⃣</div><h3>الهاش</h3><ul>
+      <li>SHA-256/512</li>
+      <li>SHA-3</li>
+      <li>BLAKE2 / BLAKE3</li>
+      <li>bcrypt / Argon2</li>
+      <li>MD5 / SHA-1 (مكسورة)</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon yellow">🚀</div><h3>Post-Quantum</h3><ul>
+      <li>CRYSTALS-Kyber</li>
+      <li>CRYSTALS-Dilithium</li>
+      <li>Falcon</li>
+      <li>SPHINCS+</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon red">⚔️</div><h3>هجمات التشفير</h3><ul>
+      <li>Brute Force</li>
+      <li>Dictionary Attack</li>
+      <li>Rainbow Tables</li>
+      <li>Side Channel</li>
+      <li>Replay Attack</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon orange">🛠️</div><h3>أدوات</h3><ul>
+      <li>GPG / OpenSSL</li>
+      <li>VeraCrypt</li>
+      <li>Age</li>
+      <li>Cryptomator</li>
+      <li>7-Zip AES-256</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- OSINT -->
+<section class="block" id="osint">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 04 - OSINT</span>
+    <h2>الاستخبارات <span class="grad">المفتوحة</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal"><div class="card-icon">🔍</div><h3>محركات البحث</h3><ul>
+      <li>Shodan — أجهزة IoT</li>
+      <li>Censys — مسح الإنترنت</li>
+      <li>FOFA / ZoomEye</li>
+      <li>GreyNoise</li>
+      <li>BinaryEdge</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon cyan">🎯</div><h3>Google Dorks</h3><ul>
+      <li>site:example.com</li>
+      <li>inurl:admin</li>
+      <li>intitle:"index of"</li>
+      <li>filetype:pdf</li>
+      <li>intext:"password"</li>
+      <li>ext:env DB_PASSWORD</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon purple">👤</div><h3>أشخاص</h3><ul>
+      <li>Have I Been Pwned</li>
+      <li>DeHashed / IntelX</li>
+      <li>Sherlock / Maigret</li>
+      <li>WhatsMyName</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon yellow">🌐</div><h3>النطاقات</h3><ul>
+      <li>Whois / DNSDumpster</li>
+      <li>SecurityTrails</li>
+      <li>VirusTotal / urlscan.io</li>
+      <li>crt.sh</li>
+      <li>BuiltWith / Wappalyzer</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon orange">🖼️</div><h3>الصور</h3><ul>
+      <li>Google Reverse</li>
+      <li>Yandex Images</li>
+      <li>TinEye / PimEyes</li>
+      <li>ExifTool / FotoForensics</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon red">🛠️</div><h3>أدوات OSINT</h3><ul>
+      <li>Maltego</li>
+      <li>SpiderFoot</li>
+      <li>theHarvester</li>
+      <li>Recon-ng / Photon</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- WIRELESS -->
+<section class="block" id="wireless">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 05 - WIRELESS</span>
+    <h2>أمن <span class="grad">اللاسلكي</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal"><div class="card-icon">📡</div><h3>معايير WiFi</h3><ul>
+      <li>802.11a/b/g — قديم</li>
+      <li>802.11n — WiFi 4</li>
+      <li>802.11ac — WiFi 5</li>
+      <li>802.11ax — WiFi 6 / 6E</li>
+      <li>802.11be — WiFi 7</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon yellow">🔓</div><h3>التشفير</h3><ul>
+      <li>WEP — مكسور ❌</li>
+      <li>WPA — ضعيف ❌</li>
+      <li>WPA2 — مقبول ✅</li>
+      <li>WPA3 — الأفضل ✅</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon red">⚔️</div><h3>هجمات WiFi</h3><ul>
+      <li>Handshake Capture</li>
+      <li>Deauth Attack</li>
+      <li>Evil Twin</li>
+      <li>WPS PIN Attack</li>
+      <li>PMKID Attack</li>
+      <li>KRACK</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon cyan">🔧</div><h3>Monitor Mode</h3><div class="cb"><div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">wifi.sh</span><button class="copy-btn" data-copy>نسخ</button></div><pre>airmon-ng start wlan0
+airodump-ng wlan0mon
+airodump-ng -c 6 --bssid MAC -w cap wlan0mon
+aireplay-ng --deauth 10 -a MAC wlan0mon
+aircrack-ng -w list cap.cap
+airmon-ng stop wlan0mon</pre></div></div>
+    <div class="card reveal"><div class="card-icon purple">📱</div><h3>Bluetooth</h3><ul>
+      <li>Bluejacking</li>
+      <li>Bluesnarfing</li>
+      <li>Bluebugging</li>
+      <li>BLE Sniffing</li>
+    </ul></div>
+    <div class="card reveal"><div class="card-icon orange">💳</div><h3>RFID / NFC</h3><ul>
+      <li>Proxmark3</li>
+      <li>ChameleonMini</li>
+      <li>ACR122U</li>
+      <li>Mifare Attacks</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- FORENSICS -->
+<section class="block" id="forensics">
+  <div class="sec-head reveal">
+    <span class="sec-tag">// 06 - FORENSICS</span>
+    <h2>التحليل <span class="grad">الجنائي</span></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card reveal">
+      <div class="card-icon">🔬</div>
+      <h3>المراحل السبع</h3>
+      <ol style="list-style:none;padding:0;margin-top:10px">
+        <li style="padding:6px 0;color:var(--txt-dim)">1. Identification — تحديد الأدلة</li>
+        <li style="padding:6px 0;color:var(--txt-dim)">2. Preservation — الحفظ</li>
+        <li style="padding:6px 0;color:var(--txt-dim)">3. Acquisition — الاستحواذ</li>
+        <li style="padding:6px 0;color:var(--txt-dim)">4. Examination — الفحص</li>
+        <li style="padding:6px 0;color:var(--txt-dim)">5. Analysis — التحليل</li>
+        <li style="padding:6px 0;color:var(--txt-dim)">6. Documentation — التوثيق</li>
+        <li style="padding:6px 0;color:var(--txt-dim)">7. Presentation — العرض</li>
+      </ol>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon cyan">💾</div>
+      <h3>نسخ القرص</h3>
+      <div class="cb">
+        <div class="cb-head"><div class="dots"><i></i><i></i><i></i></div><span class="title">imaging.sh</span><button class="copy-btn" data-copy>نسخ</button></div>
+<pre><span class="comment"># dd</span>
+dd if=/dev/sda of=image.dd bs=4M status=progress
+
+<span class="comment"># dc3dd مع hash</span>
+dc3dd if=/dev/sda of=image.dd hash=sha256
+
+<span class="comment"># التحقق</span>
+sha256sum image.dd</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section class="block">
+  <div class="hero-buttons reveal" style="justify-content:center">
+    <button class="btn btn-primary" data-download="network">📥 أوامر الشبكات</button>
+    <button class="btn btn-cyan" data-download="sql">📥 أوامر SQL</button>
+    <button class="btn btn-ghost" data-download="windows">📥 أوامر Windows</button>
+    <button class="btn btn-dev" onclick="SecretBox.openDev()">👨‍💻 المطور</button>
+  </div>
+</section>
+
+<section class="block">
+  <div class="page-nav">
+    <a href="termux.html">
+      <div>
+        <div class="nav-label">← PREVIOUS</div>
+        <div class="nav-title">Termux + Kali 📱</div>
+      </div>
+    </a>
+    <a href="commands.html" class="next">
+      <div>
+        <div class="nav-label">NEXT →</div>
+        <div class="nav-title">مرجع الأوامر ⚡</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:16px"><div class="logo-icon">🔐</div><div>SECRET<span class="hl">BOX</span></div></div>
+      <p>الموسوعة العربية الأضخم للأمن السيبراني — كل المحتوى مجاني.</p>
+    </div>
+    <div class="footer-col"><h4>الأقسام</h4><ul><li><a href="ethical.html">الاختراق الأخلاقي</a></li><li><a href="termux.html">Termux + Kali</a></li><li><a href="network.html">أمن الشبكات</a></li><li><a href="commands.html">مرجع الأوامر</a></li></ul></div>
+    <div class="footer-col"><h4>مصادر</h4><ul><li><a href="books.html">الكتب</a></li><li><a href="commands.html">الأوامر</a></li><li><a href="faq.html">الأسئلة</a></li><li><a href="#" onclick="SecretBox.openDev();return false">المطور</a></li></ul></div>
+    <div class="footer-col"><h4>روابط سريعة</h4><ul><li><a href="#network">الشبكات</a></li><li><a href="#web">الويب</a></li><li><a href="#crypto">التشفير</a></li><li><a href="#osint">OSINT</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="dev-credit">تم التطوير بواسطة <span class="grad">أحمد علي — السيد الأسود 🖤</span></div>
+    <div class="share-note">🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك</div>
+    <div class="copyright">SECRET BOX © 2026 — MEGA EDITION v15</div>
+  </div>
+</footer>
+
+<button id="backToTop">↑</button>
+<div id="toast">✅ تم</div>
+
+<div class="modal" id="devModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="SecretBox.closeDev()">✕</button>
+    <div class="dev-avatar">👨‍💻</div>
+    <div class="dev-title">DEVELOPER</div>
+    <div class="dev-name">أحمد <span class="grad">علي</span></div>
+    <div class="dev-nick">السيد الأسود</div>
+    <div class="dev-desc">صانع منصة <strong style="color:var(--green)">Secret Box</strong> — كل المحتوى مجاني.</div>
+    <div class="dev-tags"><span class="dev-tag">Network</span><span class="dev-tag">Web</span><span class="dev-tag">OSINT</span><span class="dev-tag">Crypto</span></div>
+    <div class="share-msg">🎁 أعطيك معلومات مجاناً — لا تبخل عليّ وانشر الموقع ليستفيد غيرك</div>
+  </div>
+</div>
+
+<script src="../data/commands.js"></script>
+<script src="../data/books.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/companies.js"></script>
+<script src="../script.js"></script>
+
+<script>
+(function(){
+  'use strict';
+  function updateCounts(){
+    const set=function(id,v){const e=document.getElementById(id);if(e)e.textContent=v;};
+    if(window.SB_DATA&&window.SB_DATA.getCategoryCount){
+      set('ncount',window.SB_DATA.getCategoryCount('network'));
+      set('scount',window.SB_DATA.getCategoryCount('sql'));
+    }
+  }
+  document.querySelectorAll('[data-download]').forEach(function(b){
+    b.addEventListener('click',function(){
+      const key=b.dataset.download;
+      if(!window.SB_DATA||!window.SB_DATA.getFileContent){SecretBox.toast('⚠️ قاعدة البيانات غير محمّلة','error');return;}
+      const r=window.SB_DATA.getFileContent(key);
+      if(!r){SecretBox.toast('⚠️ الملف غير متوفر','error');return;}
+      b.textContent='⏳';
+      setTimeout(function(){
+        SecretBox.download(r.filename,r.content);
+        b.textContent='✓ تم';
+        SecretBox.toast('✅ تم تحميل '+r.count+' أمر');
+        setTimeout(function(){b.textContent='📥 تحميل';},2000);
+      },200);
+    });
+  });
+  if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(updateCounts,300);}
+  else{window.addEventListener('load',function(){setTimeout(updateCounts,300);});}
+})();
+</script>
+</body>
+      </html>
